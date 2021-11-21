@@ -1,0 +1,30 @@
+nav {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  padding: 16px;
+  border-bottom: 1px solid #000;
+
+  font-size: 1.5rem;
+
+  background-color: white;
+
+  #link {
+    position: absolute;
+    left: 16px;
+    padding: 4px;
+    border-radius: 0.3rem;
+    transition: all 0.2s linear;
+    &:hover {
+      background-color: rgba(240, 128, 128, 0.59);
+    }
+  }
+
+  h1 {
+    align-self: flex-end;
+  }
+}

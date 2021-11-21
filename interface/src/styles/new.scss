@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  padding-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  input {
+    margin: 4px;
+    padding: 4px;
+    border: 1px solid #000;
+    border-radius: 0.3rem;
+  }
+
+  button {
+    border-radius: 0.3rem;
+    border: 1px solid #000;
+    cursor: pointer;
+    transition: all 0.2s linear;
+    &:hover {
+      background-color: rgba(240, 128, 128, 0.59);
+    }
+  }
+}

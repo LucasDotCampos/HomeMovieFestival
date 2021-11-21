@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: black;
+}
+
+body {
+  background-color: white;
+}
+
+.movie {
+  border-bottom: 1px solid #000;
+  padding: 16px;
+  background-color: white;
+
+  #title {
+    margin-bottom: 8px;
+  }
+}
