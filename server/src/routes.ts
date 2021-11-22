@@ -5,6 +5,7 @@ import multer from "multer";
 import multerConfig from "./MulterConfig/";
 import MoviesController from "./controllers/MoviesController";
 import Authentication from "./controllers/Authentication";
+import authMiddleware from "./middleware";
 
 const app = express();
 
@@ -16,6 +17,6 @@ app.use("/uploads", express.static(path.resolve(__dirname, "..", "uploads"))); /
 routes.post("/register", UsersController.store);
 routes.post("/authentication", Authentication.authenticate);
 routes.post("/new", upload.single("image"), MoviesController.store);
-routes.get("/movies", MoviesController.getAll);
+routes.get("/movies", authMiddleware, MoviesController.getAll);
 
 export default routes;
