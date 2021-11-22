@@ -11,6 +11,7 @@ interface ILista {
   description: string;
   releaseDate: string;
   image: string;
+  magnet: string;
 }
 
 export function Movies() {
@@ -40,6 +41,7 @@ export function Movies() {
             <div className="info">
               <Text id="title">{lista.title}</Text>
               <Text>{lista.description}</Text>
+              <Text>{lista.magnet}</Text>
               <Text>releaseDate: {lista.releaseDate.substring(0, 10)}</Text>
             </div>
           </Box>

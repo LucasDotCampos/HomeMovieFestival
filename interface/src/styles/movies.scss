@@ -11,11 +11,20 @@ body {
 }
 
 .movie {
-  border-bottom: 1px solid #000;
+  display: flex;
   padding: 16px;
   background-color: white;
 
-  #title {
-    margin-bottom: 8px;
+  .image {
+    #image {
+      height: 100px;
+      padding-right: 16px;
+      border-radius: 0.5rem;
+    }
+  }
+  .info {
+    #title {
+      margin-bottom: 8px;
+    }
   }
 }
