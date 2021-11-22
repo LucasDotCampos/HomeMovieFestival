@@ -1,6 +1,7 @@
 import '../styles/home.scss';
 import { Link } from 'react-router-dom';
 import { Nav } from '../components/nav';
+import { Button } from '@chakra-ui/react';
 
 export function Home() {
   return (
@@ -10,13 +11,17 @@ export function Home() {
       </div>
       <div className="content">
         «——»
-        <button>
-          <Link to="/movies">List of movies</Link>
-        </button>
+        <Button colorScheme="teal" variant="outline" w={120}>
+          <Link id="link" to="/movies">
+            List of movies
+          </Link>
+        </Button>
         «——»
-        <button>
-          <Link to="/new">Add a new movie</Link>
-        </button>
+        <Button colorScheme="teal" variant="outline" w={145}>
+          <Link id="link" to="/new">
+            Add a new movie
+          </Link>
+        </Button>
         «——»
       </div>
     </div>
