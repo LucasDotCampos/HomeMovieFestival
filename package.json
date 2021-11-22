@@ -1,0 +1,25 @@
+{
+  "name": "homemoviefestival",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd interface && yarn dev",
+    "server": "cd server && yarn dev",
+    "dev": "concurrently -n 'server, client' \"npm run server\", \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucasDotCampos/HomeMovieFestival.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucasDotCampos/HomeMovieFestival/issues"
+  },
+  "homepage": "https://github.com/LucasDotCampos/HomeMovieFestival#readme",
+  "dependencies": {
+    "concurrently": "^6.4.0"
+  }
+}
