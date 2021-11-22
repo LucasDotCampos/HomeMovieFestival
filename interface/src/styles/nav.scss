@@ -33,4 +33,13 @@ nav {
   h1 {
     align-self: flex-end;
   }
+
+  .isActive {
+    display: none;
+  }
+
+  #logout {
+    position: absolute;
+    right: 16px;
+  }
 }

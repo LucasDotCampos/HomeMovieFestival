@@ -1,11 +1,9 @@
 import '../styles/new.scss';
-import { FormEvent, SyntheticEvent, useState } from 'react';
+import { FormEvent, SyntheticEvent, useState, useEffect } from 'react';
 import { api } from '../services/api';
 import { Nav } from '../components/nav';
-
-import { isLogged } from '../islogged';
-import { Login } from './login';
 import { Input } from '@chakra-ui/input';
+import { Login } from '../components/Login';
 
 export function App() {
   const [title, setTitle] = useState('');
@@ -59,7 +57,7 @@ export function App() {
       data.append('image', image);
 
       try {
-        await api.post('new', data);
+        await api.post('newmovie', data);
         alert('Movie has been added successfully');
       } catch (error) {
         alert('Erro no cadastro, tente novamente');
@@ -67,61 +65,57 @@ export function App() {
     }
   }
 
-  if (!isLogged) {
-    return <Login />;
-  } else {
-    return (
-      <div className="newmovie-page">
-        <div className="nav">
-          <Nav title="New Movie" />
-        </div>
-        <div className="content">
-          <form encType="multipart/form" onSubmit={sendData}>
-            <input
-              type="text"
-              name="title"
-              placeholder="Título do filme"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <input
-              type="text"
-              name="description"
-              value={description}
-              placeholder="Description"
-              onChange={(e) => setDescription(e.target.value)}
-            />
-            <input
-              type="date"
-              name="release"
-              value={releaseDate}
-              placeholder="Release Date"
-              onChange={(e) => setReleaseDate(e.target.value)}
-            />
-            <input
-              type="text"
-              name="pirate"
-              value={pirate}
-              placeholder="Your pirate name"
-              onChange={(e) => setPirate(e.target.value)}
-            />
-            <input
-              type="text"
-              name="magnet"
-              value={magnet}
-              placeholder="magnet"
-              onChange={(e) => setMagnet(e.target.value)}
-            />
-            <Input
-              type="file"
-              onChange={(e: SyntheticEvent) =>
-                handleFileUpload(e.currentTarget as HTMLInputElement)
-              }
-            />
-            <button type="submit">Submit</button>
-          </form>
-        </div>
+  return (
+    <div className="newmovie-page">
+      <div className="nav">
+        <Nav title="New Movie" />
       </div>
-    );
-  }
+      <div className="content">
+        <form encType="multipart/form" onSubmit={sendData}>
+          <input
+            type="text"
+            name="title"
+            placeholder="Título do filme"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <input
+            type="text"
+            name="description"
+            value={description}
+            placeholder="Description"
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <input
+            type="date"
+            name="release"
+            value={releaseDate}
+            placeholder="Release Date"
+            onChange={(e) => setReleaseDate(e.target.value)}
+          />
+          <input
+            type="text"
+            name="pirate"
+            value={pirate}
+            placeholder="Your pirate name"
+            onChange={(e) => setPirate(e.target.value)}
+          />
+          <input
+            type="text"
+            name="magnet"
+            value={magnet}
+            placeholder="magnet"
+            onChange={(e) => setMagnet(e.target.value)}
+          />
+          <Input
+            type="file"
+            onChange={(e: SyntheticEvent) =>
+              handleFileUpload(e.currentTarget as HTMLInputElement)
+            }
+          />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  );
 }

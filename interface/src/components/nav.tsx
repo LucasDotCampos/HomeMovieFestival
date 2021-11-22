@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import '../styles/nav.scss';
 import { Button } from '@chakra-ui/react';
 
@@ -7,21 +7,13 @@ interface NavProps {
 }
 
 function Nav(prop: { title: string }) {
-  if (prop.title !== 'Home') {
-    return (
-      <nav>
-        <Link id="link" to="/">
-          «
-        </Link>
-        <h1>{prop.title}</h1>
-        <p></p>
-      </nav>
-    );
-  }
   return (
     <nav>
+      <NavLink id="link" to="/">
+        «
+      </NavLink>
       <h1>{prop.title}</h1>
-      <p></p>
+      <Button id="logout">Logout</Button>
     </nav>
   );
 }

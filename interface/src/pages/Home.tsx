@@ -18,7 +18,7 @@ export function Home() {
         </Button>
         «——»
         <Button colorScheme="teal" variant="outline" w={145}>
-          <Link id="link" to="/new">
+          <Link id="link" to="/newmovie">
             Add a new movie
           </Link>
         </Button>

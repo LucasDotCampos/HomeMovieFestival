@@ -5,7 +5,6 @@ import { Home } from './pages/Home';
 import { App } from './pages/Insert';
 import { Movies } from './pages/Movies';
 import { ChakraProvider } from '@chakra-ui/react';
-import { Login } from './pages/login';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,8 +13,7 @@ ReactDOM.render(
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
-          <Route path="/new" element={<App />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/newmovie" element={<App />} />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>
