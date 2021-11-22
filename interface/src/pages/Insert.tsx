@@ -4,6 +4,7 @@ import { api } from '../services/api';
 import { Nav } from '../components/nav';
 import { Input } from '@chakra-ui/input';
 import { Login } from '../components/Login';
+import { Button } from '@chakra-ui/react';
 
 export function App() {
   const [title, setTitle] = useState('');
@@ -72,35 +73,35 @@ export function App() {
       </div>
       <div className="content">
         <form encType="multipart/form" onSubmit={sendData}>
-          <input
+          <Input
             type="text"
             name="title"
             placeholder="Título do filme"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
-          <input
+          <Input
             type="text"
             name="description"
             value={description}
             placeholder="Description"
             onChange={(e) => setDescription(e.target.value)}
           />
-          <input
+          <Input
             type="date"
             name="release"
             value={releaseDate}
             placeholder="Release Date"
             onChange={(e) => setReleaseDate(e.target.value)}
           />
-          <input
+          <Input
             type="text"
             name="pirate"
             value={pirate}
             placeholder="Your pirate name"
             onChange={(e) => setPirate(e.target.value)}
           />
-          <input
+          <Input
             type="text"
             name="magnet"
             value={magnet}
@@ -113,7 +114,7 @@ export function App() {
               handleFileUpload(e.currentTarget as HTMLInputElement)
             }
           />
-          <button type="submit">Submit</button>
+          <Button type="submit">Submit</Button>
         </form>
       </div>
     </div>
