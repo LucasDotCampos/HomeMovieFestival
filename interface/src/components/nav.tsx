@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import '../styles/nav.scss';
+import { Button } from '@chakra-ui/react';
 
 interface NavProps {
   page: string;
@@ -10,7 +11,7 @@ function Nav(prop: { title: string }) {
     return (
       <nav>
         <Link id="link" to="/">
-          « Home
+          «
         </Link>
         <h1>{prop.title}</h1>
         <p></p>

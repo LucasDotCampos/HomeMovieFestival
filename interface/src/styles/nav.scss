@@ -14,13 +14,19 @@ nav {
   background-color: white;
 
   #link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     left: 16px;
-    padding: 4px;
+    width: 48px;
+    height: 48px;
+    padding-top: 2px;
     border-radius: 0.3rem;
     transition: all 0.2s linear;
+    font-size: 36px;
     &:hover {
-      background-color: rgba(240, 128, 128, 0.59);
+      background-color: rgba(0, 128, 128, 0.24);
     }
   }
 

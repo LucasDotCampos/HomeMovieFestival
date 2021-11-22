@@ -11,15 +11,8 @@
   justify-content: center;
 }
 
-button {
-  margin: 4px;
-  padding: 4px;
-  border: 1px solid #000;
-  background: white;
-  border-radius: 0.3rem;
-  cursor: pointer;
-  transition: all 0.2s linear;
-  &:hover {
-    background-color: rgba(240, 128, 128, 0.59);
-  }
+#link {
+  width: 200px;
+  padding: 8px;
+  border-radius: 0.5rem;
 }

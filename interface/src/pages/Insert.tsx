@@ -1,8 +1,11 @@
 import '../styles/new.scss';
-import { FormEvent, useRef, useState } from 'react';
+import { FormEvent, SyntheticEvent, useState } from 'react';
 import { api } from '../services/api';
 import { Nav } from '../components/nav';
-import { useUpload } from 'react-use-upload';
+
+import { isLogged } from '../islogged';
+import { Login } from './login';
+import { Input } from '@chakra-ui/input';
 
 export function App() {
   const [title, setTitle] = useState('');
@@ -10,7 +13,17 @@ export function App() {
   const [releaseDate, setReleaseDate] = useState('');
   const [pirate, setPirate] = useState('');
   const [magnet, setMagnet] = useState('');
-  const [image, setImage] = useState();
+  const [image, setImage] = useState<File>();
+
+  const handleFileUpload = async (element: HTMLInputElement) => {
+    const file = element.files;
+    console.log(file[0]);
+
+    if (!file || file.length === 0) {
+      return;
+    }
+    setImage(file[0]);
+  };
 
   let valid = false;
 
@@ -54,52 +67,61 @@ export function App() {
     }
   }
 
-  return (
-    <div className="newmovie-page">
-      <div className="nav">
-        <Nav title="New Movie" />
+  if (!isLogged) {
+    return <Login />;
+  } else {
+    return (
+      <div className="newmovie-page">
+        <div className="nav">
+          <Nav title="New Movie" />
+        </div>
+        <div className="content">
+          <form encType="multipart/form" onSubmit={sendData}>
+            <input
+              type="text"
+              name="title"
+              placeholder="Título do filme"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <input
+              type="text"
+              name="description"
+              value={description}
+              placeholder="Description"
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <input
+              type="date"
+              name="release"
+              value={releaseDate}
+              placeholder="Release Date"
+              onChange={(e) => setReleaseDate(e.target.value)}
+            />
+            <input
+              type="text"
+              name="pirate"
+              value={pirate}
+              placeholder="Your pirate name"
+              onChange={(e) => setPirate(e.target.value)}
+            />
+            <input
+              type="text"
+              name="magnet"
+              value={magnet}
+              placeholder="magnet"
+              onChange={(e) => setMagnet(e.target.value)}
+            />
+            <Input
+              type="file"
+              onChange={(e: SyntheticEvent) =>
+                handleFileUpload(e.currentTarget as HTMLInputElement)
+              }
+            />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
       </div>
-      <div className="content">
-        <form encType="multipart/form" onSubmit={sendData}>
-          <input
-            type="text"
-            name="title"
-            placeholder="Título do filme"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <input
-            type="text"
-            name="description"
-            value={description}
-            placeholder="Description"
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <input
-            type="date"
-            name="release"
-            value={releaseDate}
-            placeholder="Release Date"
-            onChange={(e) => setReleaseDate(e.target.value)}
-          />
-          <input
-            type="text"
-            name="pirate"
-            value={pirate}
-            placeholder="Your pirate name"
-            onChange={(e) => setPirate(e.target.value)}
-          />
-          <input
-            type="text"
-            name="magnet"
-            value={magnet}
-            placeholder="magnet"
-            onChange={(e) => setMagnet(e.target.value)}
-          />
-          <input type="file" onChange={(e) => setImage(e.target.files)} />
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-    </div>
-  );
+    );
+  }
 }
