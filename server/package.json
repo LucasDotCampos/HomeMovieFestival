@@ -28,5 +28,6 @@
     "react-use-upload": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.37"
-  }
+  },
+  "license": "ISC"
 }
