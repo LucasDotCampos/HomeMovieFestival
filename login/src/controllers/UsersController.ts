@@ -1,6 +1,6 @@
 import { json, Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { Users } from "../models/Users";
+import Users from "../models/Users";
 class UsersController {
   async store(request: Request, response: Response) {
     const repository = getRepository(Users);

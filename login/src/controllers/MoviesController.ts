@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { Movies } from "../models/Movies";
+import Movies from "../models/Movies";
+
 class MoviesController {
   async store(request: Request, response: Response) {
     const repository = getRepository(Movies);

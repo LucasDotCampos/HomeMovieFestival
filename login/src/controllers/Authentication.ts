@@ -3,7 +3,7 @@ import { getRepository } from "typeorm";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-import { Users } from "../models/Users";
+import Users from "../models/Users";
 import routes from "../routes";
 
 class AuthenticationController {
