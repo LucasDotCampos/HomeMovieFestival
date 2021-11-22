@@ -1,2 +1,2 @@
 # HomeMovieFestival
-React | Node | TypeScript | Multer | Axios | Multer | Postgres | SCSS | Docker 
+Made with React | Node | TypeScript | Multer | Axios | Multer | Postgres | SCSS | Docker 
