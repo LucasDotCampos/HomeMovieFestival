@@ -1,4 +1,12 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  CreateDateColumn,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  Timestamp,
+} from "typeorm";
 import Users from "./Users";
 
 @Entity("movies")
@@ -26,4 +34,10 @@ export default class Movies {
 
   @Column()
   image: string;
+
+  @CreateDateColumn()
+  created_At: Timestamp;
+
+  @UpdateDateColumn()
+  updated_At: Timestamp;
 }

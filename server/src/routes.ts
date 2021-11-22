@@ -13,7 +13,7 @@ const upload = multer(multerConfig);
 
 app.use("/uploads", express.static(path.resolve(__dirname, "..", "uploads"))); //upload de imagens
 
-routes.post("/createuser", UsersController.store);
+routes.post("/register", UsersController.store);
 routes.post("/authentication", Authentication.authenticate);
 routes.post("/new", upload.single("image"), MoviesController.store);
 routes.get("/movies", MoviesController.getAll);

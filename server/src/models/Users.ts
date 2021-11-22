@@ -5,6 +5,9 @@ import {
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Timestamp,
 } from "typeorm";
 import bcrypt from "bcryptjs";
 import Movies from "./Movies";
@@ -26,8 +29,11 @@ export default class Users {
   @Column()
   password: string;
 
-  @Column()
-  created_at: Date;
+  @CreateDateColumn()
+  created_at: Timestamp;
+
+  @UpdateDateColumn()
+  updated_at: Timestamp;
 
   @BeforeInsert()
   @BeforeUpdate()

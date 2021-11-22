@@ -1,8 +1,10 @@
 import { json, Request, Response } from "express";
 import { getRepository } from "typeorm";
 import Users from "../models/Users";
+
 class UsersController {
   async store(request: Request, response: Response) {
+    console.log("chegou aqui");
     const repository = getRepository(Users);
 
     const { username, email, password } = request.body;
@@ -19,6 +21,7 @@ class UsersController {
     });
     await repository.save(user);
     return response.json(user);
+    console.log(user);
   }
 }
 
