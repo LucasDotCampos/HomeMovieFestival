@@ -17,18 +17,19 @@ export default function authMiddleware(
 
   if (!authorization) {
     return response.sendStatus(401);
-    console.log("rota nao autorizada");
   }
 
   const token = authorization.replace("Bearer", "").trim();
 
   try {
+    console.log("rota autorizada");
     const data = jwt.verify(token, `${secret}`);
     const { id } = data as Token;
     request.userId = id;
 
     return next();
   } catch {
-    return response.sendStatus(401).json("token is invalid");
+    console.log("não autorizado");
+    return response.sendStatus(401);
   }
 }
