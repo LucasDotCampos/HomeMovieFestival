@@ -1,9 +1,7 @@
-import '../styles/new.scss';
-import { FormEvent, SyntheticEvent, useState, useEffect } from 'react';
+import { FormEvent, SyntheticEvent, useState } from 'react';
 import { api } from '../services/api';
 import { Nav } from '../components/nav';
 import { Input } from '@chakra-ui/input';
-import { Login } from '../components/Login';
 import { Button } from '@chakra-ui/react';
 
 export function App() {
@@ -69,7 +67,7 @@ export function App() {
   return (
     <div className="newmovie-page">
       <div className="nav">
-        <Nav title="New Movie" />
+        <Nav />
       </div>
       <div className="content">
         <form encType="multipart/form" onSubmit={sendData}>

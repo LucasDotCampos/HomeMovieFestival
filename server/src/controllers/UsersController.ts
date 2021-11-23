@@ -23,6 +23,13 @@ class UsersController {
     return response.json(user);
     console.log(user);
   }
+
+  async getUser(request: Request, response: Response) {
+    const repository = getRepository(Users);
+    const index = await repository.find({});
+
+    return response.json(index);
+  }
 }
 
 export default new UsersController();

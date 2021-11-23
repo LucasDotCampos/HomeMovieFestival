@@ -1,9 +1,6 @@
-import { FormEvent, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { api } from '../services/api';
-import '../styles/movies.scss';
 import { Nav } from '../components/nav';
-import { Box, Text } from '@chakra-ui/react';
 
 interface ILista {
   id: string;
@@ -27,26 +24,29 @@ export function Movies() {
 
   return (
     <div id="movies-page">
-      <Nav title="Movies" />
-      <Box className="movie-list">
+      <Nav />
+      <div className="movie-list has-bg=dark">
         {lista.map((lista) => (
-          <Box shadow="base" key={lista.id} className="movie">
-            <Box className="image">
+          <div key={lista.id} className="movie has-shadow">
+            <div className="image">
               <img
+                style={{ height: 200, width: 200 }}
                 id="image"
                 src={`http://localhost:3333/uploads/${lista.image}`}
                 alt="product"
               />
-            </Box>
-            <div className="info">
-              <Text id="title">{lista.title}</Text>
-              <Text>{lista.description}</Text>
-              <Text>{lista.magnet}</Text>
-              <Text>releaseDate: {lista.releaseDate.substring(0, 10)}</Text>
             </div>
-          </Box>
+            <div className="info">
+              <p className="title" id="title">
+                {lista.title}
+              </p>
+              <p>{lista.description}</p>
+              <p>{lista.magnet}</p>
+              <p>releaseDate: {lista.releaseDate.substring(0, 10)}</p>
+            </div>
+          </div>
         ))}
-      </Box>
+      </div>
     </div>
   );
 }

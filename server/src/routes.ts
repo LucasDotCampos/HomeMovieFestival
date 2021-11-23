@@ -11,6 +11,7 @@ const routes = Router();
 const upload = multer(multerConfig);
 
 routes.post("/register", UsersController.store);
+routes.post("/getuser", UsersController.getUser);
 routes.post("/authentication", Authentication.authenticate);
 routes.post("/newmovie", upload.single("image"), MoviesController.store);
 routes.get("/movies", MoviesController.getAll); //! authMiddleware
