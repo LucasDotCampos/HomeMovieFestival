@@ -1,0 +1,8 @@
+.column {
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    p {
+      padding-left: 8px;
+    }
+  }
+}

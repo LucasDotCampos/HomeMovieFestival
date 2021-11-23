@@ -14,7 +14,7 @@ function Nav() {
   const style = {
     navbar: {
       height: '50px',
-      boxShadow: '0px 2px 6px 2px #c1c1c1',
+      boxShadow: ' 1px 1px 1px #c1c1c1',
     },
   };
 
@@ -36,16 +36,19 @@ function Nav() {
         id="nav-links"
       >
         <div className="navbar">
+          <div className="navbar-item" style={{}}>
+            <Link to="/user">
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <FaRegUser />
+                <p className="ml-2">User</p>
+              </div>
+            </Link>
+          </div>
           <Link to="/movies" className="navbar-item">
             Movies
           </Link>
           <Link to="/newmovie" className="navbar-item">
             New Movie
-          </Link>
-        </div>
-        <div className="navbar-item">
-          <Link to="/user">
-            <FaRegUser />
           </Link>
         </div>
       </div>
