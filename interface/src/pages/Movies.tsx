@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { api } from '../services/api';
 import { Nav } from '../components/nav';
+// import '../styles/movies.scss';
 
 interface ILista {
   id: string;
@@ -25,12 +26,17 @@ export function Movies() {
   return (
     <div id="movies-page">
       <Nav />
-      <div className="movie-list has-bg=dark">
+      <div className="movie-list">
         {lista.map((lista) => (
-          <div key={lista.id} className="movie has-shadow">
-            <div className="image">
+          <div key={lista.id} className="movie p-4" style={{ display: 'flex' }}>
+            <div>
               <img
-                style={{ height: 200, width: 200 }}
+                style={{
+                  height: '20vh',
+                  maxHeight: '150px',
+                  maxWidth: '150px',
+                  marginRight: '16px',
+                }}
                 id="image"
                 src={`http://localhost:3333/uploads/${lista.image}`}
                 alt="product"

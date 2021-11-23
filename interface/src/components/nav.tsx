@@ -15,6 +15,7 @@ function Nav() {
     navbar: {
       height: '50px',
       boxShadow: ' 1px 1px 1px #c1c1c1',
+      marginBottom: '32px',
     },
   };
 

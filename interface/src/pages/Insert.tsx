@@ -2,7 +2,7 @@ import { FormEvent, SyntheticEvent, useState } from 'react';
 import { api } from '../services/api';
 import { Nav } from '../components/nav';
 import { Input } from '@chakra-ui/input';
-import { Button } from '@chakra-ui/react';
+import { Button, Center } from '@chakra-ui/react';
 
 export function App() {
   const [title, setTitle] = useState('');
@@ -64,14 +64,33 @@ export function App() {
     }
   }
 
+  const styles = {
+    input: {
+      border: '1px solid #005c5c73',
+      borderRadius: '0.4rem',
+      margin: '4px',
+      width: '80vw',
+    },
+  };
+
   return (
     <div className="newmovie-page">
       <div className="nav">
         <Nav />
       </div>
       <div className="content">
-        <form encType="multipart/form" onSubmit={sendData}>
+        <form
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          encType="multipart/form"
+          onSubmit={sendData}
+        >
           <Input
+            style={styles.input}
             type="text"
             name="title"
             placeholder="Título do filme"
@@ -79,6 +98,7 @@ export function App() {
             onChange={(e) => setTitle(e.target.value)}
           />
           <Input
+            style={styles.input}
             type="text"
             name="description"
             value={description}
@@ -86,6 +106,7 @@ export function App() {
             onChange={(e) => setDescription(e.target.value)}
           />
           <Input
+            style={styles.input}
             type="date"
             name="release"
             value={releaseDate}
@@ -93,6 +114,7 @@ export function App() {
             onChange={(e) => setReleaseDate(e.target.value)}
           />
           <Input
+            style={styles.input}
             type="text"
             name="pirate"
             value={pirate}
@@ -100,6 +122,7 @@ export function App() {
             onChange={(e) => setPirate(e.target.value)}
           />
           <Input
+            style={styles.input}
             type="text"
             name="magnet"
             value={magnet}
@@ -107,12 +130,17 @@ export function App() {
             onChange={(e) => setMagnet(e.target.value)}
           />
           <Input
+            style={styles.input}
             type="file"
             onChange={(e: SyntheticEvent) =>
               handleFileUpload(e.currentTarget as HTMLInputElement)
             }
           />
-          <Button type="submit">Submit</Button>
+          <Center>
+            <Button style={{ border: '1px solid #00808053' }} type="submit">
+              Submit
+            </Button>
+          </Center>
         </form>
       </div>
     </div>
