@@ -8,16 +8,8 @@ function User() {
     'https://global-uploads.webflow.com/5e4627609401e01182af1cce/5eb13bfdb4659efea4f8dace_profile-dummy.png'
   );
 
-  function changePicture() {
-    setPictureUrl(pictureUrl);
-  }
-
   function forgotMessage() {
     alert('You are an idiot');
-  }
-
-  function openInput() {
-    document.getElementById('file-input').click();
   }
 
   const user = {
