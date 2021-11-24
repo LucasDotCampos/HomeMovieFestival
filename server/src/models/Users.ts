@@ -23,9 +23,6 @@ export default class Users {
   @Column()
   email: string;
 
-  @OneToMany((type) => Movies, (users) => Users)
-  movies: Movies[];
-
   @Column()
   password: string;
 

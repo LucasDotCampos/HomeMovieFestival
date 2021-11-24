@@ -23,12 +23,6 @@ export default class Movies {
   @Column()
   releaseDate: string;
 
-  @ManyToOne((type) => Users, (movies) => Movies)
-  users: Users;
-
-  @Column()
-  pirate: string;
-
   @Column()
   magnet: string;
 
