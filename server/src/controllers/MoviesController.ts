@@ -18,7 +18,6 @@ class MoviesController {
       title,
       description,
       releaseDate,
-      pirate,
       magnet,
       image: request.file?.filename,
     });
@@ -33,6 +32,17 @@ class MoviesController {
 
     return response.json(index);
   }
+
+  /*async getByUser(request: Request, response: Response) {
+    const repository = getRepository(Movies);
+    const foundContent = await repository.find({
+      where: {
+        user.username: request.params.pirate,
+      },
+    });
+
+    response.json(foundContent);
+  }*/
 }
 
 export default new MoviesController();
