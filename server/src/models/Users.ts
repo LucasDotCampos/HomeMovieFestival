@@ -26,7 +26,7 @@ export default class Users {
   @Column()
   password: string;
 
-  @OneToMany((type) => Movies, (username) => Users)
+  @OneToMany((type) => Movies, (user) => Users)
   movies: Movies[];
 
   @CreateDateColumn()

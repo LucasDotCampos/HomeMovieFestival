@@ -24,7 +24,7 @@ export default class Movies {
   releaseDate: string;
 
   @ManyToOne((type) => Users, (movies) => Movies, { eager: true })
-  username: Users;
+  user: Users;
 
   @Column()
   magnet: string;

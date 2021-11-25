@@ -7,8 +7,7 @@ class MoviesController {
     try {
       const repository = getRepository(Movies);
 
-      const { title, description, releaseDate, username, magnet } =
-        request.body;
+      const { title, description, releaseDate, user, magnet } = request.body;
 
       const movieExists = await repository.findOne({ where: { title } });
 
@@ -22,7 +21,7 @@ class MoviesController {
         title,
         description,
         releaseDate,
-        username,
+        user,
         magnet,
         image: request.file?.filename,
       });
@@ -45,7 +44,7 @@ class MoviesController {
     const repository = getRepository(Movies);
     const foundContent = await repository.find({
       where: {
-        username: request.params.username,
+        user: request.params.userId,
       },
     });
 
