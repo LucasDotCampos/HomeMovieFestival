@@ -26,7 +26,7 @@ export default class Users {
   @Column()
   password: string;
 
-  @OneToMany((type) => Movies, (username) => Users, { eager: true })
+  @OneToMany((type) => Movies, (username) => Users)
   movies: Movies[];
 
   @CreateDateColumn()

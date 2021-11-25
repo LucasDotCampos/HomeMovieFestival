@@ -23,7 +23,7 @@ export default class Movies {
   @Column()
   releaseDate: string;
 
-  @ManyToOne((type) => Users, (movies) => Movies)
+  @ManyToOne((type) => Users, (movies) => Movies, { eager: true })
   username: Users;
 
   @Column()
