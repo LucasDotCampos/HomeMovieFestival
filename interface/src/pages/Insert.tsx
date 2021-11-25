@@ -93,7 +93,7 @@ export function App() {
             style={styles.input}
             type="text"
             name="title"
-            placeholder="Título do filme"
+            placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -118,7 +118,7 @@ export function App() {
             type="text"
             name="pirate"
             value={pirate}
-            placeholder="Your pirate name"
+            placeholder="Username"
             onChange={(e) => setPirate(e.target.value)}
           />
           <Input
@@ -126,7 +126,7 @@ export function App() {
             type="text"
             name="magnet"
             value={magnet}
-            placeholder="magnet"
+            placeholder="Magnet"
             onChange={(e) => setMagnet(e.target.value)}
           />
           <Input
