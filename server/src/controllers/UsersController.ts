@@ -4,7 +4,6 @@ import Users from "../models/Users";
 
 class UsersController {
   async store(request: Request, response: Response) {
-    console.log("chegou aqui");
     const repository = getRepository(Users);
 
     const { username, email, password } = request.body;
