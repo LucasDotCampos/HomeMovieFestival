@@ -27,10 +27,6 @@ export class CreateMovies1636909417572 implements MigrationInterface {
             type: "date",
           },
           {
-            name: "pirate",
-            type: "varchar",
-          },
-          {
             name: "magnet",
             type: "varchar",
           },
