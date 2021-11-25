@@ -16,6 +16,6 @@ routes.post("/authentication", Authentication.authenticate);
 routes.post("/newmovie", upload.single("image"), MoviesController.store);
 
 routes.get("/movies", MoviesController.getAll); //! authMiddleware
-routes.get("/:username", MoviesController.getByUser);
+routes.get("/:user", MoviesController.getByUser);
 
 export default routes;

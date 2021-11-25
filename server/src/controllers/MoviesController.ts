@@ -44,7 +44,7 @@ class MoviesController {
     const repository = getRepository(Movies);
     const foundContent = await repository.find({
       where: {
-        user: request.params.userId,
+        user: request.params.user,
       },
     });
 
