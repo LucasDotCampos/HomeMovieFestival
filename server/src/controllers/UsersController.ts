@@ -30,7 +30,7 @@ class UsersController {
 
   async getUser(request: Request, response: Response) {
     const repository = getRepository(Users);
-    const index = await repository.find({});
+    const index = await repository.find();
 
     return response.json(index);
   }

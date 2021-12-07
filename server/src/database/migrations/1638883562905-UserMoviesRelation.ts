@@ -1,9 +1,10 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class RelationUserMovies1637866686403 implements MigrationInterface {
-    name = 'RelationUserMovies1637866686403'
+export class UserMoviesRelation1638883562905 implements MigrationInterface {
+    name = 'UserMoviesRelation1638883562905'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`ALTER TABLE "public"."movies" DROP COLUMN "username"`);
         await queryRunner.query(`ALTER TABLE "public"."movies" ADD "userId" uuid`);
         await queryRunner.query(`ALTER TABLE "public"."movies" DROP COLUMN "releaseDate"`);
         await queryRunner.query(`ALTER TABLE "public"."movies" ADD "releaseDate" character varying NOT NULL`);
@@ -15,6 +16,7 @@ export class RelationUserMovies1637866686403 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "public"."movies" DROP COLUMN "releaseDate"`);
         await queryRunner.query(`ALTER TABLE "public"."movies" ADD "releaseDate" date NOT NULL`);
         await queryRunner.query(`ALTER TABLE "public"."movies" DROP COLUMN "userId"`);
+        await queryRunner.query(`ALTER TABLE "public"."movies" ADD "username" character varying NOT NULL`);
     }
 
 }

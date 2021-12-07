@@ -22,7 +22,7 @@ class MoviesController {
         title,
         description,
         releaseDate,
-        user,
+        
         magnet,
         image: request.file?.filename,
       });
