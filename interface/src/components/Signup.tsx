@@ -1,29 +1,31 @@
-import React, { FormEvent, useRef, useState } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import React, { FormEvent, useRef, useState } from 'react';
+import { Form, Button, Card, Alert } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Signup() {
   const emailRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
   const passwordConfirmRef = useRef<any>(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState<boolean>(false);
   const { signup } = useAuth();
+  const navigate = useNavigate();
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match");
+      return setError('Passwords do not match');
     }
 
     try {
-      setError("");
+      setError('');
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
+      navigate('/login');
     } catch {
-      setError("Failed to create an account");
+      setError('Failed to create an account');
     }
     setLoading(false);
   }

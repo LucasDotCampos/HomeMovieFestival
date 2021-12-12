@@ -1,6 +1,4 @@
-import { Nav } from '../components/nav';
 import { api } from '../services/api';
-import '../styles/user.scss';
 import { SyntheticEvent, useState } from 'react';
 
 function User() {
@@ -28,7 +26,6 @@ function User() {
   };
   return (
     <div className="user-page">
-      <Nav />
       <div style={styles.section} className="section user-data">
         <div className="title">
           <p

@@ -1,10 +1,11 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
   User,
-} from "@firebase/auth";
-import React, { useContext, useEffect, useState } from "react";
-import { auth } from "../firebase";
+} from '@firebase/auth';
+import React, { useContext, useEffect, useState } from 'react';
+import { auth } from '../firebase';
 
 const AuthContext = React.createContext({});
 
@@ -14,6 +15,17 @@ export function useAuth() {
 
 export const signup = (email: string, password: string) => {
   return createUserWithEmailAndPassword(auth, email, password);
+  //* usar o criar usuário do back
+};
+
+const login = (email: string, password: string) => {
+  return signInWithEmailAndPassword(auth, email, password);
+  //* usar o logar usuário do back
+};
+
+const logout = () => {
+  return signOut(auth);
+  //* deslogar o logar usuário do back
 };
 
 export const AuthProvider: React.FC = ({ children }) => {
@@ -22,10 +34,6 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const signup = (email: string, password: string) => {
     return createUserWithEmailAndPassword(auth, email, password);
-  };
-
-  const login = (email: string, password: string) => {
-    return signInWithEmailAndPassword(auth, email, password);
   };
 
   useEffect(() => {
@@ -41,6 +49,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     currentUser,
     signup,
     login,
+    logout,
   };
 
   return (

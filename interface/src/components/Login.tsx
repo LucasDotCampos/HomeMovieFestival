@@ -1,27 +1,26 @@
-import React, { FormEvent, useRef, useState } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import React, { FormEvent, useRef, useState } from 'react';
+import { Form, Button, Card, Alert } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Login() {
   const emailRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
-  const passwordConfirmRef = useRef<any>(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState<boolean>(false);
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
     try {
-      setError("");
-      setLoading(true);
+      setError('');
       await login(emailRef.current.value, passwordRef.current.value);
+      navigate('/');
     } catch {
-      setError("Failed to sign in");
+      setError('Failed to sign in');
     }
-    setLoading(false);
   }
 
   return (
@@ -54,7 +53,7 @@ export default function Login() {
               />
             </Form.Group>
 
-            <Button disabled={loading} className="w-100" type="submit">
+            <Button className="w-100" type="submit">
               Log In
             </Button>
           </Form>

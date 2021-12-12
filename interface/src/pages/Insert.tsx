@@ -1,10 +1,8 @@
 import { FormEvent, SyntheticEvent, useState } from 'react';
 import { api } from '../services/api';
-import { Nav } from '../components/nav';
-import { Input } from '@chakra-ui/input';
-import { Button, Center } from '@chakra-ui/react';
+import { input } from '../style/global';
 
-export function App() {
+export default function Newmovie() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [releaseDate, setReleaseDate] = useState('');
@@ -64,20 +62,8 @@ export function App() {
     }
   }
 
-  const styles = {
-    input: {
-      border: '1px solid #005c5c73',
-      borderRadius: '0.4rem',
-      margin: '4px',
-      width: '80vw',
-    },
-  };
-
   return (
     <div className="newmovie-page">
-      <div className="nav">
-        <Nav />
-      </div>
       <div className="content">
         <form
           style={{
@@ -89,58 +75,58 @@ export function App() {
           encType="multipart/form"
           onSubmit={sendData}
         >
-          <Input
-            style={styles.input}
+          <input
+            style={input}
             type="text"
             name="title"
             placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
-          <Input
-            style={styles.input}
+          <input
+            style={input}
             type="text"
             name="description"
             value={description}
             placeholder="Description"
             onChange={(e) => setDescription(e.target.value)}
           />
-          <Input
-            style={styles.input}
+          <input
+            style={input}
             type="date"
             name="release"
             value={releaseDate}
             placeholder="Release Date"
             onChange={(e) => setReleaseDate(e.target.value)}
           />
-          <Input
-            style={styles.input}
+          <input
+            style={input}
             type="text"
             name="pirate"
             value={pirate}
             placeholder="Username"
             onChange={(e) => setPirate(e.target.value)}
           />
-          <Input
-            style={styles.input}
+          <input
+            style={input}
             type="text"
             name="magnet"
             value={magnet}
             placeholder="Magnet"
             onChange={(e) => setMagnet(e.target.value)}
           />
-          <Input
-            style={styles.input}
+          <input
+            style={input}
             type="file"
             onChange={(e: SyntheticEvent) =>
               handleFileUpload(e.currentTarget as HTMLInputElement)
             }
           />
-          <Center>
-            <Button style={{ border: '1px solid #00808053' }} type="submit">
+          <div>
+            <button style={{ border: '1px solid #00808053' }} type="submit">
               Submit
-            </Button>
-          </Center>
+            </button>
+          </div>
         </form>
       </div>
     </div>
