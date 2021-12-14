@@ -1,25 +1,16 @@
-import { Nav } from '../components/nav';
-import '../styles/home.scss';
+import { Button } from 'react-bootstrap';
+import { useAuth } from './../contexts/AuthContext';
 
-export function Home() {
-  const style = {
-    movies: {
-      height: '30vw',
-      width: '30vw',
-      maxHeight: '300px',
-      maxWidth: '300px',
-    },
+export default function Home() {
+  const { currentUser } = useAuth();
+  const logUser = () => {
+    console.log(currentUser);
   };
 
   return (
     <div id="home-page">
-      <Nav />
-      <div className="section">
-        <p className="title">Last Movies</p>
-        <div className="container">
-          <div className="columns"></div>
-        </div>
-      </div>
+      <p className="title">Last Movies</p>
+      <Button onClick={logUser}>Log User</Button>
     </div>
   );
 }

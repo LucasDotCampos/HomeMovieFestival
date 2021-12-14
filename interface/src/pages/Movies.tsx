@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { api } from '../services/api';
-import { Nav } from '../components/nav';
-// import '../styles/movies.scss';
 
 interface ILista {
   id: string;
@@ -12,7 +10,7 @@ interface ILista {
   magnet: string;
 }
 
-export function Movies() {
+export default function Movies() {
   const [lista, setLista] = useState<ILista[]>([]);
 
   useEffect(() => {
@@ -25,7 +23,6 @@ export function Movies() {
 
   return (
     <div id="movies-page">
-      <Nav />
       <div className="movie-list">
         {lista.map((lista) => (
           <div key={lista.id} className="movie p-4" style={{ display: 'flex' }}>
