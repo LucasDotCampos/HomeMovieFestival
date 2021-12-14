@@ -1,12 +1,14 @@
-import { getCustomRepository } from 'typeorm';
-import MoviesEntity from '../typeorm/entities/MoviesEntity';
-import MoviesRepository from '../typeorm/repositories/MoviesRepository';
+import { getCustomRepository } from "typeorm";
+import MoviesEntity from "../typeorm/entities/MoviesEntity";
+import MoviesRepository from "../typeorm/repositories/MoviesRepository";
 
 class ListMoviesService {
   public async execute(): Promise<MoviesEntity[]> {
     const moviesRepository = getCustomRepository(MoviesRepository);
 
-    const movies = moviesRepository.find();
+    const movies = moviesRepository.find({
+      relations: ["user"],
+    });
 
     return movies;
   }

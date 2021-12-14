@@ -1,10 +1,10 @@
 {
   "type": "postgres",
   "host": "localhost",
-  "port": 5432,
+  "port": 2500,
   "username": "postgres",
   "password": "admin",
-  "database": "apiteste",
+  "database": "postgres",
   "entities": ["./src/modules/**/typeorm/entities/*.ts"],
   "migrations": ["./src/shared/http/typeorm/migrations/*.ts"],
   "cli": {

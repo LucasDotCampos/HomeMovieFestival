@@ -24,6 +24,9 @@ class UserEntity {
   @Column()
   password: string;
 
+  @OneToMany(() => MoviesEntity, (user) => UserEntity)
+  movies: MoviesEntity[];
+
   @CreateDateColumn()
   created_at: Timestamp;
 

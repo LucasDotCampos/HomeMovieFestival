@@ -6,9 +6,8 @@ const usersRouter = Router();
 
 const usersController = new UsersController();
 
-usersRouter.get("/", isAuthenticated, usersController.index);
-
 usersRouter.post("/", usersController.create);
-usersRouter.get("/list", (request, response) => console.log("hello world"));
+usersRouter.get("/:name", usersController.searchByName);
+usersRouter.get("/", usersController.usersList);
 
 export default usersRouter;
