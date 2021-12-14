@@ -1,7 +1,7 @@
 # HomeMovieFestival
 
 
-Made with React | Node | TypeScript | Multer | Axios | Multer | Postgres | SCSS | Docker | Bulma
+Made with React | Node | TypeScript | Axios | Multer | Postgres | SCSS | Docker | Bulma
 
 <h3>Backend</h3>
 <p>Lucas Campos(https://www.linkedin.com/in/lucas-rodrigues-5771b5227/)<p>
