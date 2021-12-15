@@ -33,7 +33,7 @@ export default class MoviesController {
         magnet,
         username,
         title,
-        user: request.user.id,
+        userId: request.userId,
       });
 
       return response.json(movies);

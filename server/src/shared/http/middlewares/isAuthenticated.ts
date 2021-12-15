@@ -4,9 +4,9 @@ import AppError from "../../errors/AppError";
 import authConfig from "../../../config/authConfig";
 
 interface TokenPayload {
+  id: string;
   iat: number;
   exp: number;
-  sub: string;
 }
 
 export default function isAuthenticated(
@@ -24,11 +24,9 @@ export default function isAuthenticated(
 
   try {
     const decodedToken = verify(token, authConfig.jwt.secret);
-    const { sub } = decodedToken as TokenPayload;
+    const { id } = decodedToken as TokenPayload;
 
-    request.user = {
-      id: sub,
-    };
+    request.userId = id;
 
     return next();
   } catch {

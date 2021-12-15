@@ -6,6 +6,7 @@ import { getCustomRepository } from "typeorm";
 import UserEntity from "../typeorm/entities/UserEntity";
 import UsersRepository from "../typeorm/repositories/UsersRepository";
 import "dotenv/config";
+import { error } from "console";
 
 interface IRequest {
   email: string;
@@ -23,7 +24,7 @@ class CreateSessionsService {
       const user = await usersRepository.findByemail(email);
 
       if (!user) {
-        throw new AppError("Incorrect email/password combination", 401);
+        throw new Error("Incorrect email/password combination");
       }
 
       const passwordConfirmed = await compare(password, user.password);

@@ -31,10 +31,7 @@ export default class UsersController {
     return response.status(401).json(user);
   }
 
-  public async usersList(
-    request: Request,
-    response: Response
-  ): Promise<Response> {
+  public async usersList(response: Response): Promise<Response> {
     const ListUsersServices = new ListUsersService();
 
     const users = await ListUsersServices.execute();

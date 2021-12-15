@@ -1,0 +1,36 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Home Movies Festival",
+    "description": "Api made to share your own movies",
+    "termsOfService": "http:localhost:4000/terms",
+    "contact": {
+      "email": "lucasdotcampos@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4000/",
+      "description": "host server"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "summary": "Route to register an user"
+      }
+    },
+    "/createmovie": {
+      "post": {
+        "summary": "Route to register a movie"
+      }
+    },
+
+    "/users/:name": {
+      "get": {
+        "summary": "You are able to get an specific user replacing ':name' by the user's name"
+      }
+    }
+  }
+}

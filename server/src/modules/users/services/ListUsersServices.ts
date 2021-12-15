@@ -3,9 +3,10 @@ import UserEntity from "../typeorm/entities/UserEntity";
 
 class ListUsersService {
   public async execute(): Promise<UserEntity[]> {
-    const moviesRepository = getRepository(UserEntity);
+    const usersRepository = getRepository(UserEntity);
 
-    const users = moviesRepository.find();
+    const users = usersRepository.find();
+
     return users;
   }
 }

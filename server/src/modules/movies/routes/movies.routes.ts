@@ -11,7 +11,7 @@ const upload = multer(multerConfig);
 moviesRouter.get("/", isAuthenticated, moviesController.index);
 moviesRouter.get("/:id", moviesController.show);
 moviesRouter.post(
-  "/newmovie",
+  "/createmovie",
   isAuthenticated,
   upload.single("image"),
   moviesController.create

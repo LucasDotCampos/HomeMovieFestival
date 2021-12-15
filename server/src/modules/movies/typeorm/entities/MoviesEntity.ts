@@ -30,7 +30,7 @@ class MoviesEntity {
 
   @ManyToOne(() => UserEntity)
   @JoinColumn({ name: "user_id" })
-  user: UserEntity;
+  userId: UserEntity;
 
   @Column()
   magnet: string;

@@ -1,5 +1,8 @@
+import { Request } from "express";
+import { request } from "http";
 import { getCustomRepository } from "typeorm";
 import AppError from "../../../shared/errors/AppError";
+import UserEntity from "../../users/typeorm/entities/UserEntity";
 import MoviesEntity from "../typeorm/entities/MoviesEntity";
 import MoviesRepository from "../typeorm/repositories/MoviesRepository";
 
@@ -10,9 +13,7 @@ interface IRequest {
   magnet: string;
   title: string;
   releaseDate: string;
-  user: {
-    id: string;
-  };
+  userId: any;
 }
 
 class CreateMoviesService {
@@ -23,7 +24,7 @@ class CreateMoviesService {
     username,
     title,
     releaseDate,
-    user,
+    userId,
   }: IRequest): Promise<MoviesEntity> {
     const moviesRepository = getCustomRepository(MoviesRepository);
     const moviesExists = await moviesRepository.findByTitle(title);
@@ -39,7 +40,7 @@ class CreateMoviesService {
       username,
       title,
       releaseDate,
-      user,
+      userId,
     });
 
     await moviesRepository.save(movies);
