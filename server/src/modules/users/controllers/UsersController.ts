@@ -31,11 +31,17 @@ export default class UsersController {
     return response.status(401).json(user);
   }
 
-  public async usersList(response: Response): Promise<Response> {
-    const ListUsersServices = new ListUsersService();
+  public async usersList(
+    request: Request,
+    response: Response
+  ): Promise<Response> {
+    try {
+      const ListUsersServices = new ListUsersService();
 
-    const users = await ListUsersServices.execute();
-
-    return response.json(users);
+      const users = await ListUsersServices.execute();
+      return response.json(users);
+    } catch (err) {
+      console.log(err.message);
+    }
   }
 }

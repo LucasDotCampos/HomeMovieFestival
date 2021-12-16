@@ -4,14 +4,14 @@ import MoviesEntity from "../typeorm/entities/MoviesEntity";
 import MoviesRepository from "../typeorm/repositories/MoviesRepository";
 
 interface IRequest {
-  id: string;
+  title: string;
 }
 
 class ShowMovieService {
-  public async execute({ id }: IRequest): Promise<MoviesEntity | undefined> {
+  public async execute({ title }: IRequest): Promise<MoviesEntity | undefined> {
     const movieRepository = getCustomRepository(MoviesRepository);
 
-    const movie = await movieRepository.find({ id });
+    const movie = await movieRepository.findByTitle(title);
 
     if (!movie) {
       throw new AppError("Movie not found.");

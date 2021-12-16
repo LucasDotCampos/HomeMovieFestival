@@ -5,7 +5,7 @@ class ListUsersService {
   public async execute(): Promise<UserEntity[]> {
     const usersRepository = getRepository(UserEntity);
 
-    const users = usersRepository.find();
+    const users = await usersRepository.find();
 
     return users;
   }

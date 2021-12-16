@@ -6,9 +6,7 @@ class ListMoviesService {
   public async execute(): Promise<MoviesEntity[]> {
     const moviesRepository = getCustomRepository(MoviesRepository);
 
-    const movies = moviesRepository.find({
-      relations: ["user"],
-    });
+    const movies = moviesRepository.find();
 
     return movies;
   }

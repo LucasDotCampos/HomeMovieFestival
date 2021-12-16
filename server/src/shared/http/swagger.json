@@ -18,18 +18,65 @@
   "paths": {
     "/users": {
       "post": {
-        "summary": "Route to register an user"
+        "summary": "Route to register an user",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Users"
+              }
+            }
+          }
+        }
       }
     },
     "/createmovie": {
       "post": {
-        "summary": "Route to register a movie"
+        "summary": "Route to register a movie",
+        "tags": ["Movies"]
       }
     },
 
     "/users/:name": {
       "get": {
-        "summary": "You are able to get an specific user replacing ':name' by the user's name"
+        "summary": "You are able to get an specific user replacing ':name' by the user's name",
+        "tags": ["Users"]
+      }
+    },
+    "/users/": {
+      "get": {
+        "summary": "You'll get a list of all the registered users",
+        "tags": ["Users"]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Create user": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Validate user": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
       }
     }
   }

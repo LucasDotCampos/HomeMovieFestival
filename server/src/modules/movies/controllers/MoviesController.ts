@@ -15,9 +15,9 @@ export default class MoviesController {
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const { id } = request.params;
+    const { title } = request.params;
     const showMovie = new ShowMovieService();
-    const movie = await showMovie.execute({ id });
+    const movie = await showMovie.execute({ title });
     return response.json(movie);
   }
 

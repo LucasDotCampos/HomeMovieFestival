@@ -8,8 +8,8 @@ const moviesRouter = Router();
 const moviesController = new MoviesController();
 const upload = multer(multerConfig);
 
-moviesRouter.get("/", isAuthenticated, moviesController.index);
-moviesRouter.get("/:id", moviesController.show);
+moviesRouter.get("/", moviesController.index);
+moviesRouter.get("/:title", moviesController.show);
 moviesRouter.post(
   "/createmovie",
   isAuthenticated,
