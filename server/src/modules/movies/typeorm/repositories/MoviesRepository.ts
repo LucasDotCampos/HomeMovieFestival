@@ -1,5 +1,5 @@
-import { EntityRepository, Repository } from 'typeorm';
-import MoviesEntity from '../entities/MoviesEntity';
+import { EntityRepository, Repository } from "typeorm";
+import MoviesEntity from "../entities/MoviesEntity";
 
 @EntityRepository(MoviesEntity)
 class MoviesRepository extends Repository<MoviesEntity> {
@@ -8,6 +8,7 @@ class MoviesRepository extends Repository<MoviesEntity> {
       where: {
         title: title,
       },
+      relations: ["userId"],
     });
 
     return movies;

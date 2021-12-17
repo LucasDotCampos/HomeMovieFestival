@@ -24,7 +24,50 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Users"
+                "$ref": "#/components/schemas/Create User"
+              },
+              "examples": {
+                "Create User": {
+                  "value": {
+                    "name": "john doe",
+                    "email": "johndoe@oscar.com",
+                    "password": "SenhaSegura123@!#"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "409": {
+            "description": "Email already exists"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Create User"
+                }
+              }
+            }
+          }
+        }
+      },
+
+      "get": {
+        "summary": "You'll get a list of all the registered users",
+        "tags": ["Users"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Create User"
+                }
               }
             }
           }
@@ -34,26 +77,60 @@
     "/createmovie": {
       "post": {
         "summary": "Route to register a movie",
-        "tags": ["Movies"]
+        "tags": ["Movies"],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/Create Movie"
+              },
+              "examples": {
+                "Create User": {
+                  "value": {
+                    "title": "The Autopsy of Jane Doe",
+                    "description": "The corpse of an unidentified young woman is found at the scene of an inexplicable multiple homicide",
+                    "releaseDate": "11/09/2016"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
 
-    "/users/:name": {
+    "/users/{name}": {
       "get": {
-        "summary": "You are able to get an specific user replacing ':name' by the user's name",
-        "tags": ["Users"]
-      }
-    },
-    "/users/": {
-      "get": {
-        "summary": "You'll get a list of all the registered users",
-        "tags": ["Users"]
+        "summary": "You'll be able to get an specific user",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Create User"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
+
   "components": {
     "schemas": {
-      "Create user": {
+      "Create User": {
         "type": "object",
         "properties": {
           "name": {
@@ -67,7 +144,7 @@
           }
         }
       },
-      "Validate user": {
+      "Validate User": {
         "type": "object",
         "properties": {
           "email": {
@@ -77,6 +154,38 @@
             "type": "string"
           }
         }
+      },
+
+      "Create Movie": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "releaseDate": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "magnet": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

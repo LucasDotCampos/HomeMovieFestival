@@ -30,7 +30,7 @@ class CreateMoviesService {
     const moviesExists = await moviesRepository.findByTitle(title);
 
     if (moviesExists) {
-      throw new AppError("There's already one product with this name");
+      throw new AppError("There's already a movie with this name", 409);
     }
 
     const movies = moviesRepository.create({
