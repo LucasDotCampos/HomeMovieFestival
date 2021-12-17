@@ -1,9 +1,9 @@
 {
   "type": "postgres",
   "host": "localhost",
-  "port": 2500,
+  "port": 5432,
   "username": "postgres",
-  "password": "admin",
+  "password": "jiwk3",
   "database": "postgres",
   "entities": ["./src/modules/**/typeorm/entities/*.ts"],
   "migrations": ["./src/shared/http/typeorm/migrations/*.ts"],

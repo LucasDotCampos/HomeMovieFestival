@@ -7,7 +7,6 @@ export default function Login() {
   const emailRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState<boolean>(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -18,7 +17,9 @@ export default function Login() {
       setError('');
       await login(emailRef.current.value, passwordRef.current.value);
       navigate('/');
-    } catch {
+    } catch (e) {
+      console.log(e);
+
       setError('Failed to sign in');
     }
   }

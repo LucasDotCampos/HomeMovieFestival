@@ -6,7 +6,6 @@ import { getCustomRepository } from "typeorm";
 import UserEntity from "../typeorm/entities/UserEntity";
 import UsersRepository from "../typeorm/repositories/UsersRepository";
 import "dotenv/config";
-import { error } from "console";
 
 interface IRequest {
   email: string;
@@ -37,6 +36,8 @@ class CreateSessionsService {
         subject: user.id,
         expiresIn: authConfig.jwt.expiresIn,
       });
+
+      delete user.password;
 
       return {
         user,
