@@ -2,7 +2,7 @@ import { Button } from 'react-bootstrap';
 import { useAuth } from './../contexts/AuthContext';
 
 export default function Home() {
-  const { currentUser } = useAuth();
+  const { isLogged, currentUser, token } = useAuth();
   const logUser = () => {
     console.log(currentUser);
   };

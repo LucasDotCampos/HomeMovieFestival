@@ -4,12 +4,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function Signup() {
+  const nameRef = useRef<any>(null);
   const emailRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
   const passwordConfirmRef = useRef<any>(null);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState<boolean>(false);
-  const { signup } = useAuth();
+  const { signUp } = useAuth();
   const navigate = useNavigate();
 
   async function handleSubmit(e: FormEvent) {
@@ -22,9 +24,18 @@ export default function Signup() {
     try {
       setError('');
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-      navigate('/login');
-    } catch {
+      await signUp(
+        nameRef.current.value,
+        emailRef.current.value,
+        passwordRef.current.value
+      );
+      setSuccess('Account Created, Redirecting to Log In in 5 seconds');
+      setTimeout(() => {
+        navigate('/login');
+      }, 5000);
+    } catch (err) {
+      console.log(err);
+
       setError('Failed to create an account');
     }
     setLoading(false);
@@ -41,6 +52,10 @@ export default function Signup() {
             </Alert>
           )}
           <Form onSubmit={handleSubmit}>
+            <Form.Group id="name">
+              <Form.Label>User Name</Form.Label>
+              <Form.Control type="text" ref={nameRef} required />
+            </Form.Group>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />
@@ -56,6 +71,11 @@ export default function Signup() {
             <Button disabled={loading} className="w-100 mt-2" type="submit">
               Sign Up
             </Button>
+            {success && (
+              <Alert className="h-25 mt-3" variant="success">
+                {success}
+              </Alert>
+            )}
           </Form>
         </Card.Body>
       </Card>
