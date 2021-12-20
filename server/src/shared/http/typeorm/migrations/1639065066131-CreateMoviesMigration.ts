@@ -31,10 +31,6 @@ export class CreateMoviesMigration1639065066131 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "username",
-            type: "varchar",
-          },
-          {
             name: "image",
             type: "varchar",
           },

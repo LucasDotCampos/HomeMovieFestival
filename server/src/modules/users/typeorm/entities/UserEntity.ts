@@ -24,6 +24,9 @@ class UserEntity {
   @Column()
   password: string;
 
+  @Column()
+  avatar: string;
+
   @OneToMany(() => MoviesEntity, (user) => UserEntity)
   movies: MoviesEntity[];
 

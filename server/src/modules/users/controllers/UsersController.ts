@@ -24,6 +24,7 @@ export default class UsersController {
       name,
       email,
       password,
+      avatar: request.file?.filename,
     });
 
     delete user.password;
