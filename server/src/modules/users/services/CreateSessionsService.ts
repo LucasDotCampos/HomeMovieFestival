@@ -5,6 +5,7 @@ import { getCustomRepository } from "typeorm";
 import UserEntity from "../typeorm/entities/UserEntity";
 import UsersRepository from "../typeorm/repositories/UsersRepository";
 import "dotenv/config";
+import { response } from "express";
 
 interface IRequest {
   email: string;
@@ -16,19 +17,22 @@ interface IResponse {
   token: string;
 }
 class CreateSessionsService {
-  public async execute({ email, password }: IRequest): Promise<IResponse> {
+  public async execute({
+    email,
+    password,
+  }: IRequest): Promise<IResponse | string> {
     try {
       const usersRepository = getCustomRepository(UsersRepository);
       const user = await usersRepository.findByemail(email);
 
       if (!user) {
-        throw new Error("Incorrect email/password combination");
+        response.status(400).send({ error: "email/password incorrect" });
       }
 
       const passwordConfirmed = await compare(password, user.password);
 
       if (!passwordConfirmed) {
-        throw new Error("Incorrect email/password combination");
+        response.status(400).send({ error: "email/password incorrect" });
       }
 
       const token = sign({}, authConfig.jwt.secret, {

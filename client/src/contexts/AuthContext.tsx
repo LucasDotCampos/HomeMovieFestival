@@ -20,7 +20,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     if (localStorage.getItem('auth') == 'false') {
       setIsLogged(false);
     } else {
-      setIsLogged(false);
+      setIsLogged(true);
     }
   }, []);
 
