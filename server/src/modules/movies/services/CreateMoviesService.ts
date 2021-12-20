@@ -1,13 +1,8 @@
-import { Request } from "express";
-import { request } from "http";
 import { getCustomRepository } from "typeorm";
-import AppError from "../../../shared/errors/AppError";
-import UserEntity from "../../users/typeorm/entities/UserEntity";
 import MoviesEntity from "../typeorm/entities/MoviesEntity";
 import MoviesRepository from "../typeorm/repositories/MoviesRepository";
 
 interface IRequest {
-  username: string;
   description: string;
   image: string;
   magnet: string;
@@ -21,7 +16,6 @@ class CreateMoviesService {
     description,
     image,
     magnet,
-    username,
     title,
     releaseDate,
     userId,
@@ -30,14 +24,13 @@ class CreateMoviesService {
     const moviesExists = await moviesRepository.findByTitle(title);
 
     if (moviesExists) {
-      throw new AppError("There's already a movie with this name", 409);
+      throw new Error("There's already a movie with this name");
     }
 
     const movies = moviesRepository.create({
       description,
       image,
       magnet,
-      username,
       title,
       releaseDate,
       userId,

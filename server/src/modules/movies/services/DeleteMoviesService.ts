@@ -1,6 +1,5 @@
-import { getCustomRepository } from 'typeorm';
-import AppError from '../../../shared/errors/AppError';
-import MoviesRepository from '../typeorm/repositories/MoviesRepository';
+import { getCustomRepository } from "typeorm";
+import MoviesRepository from "../typeorm/repositories/MoviesRepository";
 
 interface IRequest {
   id: string;
@@ -13,7 +12,7 @@ class DeleteMoviesService {
     const movies = await moviesRepository.findOne(id);
 
     if (!movies) {
-      throw new AppError('Product not found.');
+      throw new Error("Movie not found.");
     }
 
     await moviesRepository.remove(movies);

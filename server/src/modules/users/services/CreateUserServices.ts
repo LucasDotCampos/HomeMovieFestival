@@ -1,4 +1,3 @@
-import AppError from "../../../shared/errors/AppError";
 import { getCustomRepository } from "typeorm";
 import UserEntity from "../typeorm/entities/UserEntity";
 import UsersRepository from "../typeorm/repositories/UsersRepository";
@@ -23,7 +22,7 @@ class CreateUserService {
       const emailExists = await usersRepository.findByName(email);
 
       if (emailExists) {
-        throw new AppError("Email address already taken", 409);
+        throw new Error("Email address already taken");
       }
 
       const hashedPassword = await hash(password, 8);

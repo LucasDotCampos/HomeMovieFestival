@@ -1,11 +1,9 @@
-import { getCustomRepository } from 'typeorm';
-import AppError from '../../../shared/errors/AppError';
-import MoviesEntity from '../typeorm/entities/MoviesEntity';
-import MoviesRepository from '../typeorm/repositories/MoviesRepository';
+import { getCustomRepository } from "typeorm";
+import MoviesEntity from "../typeorm/entities/MoviesEntity";
+import MoviesRepository from "../typeorm/repositories/MoviesRepository";
 
 interface IRequest {
   id: string;
-  username: string;
   image: string;
   magnet: string;
   description: string;
@@ -18,7 +16,6 @@ class UpdateMoviesService {
     description,
     image,
     magnet,
-    username,
     title,
   }: IRequest): Promise<MoviesEntity> {
     const moviesRepository = getCustomRepository(MoviesRepository);
@@ -26,12 +23,12 @@ class UpdateMoviesService {
     const movies = await moviesRepository.findOne(id);
 
     if (!movies) {
-      throw new AppError('Movie not found.');
+      throw new Error("Movie not found.");
     }
 
     const moviesExists = await moviesRepository.findByTitle(title);
     if (moviesExists && title !== movies.title) {
-      throw new AppError("There's already one movie with this name");
+      throw new Error("There's already one movie with this name");
     }
     movies.title = title;
     movies.description = description;

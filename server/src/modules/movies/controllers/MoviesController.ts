@@ -31,7 +31,6 @@ export default class MoviesController {
         image: request.file?.filename,
         releaseDate,
         magnet,
-        username,
         title,
         userId: request.userId,
       });
@@ -43,7 +42,7 @@ export default class MoviesController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { description, image, magnet, username, title } = request.body;
+    const { description, image, magnet, title } = request.body;
     const { id } = request.params;
 
     const updateMovie = new UpdateMoviesService();
@@ -52,7 +51,6 @@ export default class MoviesController {
       description,
       image,
       magnet,
-      username,
       title,
     });
     return response.json(movie);

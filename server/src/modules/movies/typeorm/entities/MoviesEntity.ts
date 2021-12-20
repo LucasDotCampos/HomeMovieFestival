@@ -17,9 +17,6 @@ class MoviesEntity {
   id: string;
 
   @Column()
-  username: string;
-
-  @Column()
   title: string;
 
   @Column()

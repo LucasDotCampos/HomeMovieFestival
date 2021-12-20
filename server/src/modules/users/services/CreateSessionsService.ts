@@ -1,4 +1,3 @@
-import AppError from "../../../shared/errors/AppError";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import authConfig from "../../../config/authConfig";
@@ -29,7 +28,7 @@ class CreateSessionsService {
       const passwordConfirmed = await compare(password, user.password);
 
       if (!passwordConfirmed) {
-        throw new AppError("Incorrect email/password combination", 401);
+        throw new Error("Incorrect email/password combination");
       }
 
       const token = sign({}, authConfig.jwt.secret, {

@@ -1,5 +1,4 @@
 import { getCustomRepository } from "typeorm";
-import AppError from "../../../shared/errors/AppError";
 import MoviesEntity from "../typeorm/entities/MoviesEntity";
 import MoviesRepository from "../typeorm/repositories/MoviesRepository";
 
@@ -14,7 +13,7 @@ class ShowMovieService {
     const movie = await movieRepository.findByTitle(title);
 
     if (!movie) {
-      throw new AppError("Movie not found.");
+      throw new Error("Movie not found.");
     }
 
     return movie;
