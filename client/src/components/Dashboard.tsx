@@ -4,7 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { api } from '../services/api';
 import '../style/dashboard.scss';
-import FileUpload from './FileUpload';
+import {
+  validateFileSize,
+  validateFileType,
+} from '../services/fileValidatorService';
+import FileService from '../services/fileService';
 
 export default function Dashboard() {
   const [error, setError] = useState('');
@@ -13,8 +17,8 @@ export default function Dashboard() {
   const handleClose = () => setShow(false);
   const handleShow = () => (setShow(true), setError(''));
   const navigate = useNavigate();
-  const image = currentUser.avatar;
-  const [profPic, setProfPic] = useState(image);
+  const [profPic, setProfPic] = useState();
+  const [img, setImg] = useState<any>();
 
   const handlePicChange = async () => {
     try {
@@ -36,6 +40,39 @@ export default function Dashboard() {
     navigate('/');
   };
 
+  const [uploadFormError, setUploadFormError] = useState<string>('');
+
+  const handleFileUpload = async (element: HTMLInputElement) => {
+    const file = element.files;
+
+    if (!file || file.length === 0) {
+      setUploadFormError('');
+      return;
+    }
+
+    console.log(file[0].name);
+
+    const validFileSize = await validateFileSize(file[0].size);
+    const validFileType = await validateFileType(
+      FileService.getFileExtension(file[0].name)
+    );
+
+    if (!validFileSize.isValid) {
+      setUploadFormError(validFileSize.errorMessage);
+    }
+    if (!validFileType.isValid) {
+      setUploadFormError(validFileType.errorMessage);
+    }
+    if (uploadFormError && validFileSize.isValid) {
+      setUploadFormError('');
+    }
+    if (uploadFormError && validFileType.isValid) {
+      setUploadFormError('');
+    }
+    setProfPic(file[0]); // * I have to learn how to render file images
+    setImg(file[0].name);
+  };
+
   return (
     <div
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
@@ -54,15 +91,27 @@ export default function Dashboard() {
         >
           <div className="input-group" style={{ width: '100%' }} />
           Preview
-          <img
-            className="pic"
-            src={profPic}
-            alt="profile-picture"
-            onClick={handleShow}
-          />
+          {profPic && (
+            <img
+              className="pic"
+              src={profPic}
+              alt={setImg}
+              onClick={handleShow}
+            />
+          )}
         </Modal.Body>
         <Modal.Footer>
-          <FileUpload />
+          <div>
+            {uploadFormError && <p>{uploadFormError}</p>}
+            <div>
+              <input
+                type="file"
+                onChange={(e: SyntheticEvent) =>
+                  handleFileUpload(e.currentTarget as HTMLInputElement)
+                }
+              />
+            </div>
+          </div>
           {error && (
             <Alert className="h-25" variant="danger">
               {error}

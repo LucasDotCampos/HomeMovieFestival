@@ -11,6 +11,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState({});
   const [token, setToken] = useState('');
+  const [avatarUpload, setAvatarUpload] = useState<File>(null);
 
   useEffect(() => {
     setToken(localStorage.getItem('token'));
@@ -42,11 +43,15 @@ export const AuthProvider: React.FC = ({ children }) => {
         .then((res) => {
           const token = res.data.token;
           const user = res.data.user;
+          const avatar = res.data.user.avatar;
+
           setToken(token);
           setCurrentUser(user);
+
           localStorage.setItem('token', token);
           localStorage.setItem('auth', 'true');
           localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('avatar', avatar);
         }),
       setIsLogged(true)
     );
@@ -55,6 +60,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const logout = () => {
     return (
       localStorage.removeItem('token'),
+      localStorage.removeItem('avatar'),
       localStorage.removeItem('user'),
       localStorage.setItem('auth', 'false'),
       setIsLogged(false)
@@ -68,6 +74,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     logout,
     token,
     currentUser,
+    avatarUpload,
+    setAvatarUpload,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
