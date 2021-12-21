@@ -1,2 +1,4 @@
+node_modules
+!.gitignore
 *.env
-node_modules/
+!.env.example
