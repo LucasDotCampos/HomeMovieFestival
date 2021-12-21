@@ -1,0 +1,11 @@
+.pic {
+  height: 100px;
+  width: 100px;
+  margin: 20px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all linear 0.2s;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.111);
+  }
+}
