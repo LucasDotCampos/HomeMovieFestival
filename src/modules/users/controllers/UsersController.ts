@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import CreateUserService from "../services/CreateUserServices";
 import ListUsersService from "../services/ListUsersServices";
 import ListUserService from "../services/ListUserService";
-import "dotenv/config";
 
 export default class UsersController {
   public async searchByName(
@@ -20,16 +19,13 @@ export default class UsersController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, email, password } = request.body;
 
-    const baseURL = process.env.PORT;
     const createUser = new CreateUserService();
     const user = await createUser.execute({
       name,
       email,
       password,
-      avatar: `http://localhost:${baseURL}/uploads/profilepic.png`,
     });
 
-    console.log(user.avatar);
     delete user.password;
 
     return response.status(200).json(user);

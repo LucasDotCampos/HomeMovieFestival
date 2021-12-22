@@ -7,7 +7,6 @@ interface IRequest {
   name: string;
   email: string;
   password: string;
-  avatar: string;
 }
 
 class CreateUserService {
@@ -15,7 +14,6 @@ class CreateUserService {
     name,
     email,
     password,
-    avatar,
   }: IRequest): Promise<UserEntity> {
     try {
       const usersRepository = getCustomRepository(UsersRepository);
@@ -31,7 +29,6 @@ class CreateUserService {
         name,
         email,
         password: hashedPassword,
-        avatar,
       });
 
       await usersRepository.save(user);

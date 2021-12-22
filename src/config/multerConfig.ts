@@ -3,7 +3,7 @@ import path from "path";
 import crypto from "crypto";
 
 export default {
-  dest: path.resolve(__dirname, "..", "..", "uploads"),
+  directory: path.resolve(__dirname, "..", "..", "uploads"),
   storage: multer.diskStorage({
     destination: (request, file, callback) => {
       callback(null, path.resolve(__dirname, "..", "..", "uploads"));
@@ -20,7 +20,7 @@ export default {
   },
   fileFilter: (request: any, file: any, callback: any) => {
     const mimetypes = ["image/jpeg", "image/jtif", "image/png", "image/gif"];
-    if (mimetypes.includes(file.mimetype)) {
+    if (!mimetypes.includes(file.mimetypes)) {
       callback(null, true);
     } else {
       callback(new Error("O formato da imagem é inválido."));
