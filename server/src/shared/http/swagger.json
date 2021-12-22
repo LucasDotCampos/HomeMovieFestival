@@ -74,10 +74,11 @@
         }
       }
     },
-    "/createmovie": {
+    "/movies/createmovie": {
       "post": {
         "summary": "Route to register a movie",
         "tags": ["Movies"],
+        "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -86,11 +87,13 @@
                 "$ref": "#/components/schemas/Create Movie"
               },
               "examples": {
-                "Create User": {
+                "Create Movie": {
                   "value": {
                     "title": "The Autopsy of Jane Doe",
                     "description": "The corpse of an unidentified young woman is found at the scene of an inexplicable multiple homicide",
-                    "releaseDate": "11/09/2016"
+                    "releaseDate": "11/09/2016",
+                    "image": "movieexample.png",
+                    "magnet": "magnet?152515"
                   }
                 }
               }
@@ -166,9 +169,6 @@
             "type": "string"
           },
           "releaseDate": {
-            "type": "string"
-          },
-          "username": {
             "type": "string"
           },
           "magnet": {
