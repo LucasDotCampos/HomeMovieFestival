@@ -1,4 +1,5 @@
+.env
+!.env.example
 node_modules
 !.gitignore
-*.env
-!.env.example
+
