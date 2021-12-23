@@ -85,17 +85,6 @@
               "schema": {
                 "type": "object",
                 "$ref": "#/components/schemas/Create Movie"
-              },
-              "examples": {
-                "Create Movie": {
-                  "value": {
-                    "title": "The Autopsy of Jane Doe",
-                    "description": "The corpse of an unidentified young woman is found at the scene of an inexplicable multiple homicide",
-                    "releaseDate": "11/09/2016",
-                    "image": "movieexample.png",
-                    "magnet": "magnet?152515"
-                  }
-                }
               }
             }
           }
@@ -103,13 +92,13 @@
       }
     },
 
-    "/users/{name}": {
+    "/users/{id}": {
       "get": {
-        "summary": "You'll be able to get an specific user",
+        "summary": "You'll be able to get an specific user by id",
         "tags": ["Users"],
         "parameters": [
           {
-            "name": "name",
+            "name": "id",
             "in": "path",
             "required": true
           }
@@ -123,6 +112,24 @@
                   "type": "object",
                   "$ref": "#/components/schemas/Create User"
                 }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/users/avatar": {
+      "patch": {
+        "summary": "Route to update user's avatar",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/Avatar Patch"
               }
             }
           }
@@ -143,6 +150,9 @@
             "type": "string"
           },
           "password": {
+            "type": "string"
+          },
+          "avatar": {
             "type": "string"
           }
         }
@@ -175,6 +185,16 @@
             "type": "string"
           },
           "image": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+
+      "Avatar Patch": {
+        "type": "object",
+        "properties": {
+          "avatar": {
             "type": "string",
             "format": "binary"
           }
