@@ -8,22 +8,11 @@ export function useAuth() {
 }
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [isLogged, setIsLogged] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [avatar, setAvatar] = useState('');
+  const [isLogged, setIsLogged] = useState<boolean>();
   const [token, setToken] = useState('');
-  const [avatarUpload, setAvatarUpload] = useState<File>(null);
-
-  useEffect(() => {
-    setToken(localStorage.getItem('token'));
-    if (localStorage.getItem('user')) {
-      setCurrentUser(JSON.parse(localStorage.getItem('user')));
-    }
-    if (localStorage.getItem('auth') == 'false') {
-      setIsLogged(false);
-    } else {
-      setIsLogged(true);
-    }
-  }, []);
+  const getUser = JSON.parse(localStorage.getItem('user'));
 
   const signUp = (username: string, email: string, password: string) => {
     return api.post('users', {
@@ -33,28 +22,48 @@ export const AuthProvider: React.FC = ({ children }) => {
     });
   };
 
+  useEffect(() => {
+    if (localStorage.getItem('auth') == 'true') {
+      setCurrentUser(getUser);
+      setIsLogged(true);
+      setAvatar(localStorage.getItem('avatar'));
+    }
+  }, []);
+
   const login = (email: string, password: string) => {
-    return (
-      api
-        .post('/sessions', {
-          email: email,
-          password: password,
-        })
-        .then((res) => {
-          const token = res.data.token;
-          const user = res.data.user;
-          const avatar = res.data.user.avatar;
+    return api
+      .post('/sessions', {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        localStorage.setItem('auth', 'true');
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+        localStorage.setItem(
+          'avatar',
+          `http://localhost:4000/files/${res.data.user.avatar}`
+        );
+        setToken(localStorage.getItem('token'));
+        setIsLogged(true);
+        setAvatar(localStorage.getItem('avatar'));
+        setCurrentUser(res.data.user);
 
-          setToken(token);
-          setCurrentUser(user);
+        api.defaults.headers.common = {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        };
+      });
+  };
 
-          localStorage.setItem('token', token);
-          localStorage.setItem('auth', 'true');
-          localStorage.setItem('user', JSON.stringify(user));
-          localStorage.setItem('avatar', avatar);
-        }),
-      setIsLogged(true)
-    );
+  const updatePic = async (file: File) => {
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    };
+    console.log(config);
+
+    return api.patch('/users/avatar', file, config).then((res) => {
+      console.log(res);
+    });
   };
 
   const logout = () => {
@@ -63,6 +72,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       localStorage.removeItem('avatar'),
       localStorage.removeItem('user'),
       localStorage.setItem('auth', 'false'),
+      setCurrentUser({}),
       setIsLogged(false)
     );
   };
@@ -72,10 +82,9 @@ export const AuthProvider: React.FC = ({ children }) => {
     signUp,
     login,
     logout,
-    token,
     currentUser,
-    avatarUpload,
-    setAvatarUpload,
+    avatar,
+    updatePic,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

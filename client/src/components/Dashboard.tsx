@@ -9,23 +9,23 @@ import {
   validateFileType,
 } from '../services/fileValidatorService';
 import FileService from '../services/fileService';
+import Nav from './Navbar';
 
 export default function Dashboard() {
   const [error, setError] = useState('');
-  const { currentUser, isLogged, logout } = useAuth();
+  const { currentUser, logout, avatar, updatePic } = useAuth();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => (setShow(true), setError(''));
   const navigate = useNavigate();
-  const [profPic, setProfPic] = useState();
-  const [img, setImg] = useState<any>();
+  const [file, setFile] = useState<File>(null);
+  const [previewURL, setPreviewURL] = useState('');
 
-  const handlePicChange = async () => {
+  const handleUpdatePic = async () => {
     try {
-      await api.post('/users/updatepicture', profPic);
+      await updatePic(file);
     } catch (error) {
       console.log(error);
-      setError('Failed to change profile picture');
     }
   };
 
@@ -47,10 +47,10 @@ export default function Dashboard() {
 
     if (!file || file.length === 0) {
       setUploadFormError('');
+      setFile(null);
+      setPreviewURL('');
       return;
     }
-
-    console.log(file[0].name);
 
     const validFileSize = await validateFileSize(file[0].size);
     const validFileType = await validateFileType(
@@ -69,14 +69,17 @@ export default function Dashboard() {
     if (uploadFormError && validFileType.isValid) {
       setUploadFormError('');
     }
-    setProfPic(file[0]); // * I have to learn how to render file images
-    setImg(file[0].name);
+
+    setFile(file[0]);
+    const a = URL.createObjectURL(file[0]);
+    setPreviewURL(a);
   };
 
   return (
     <div
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
+      <Nav />
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Change your profile picture</Modal.Title>
@@ -91,14 +94,12 @@ export default function Dashboard() {
         >
           <div className="input-group" style={{ width: '100%' }} />
           Preview
-          {profPic && (
-            <img
-              className="pic"
-              src={profPic}
-              alt={setImg}
-              onClick={handleShow}
-            />
-          )}
+          <div
+            style={{ backgroundImage: `url(${previewURL})` }}
+            id="preview-box"
+          >
+            <img id="preview-image" src={previewURL} alt="" />
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <div>
@@ -120,20 +121,20 @@ export default function Dashboard() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button type="submit" variant="primary" onClick={handlePicChange}>
+          <Button
+            disabled={!file}
+            type="submit"
+            variant="primary"
+            onClick={handleUpdatePic}
+          >
             Save
           </Button>
         </Modal.Footer>
       </Modal>
 
-      <img
-        className="pic"
-        src={currentUser && currentUser.avatar}
-        alt=""
-        onClick={handleShow}
-      />
+      <img className="pic" src={avatar} alt="" onClick={handleShow} />
       <strong>{currentUser.name}</strong>
-      <p>Email: {currentUser && currentUser.email}</p>
+      <p>Email: {currentUser.email}</p>
       <Button onClick={handleLogOut}>Log Out</Button>
       <p>{error}</p>
     </div>

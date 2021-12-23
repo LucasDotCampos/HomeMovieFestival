@@ -24,9 +24,7 @@ function App() {
       <div className="w-100" style={{ maxWidth: '400px' }}>
         <Router>
           <AuthProvider>
-            <div>
-              <Nav />
-            </div>
+            <Nav />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/movies" element={<Movies />} />
