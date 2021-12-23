@@ -20,5 +20,6 @@ usersRouter.patch(
   upload.single("avatar"),
   usersAvatarController.update
 );
+usersRouter.delete("/:id", usersController.delete);
 
 export default usersRouter;

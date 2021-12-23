@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import CreateUserService from "../services/CreateUserServices";
 import ListUsersService from "../services/ListUsersServices";
 import ListUserService from "../services/ListUserService";
+import DeleteUsersService from "../services/DeleteMoviesService";
 
 export default class UsersController {
   public async searchByName(
@@ -44,5 +45,12 @@ export default class UsersController {
     } catch (err) {
       console.log(err.message);
     }
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+    const deleteUsers = new DeleteUsersService();
+    await deleteUsers.execute({ id });
+    return response.json([]);
   }
 }
