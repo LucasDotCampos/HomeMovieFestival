@@ -12,7 +12,7 @@ const usersAvatarController = new UserAvatarController();
 const upload = multer(multerConfig);
 
 usersRouter.post("/", upload.single("avatar"), usersController.create);
-usersRouter.get("/:name", usersController.searchByName);
+usersRouter.get("/:id", usersController.searchByTitle);
 usersRouter.get("/", usersController.usersList);
 usersRouter.patch(
   "/avatar",

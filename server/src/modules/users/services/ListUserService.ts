@@ -3,13 +3,13 @@ import UserEntity from "../typeorm/entities/UserEntity";
 import UsersRepository from "../typeorm/repositories/UsersRepository";
 
 interface IUser {
-  name: string;
+  id: string;
 }
 class ListUserService {
-  public async execute({ name }: IUser): Promise<UserEntity> {
+  public async execute({ id }: IUser): Promise<UserEntity> {
     const usersRepository = getCustomRepository(UsersRepository);
 
-    const user = await usersRepository.findByName(name);
+    const user = await usersRepository.findById(id);
 
     return user;
   }

@@ -5,14 +5,14 @@ import ListUserService from "../services/ListUserService";
 import DeleteUsersService from "../services/DeleteMoviesService";
 
 export default class UsersController {
-  public async searchByName(
+  public async searchByTitle(
     request: Request,
     response: Response
   ): Promise<Response> {
-    const { name } = request.params;
+    const { id } = request.params;
     const listUser = new ListUserService();
 
-    const users = await listUser.execute({ name });
+    const users = await listUser.execute({ id });
 
     return response.json(users);
   }
