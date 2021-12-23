@@ -22,8 +22,6 @@ export default function Newmovie() {
     setImage(file[0]);
   };
 
-  let valid = false;
-
   async function sendData(event: FormEvent) {
     event.preventDefault();
 

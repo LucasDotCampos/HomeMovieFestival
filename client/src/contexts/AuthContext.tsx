@@ -59,9 +59,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     const config = {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     };
-    console.log(config);
 
-    return api.patch('/users/avatar', file, config).then((res) => {
+    return api.patch('/users/avatar', { avatar: file }, config).then((res) => {
       console.log(res);
     });
   };
@@ -84,6 +83,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     logout,
     currentUser,
     avatar,
+    setAvatar,
     updatePic,
   };
 

@@ -13,7 +13,7 @@ import Nav from './Navbar';
 
 export default function Dashboard() {
   const [error, setError] = useState('');
-  const { currentUser, logout, avatar, updatePic } = useAuth();
+  const { currentUser, logout, avatar, setAvatar, updatePic } = useAuth();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => (setShow(true), setError(''));
@@ -22,11 +22,21 @@ export default function Dashboard() {
   const [previewURL, setPreviewURL] = useState('');
 
   const handleUpdatePic = async () => {
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    };
+
+    const data = new FormData();
+
+    data.append('avatar', file);
+
     try {
-      await updatePic(file);
+      await api.patch('users/avatar', data, config);
     } catch (error) {
       console.log(error);
     }
+    setAvatar(previewURL);
+    handleClose();
   };
 
   const handleLogOut = async () => {
@@ -122,17 +132,23 @@ export default function Dashboard() {
             Close
           </Button>
           <Button
+            onClick={handleUpdatePic}
             disabled={!file}
             type="submit"
             variant="primary"
-            onClick={handleUpdatePic}
           >
             Save
           </Button>
         </Modal.Footer>
       </Modal>
 
-      <img className="pic" src={avatar} alt="" onClick={handleShow} />
+      <img
+        style={{ border: '1px solid black' }}
+        className="pic"
+        src={avatar}
+        alt=""
+        onClick={handleShow}
+      />
       <strong>{currentUser.name}</strong>
       <p>Email: {currentUser.email}</p>
       <Button onClick={handleLogOut}>Log Out</Button>
