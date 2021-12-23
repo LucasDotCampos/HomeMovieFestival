@@ -1,8 +1,9 @@
 import { Button } from 'react-bootstrap';
+import Nav from '../components/Navbar';
 import { useAuth } from './../contexts/AuthContext';
 
 export default function Home() {
-  const { isLogged, currentUser, token } = useAuth();
+  const { currentUser } = useAuth();
   const logUser = () => {
     console.log(currentUser);
   };

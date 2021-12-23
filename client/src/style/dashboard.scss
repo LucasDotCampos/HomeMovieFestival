@@ -6,6 +6,19 @@
   border-radius: 50%;
   transition: all linear 0.2s;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.111);
+    background-color: rgba(0, 0, 0, 0.09);
   }
+}
+
+#preview-box {
+  overflow: hidden;
+  background-size: cover;
+  border-radius: 50%;
+  background-position: center;
+  border: 1px solid rgb(0, 0, 0);
+}
+#preview-image {
+  filter: opacity(5%);
+  height: 200px;
+  width: 200px;
 }
