@@ -74,6 +74,43 @@
         }
       }
     },
+    "/sessions": {
+      "post": {
+        "summary": "Route to validate an user",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Validate User"
+              },
+              "examples": {
+                "Validate User": {
+                  "value": {
+                    "email": "johndoe@oscar.com",
+                    "password": "SenhaSegura123@!#"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Validate User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
     "/movies/createmovie": {
       "post": {
         "summary": "Route to register a movie",
@@ -85,6 +122,19 @@
               "schema": {
                 "type": "object",
                 "$ref": "#/components/schemas/Create Movie"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Create Movie"
+                }
               }
             }
           }
