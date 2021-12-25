@@ -1,0 +1,30 @@
+* {
+  color: white;
+}
+
+body {
+  background: rgb(25, 25, 25);
+}
+
+.movie-list {
+  display: flex;
+  flex-direction: column;
+  color: rgb(36, 36, 36);
+  width: 100vw;
+
+  @media only screen and (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media only screen and (min-width: 1920px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .movie {
+    border-bottom: 1px solid gray;
+    display: flex;
+    align-items: center;
+    word-break: break-all;
+  }
+}

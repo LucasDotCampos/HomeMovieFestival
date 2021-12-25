@@ -1,6 +1,14 @@
-import React, { SyntheticEvent, useState } from 'react';
-import { Button, Modal, InputGroup, FormControl, Alert } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
+import {
+  Button,
+  Modal,
+  InputGroup,
+  FormControl,
+  Alert,
+  Spinner,
+  Card,
+} from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { api } from '../services/api';
 import '../style/dashboard.scss';
@@ -9,17 +17,22 @@ import {
   validateFileType,
 } from '../services/fileValidatorService';
 import FileService from '../services/fileService';
-import Nav from './Navbar';
 
 export default function Dashboard() {
   const [error, setError] = useState('');
   const { currentUser, logout, avatar, setAvatar, updatePic } = useAuth();
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => (setShow(true), setError(''));
-  const navigate = useNavigate();
   const [file, setFile] = useState<File>(null);
   const [previewURL, setPreviewURL] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    setShow(false);
+    setFile(null);
+    setPreviewURL('');
+  };
+  const handleShow = () => (setShow(true), setError(''));
 
   const handleUpdatePic = async () => {
     const config = {
@@ -31,13 +44,45 @@ export default function Dashboard() {
     data.append('avatar', file);
 
     try {
-      await api.patch('users/avatar', data, config);
+      setLoading(true);
+      await updatePic(data);
     } catch (error) {
       console.log(error);
     }
-    setAvatar(previewURL);
+
+    setTimeout(() => {
+      try {
+        api.get(`/users/${currentUser.name}`, config).then((res) => {
+          console.log(res);
+
+          localStorage.setItem(
+            'avatar',
+            `http://localhost:4000/files/${res.data.avatar}`
+          );
+        });
+      } catch (error) {}
+    }, 1000);
+
+    setTimeout(() => {
+      setAvatar(localStorage.getItem('avatar'));
+    }, 1000);
+
+    console.log(avatar);
+
     handleClose();
+    handleShow();
+
+    setTimeout(() => {
+      handleClose();
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }, 1000);
   };
+
+  useEffect(() => {
+    setAvatar(localStorage.getItem('avatar'));
+  }, [localStorage.getItem('avatar')]);
 
   const handleLogOut = async () => {
     setError('');
@@ -81,78 +126,125 @@ export default function Dashboard() {
     }
 
     setFile(file[0]);
-    const a = URL.createObjectURL(file[0]);
-    setPreviewURL(a);
+    const fileURL = URL.createObjectURL(file[0]);
+    setPreviewURL(fileURL);
   };
 
   return (
-    <div
-      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-    >
-      <Nav />
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Change your profile picture</Modal.Title>
-        </Modal.Header>
-        <Modal.Body
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <div className="input-group" style={{ width: '100%' }} />
-          Preview
-          <div
-            style={{ backgroundImage: `url(${previewURL})` }}
-            id="preview-box"
-          >
-            <img id="preview-image" src={previewURL} alt="" />
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <div>
-            {uploadFormError && <p>{uploadFormError}</p>}
-            <div>
-              <input
-                type="file"
-                onChange={(e: SyntheticEvent) =>
-                  handleFileUpload(e.currentTarget as HTMLInputElement)
-                }
-              />
+    <>
+      <div style={{ maxWidth: '500px', minWidth: '300px', width: '20vw' }}>
+        <Card>
+          <Card.Body>
+            <h2 className="text-center mb-4">Profile</h2>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <div className="input-group" style={{ width: '100%' }} />
+              <div
+                className="mb-4"
+                style={{ backgroundImage: `url(${avatar})` }}
+                id="preview-box"
+              >
+                <img
+                  style={{ cursor: 'pointer' }}
+                  onClick={handleShow}
+                  id="preview-image"
+                  src={avatar}
+                  alt=""
+                />
+              </div>
             </div>
-          </div>
-          {error && (
-            <Alert className="h-25" variant="danger">
-              {error}
-            </Alert>
-          )}
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
+            <p>
+              <strong>Email:</strong> {currentUser.email}
+            </p>
+            <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
+              Update Profile
+            </Link>
+            <p>{error}</p>
+          </Card.Body>
+        </Card>
+        <div className="w-100 text-center mt-2">
           <Button
-            onClick={handleUpdatePic}
-            disabled={!file}
-            type="submit"
-            variant="primary"
+            style={{ textDecoration: 'none' }}
+            variant="link"
+            onClick={handleLogOut}
           >
-            Save
+            Log Out
           </Button>
-        </Modal.Footer>
-      </Modal>
-
-      <img
-        style={{ border: '1px solid black' }}
-        className="pic"
-        src={avatar}
-        alt=""
-        onClick={handleShow}
-      />
-      <strong>{currentUser.name}</strong>
-      <p>Email: {currentUser.email}</p>
-      <Button onClick={handleLogOut}>Log Out</Button>
-      <p>{error}</p>
-    </div>
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Change your profile picture</Modal.Title>
+            </Modal.Header>
+            <Modal.Body
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <div className="input-group" style={{ width: '100%' }} />
+              {!loading ? (
+                <>
+                  <p>Preview</p>
+                  <div
+                    style={{ backgroundImage: `url(${previewURL})` }}
+                    id="preview-box"
+                  >
+                    <img id="preview-image" src={previewURL} alt="" />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p>Loading</p>
+                  <Spinner
+                    id="preview-box"
+                    style={{
+                      backgroundImage: `url(https://seeklogo.com/images/R/react-logo-7B3CE81517-seeklogo.com.png)`,
+                      height: '200px',
+                      width: '200px',
+                    }}
+                    animation="border"
+                  />
+                </>
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              <div>
+                {uploadFormError && <p>{uploadFormError}</p>}
+                <div>
+                  <input
+                    type="file"
+                    onChange={(e: SyntheticEvent) =>
+                      handleFileUpload(e.currentTarget as HTMLInputElement)
+                    }
+                  />
+                </div>
+              </div>
+              {error && (
+                <Alert className="h-25" variant="danger">
+                  {error}
+                </Alert>
+              )}
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              <Button
+                onClick={handleUpdatePic}
+                disabled={!file}
+                type="submit"
+                variant="primary"
+              >
+                Save
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </div>
+      </div>
+    </>
   );
 }
