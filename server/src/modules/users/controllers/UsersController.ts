@@ -9,28 +9,36 @@ export default class UsersController {
     request: Request,
     response: Response
   ): Promise<Response> {
-    const { id } = request.params;
-    const listUser = new ListUserService();
+    try {
+      const { id } = request.params;
+      const listUser = new ListUserService();
 
-    const users = await listUser.execute({ id });
+      const users = await listUser.execute({ id });
 
-    return response.json(users);
+      return response.status(200).json(users);
+    } catch (err) {
+      return response.json(err.message);
+    }
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, email, password } = request.body;
+    try {
+      const { name, email, password } = request.body;
 
-    const createUser = new CreateUserService();
-    const user = await createUser.execute({
-      name,
-      email,
-      password,
-      avatar: "profilepic.png",
-    });
+      const createUser = new CreateUserService();
+      const user = await createUser.execute({
+        name,
+        email,
+        password,
+        avatar: "profilepic.png",
+      });
 
-    delete user.password;
+      delete user.password;
 
-    return response.status(200).json(user);
+      return response.status(200).json(user);
+    } catch (err) {
+      return response.json(err.message);
+    }
   }
 
   public async usersList(
@@ -43,14 +51,22 @@ export default class UsersController {
       const users = await ListUsersServices.execute();
       return response.json(users);
     } catch (err) {
-      console.log(err.message);
+      return response.json(err.message);
     }
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
-    const { id } = request.params;
-    const deleteUsers = new DeleteUsersService();
-    await deleteUsers.execute({ id });
-    return response.json([]);
+    try {
+      const { id } = request.params;
+      const deleteUsers = new DeleteUsersService();
+      await deleteUsers.execute({ id });
+      return response.status(200).json([]);
+    } catch (err) {
+      return response
+        .status(424)
+        .json(
+          "Houve falha na requisição ou este id já não pertence mais a nenhum usuário registrado no banco de dados."
+        );
+    }
   }
 }

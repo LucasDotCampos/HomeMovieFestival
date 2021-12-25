@@ -1,15 +1,19 @@
-import { Request, Response } from "express";
+import { Request, response, Response } from "express";
 import UpdateUserAvatarService from "../services/UpdateUserAvatarService";
 
 export default class UserAvatarController {
   public async update(request: Request, response: Response): Promise<Response> {
-    const updateAvatar = new UpdateUserAvatarService();
+    try {
+      const updateAvatar = new UpdateUserAvatarService();
 
-    const user = updateAvatar.execute({
-      userId: request.userId,
-      avatarFilename: request.file?.filename,
-    });
+      const user = updateAvatar.execute({
+        userId: request.userId,
+        avatarFilename: request.file?.filename,
+      });
 
-    return response.json(user);
+      return response.status(200).json(user);
+    } catch (err) {
+      return response.json(err.message);
+    }
   }
 }

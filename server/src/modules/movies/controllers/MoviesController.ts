@@ -7,18 +7,26 @@ import UpdateMoviesService from "../services/UpdateMoviesService";
 
 export default class MoviesController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const listMovies = new ListMoviesService();
+    try {
+      const listMovies = new ListMoviesService();
 
-    const movies = await listMovies.execute();
+      const movies = await listMovies.execute();
 
-    return response.json(movies);
+      return response.json(movies);
+    } catch (err) {
+      return response.json(err.message);
+    }
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const { title } = request.params;
-    const showMovie = new ShowMovieService();
-    const movie = await showMovie.execute({ title });
-    return response.json(movie);
+    try {
+      const { title } = request.params;
+      const showMovie = new ShowMovieService();
+      const movie = await showMovie.execute({ title });
+      return response.json(movie);
+    } catch (err) {
+      return response.json(err.message);
+    }
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
@@ -41,24 +49,32 @@ export default class MoviesController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { description, image, magnet, title } = request.body;
-    const { id } = request.params;
+    try {
+      const { description, image, magnet, title } = request.body;
+      const { id } = request.params;
+      const updateMovie = new UpdateMoviesService();
 
-    const updateMovie = new UpdateMoviesService();
-    const movie = await updateMovie.execute({
-      id,
-      description,
-      image,
-      magnet,
-      title,
-    });
-    return response.status(409).json(movie);
+      const movie = await updateMovie.execute({
+        id,
+        description,
+        image,
+        magnet,
+        title,
+      });
+      return response.json(movie);
+    } catch (err) {
+      return response.status(400).json(err.message);
+    }
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
-    const { id } = request.params;
-    const deleteMovie = new DeleteMoviesService();
-    await deleteMovie.execute({ id });
-    return response.json([]);
+    try {
+      const { id } = request.params;
+      const deleteMovie = new DeleteMoviesService();
+      await deleteMovie.execute({ id });
+      return response.json([]);
+    } catch (err) {
+      return response.json(err.message);
+    }
   }
 }
