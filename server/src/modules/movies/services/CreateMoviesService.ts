@@ -23,9 +23,9 @@ class CreateMoviesService {
     const moviesRepository = getCustomRepository(MoviesRepository);
     const moviesExists = await moviesRepository.findByTitle(title);
 
-    /*if (moviesExists) {
+    if (moviesExists) {
       throw new Error("There's already a movie with this name");
-    }*/
+    }
 
     const movies = moviesRepository.create({
       description,

@@ -4,7 +4,6 @@ import cors from "cors";
 import routes from "./routes";
 import "dotenv/config";
 import "./typeorm/connection";
-import { pagination } from "typeorm-pagination";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "./swagger.json";
@@ -13,7 +12,6 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(pagination);
 app.use(routes);
 app.use(
   "/files",
