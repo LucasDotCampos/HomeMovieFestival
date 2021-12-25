@@ -141,6 +141,25 @@
         }
       }
     },
+    "/movies": {
+      "get": {
+        "summary": "You'll get a list of all the registered movies",
+        "tags": ["Movies"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Create Movie"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users/{id}/": {
       "delete": {
         "summary": "You'll be able to delete an specific user by id",
