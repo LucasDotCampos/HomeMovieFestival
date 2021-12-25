@@ -141,6 +141,33 @@
         }
       }
     },
+    "/users/{id}/": {
+      "delete": {
+        "summary": "You'll be able to delete an specific user by id",
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Delete User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
 
     "/users/{id}": {
       "get": {
@@ -214,6 +241,14 @@
             "type": "string"
           },
           "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Delete User": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           }
         }
