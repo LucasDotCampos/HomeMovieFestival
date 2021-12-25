@@ -48,12 +48,6 @@ export default function Nav() {
             </Link>
           </>
         )}
-        <Link to="/movies" style={nav.navbarItems}>
-          Movies
-        </Link>
-        <Link to="/newmovie" style={nav.navbarItems}>
-          New Movie
-        </Link>
       </div>
     </nav>
   );

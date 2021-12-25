@@ -3,7 +3,7 @@
   "host": "localhost",
   "port": 5432,
   "username": "postgres",
-  "password": "jiwk3",
+  "password": "admin",
   "database": "postgres",
   "entities": ["./src/modules/**/typeorm/entities/*.ts"],
   "migrations": ["./src/shared/http/typeorm/migrations/*.ts"],

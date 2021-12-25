@@ -1,13 +1,5 @@
 import React, { SyntheticEvent, useEffect, useState } from 'react';
-import {
-  Button,
-  Modal,
-  InputGroup,
-  FormControl,
-  Alert,
-  Spinner,
-  Card,
-} from 'react-bootstrap';
+import { Button, Modal, Alert, Spinner, Card } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { api } from '../services/api';
@@ -18,6 +10,15 @@ import {
 } from '../services/fileValidatorService';
 import FileService from '../services/fileService';
 
+interface ILista {
+  id: string;
+  title: string;
+  description: string;
+  releaseDate: string;
+  image: string;
+  magnet: string;
+}
+
 export default function Dashboard() {
   const [error, setError] = useState('');
   const { currentUser, logout, avatar, setAvatar, updatePic } = useAuth();
@@ -26,6 +27,19 @@ export default function Dashboard() {
   const [previewURL, setPreviewURL] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [moviesList, setMoviesList] = useState<ILista[]>([]);
+
+  const getLastMovies = async () => {};
+
+  useEffect(() => {
+    async function getMovies() {
+      const response = await api.get('/movies');
+      console.log(response);
+      setMoviesList(response.data);
+      console.log(moviesList);
+    }
+    getMovies();
+  }, []);
 
   const handleClose = () => {
     setShow(false);
@@ -52,7 +66,7 @@ export default function Dashboard() {
 
     setTimeout(() => {
       try {
-        api.get(`/users/${currentUser.name}`, config).then((res) => {
+        api.get(`/users/${currentUser.id}`, config).then((res) => {
           console.log(res);
 
           localStorage.setItem(
@@ -132,39 +146,95 @@ export default function Dashboard() {
 
   return (
     <>
-      <div style={{ maxWidth: '500px', minWidth: '300px', width: '20vw' }}>
+      <div style={{ width: '100vw', height: '99vh' }}>
         <Card>
           <Card.Body>
-            <h2 className="text-center mb-4">Profile</h2>
             <div
               style={{
                 display: 'flex',
-                flexDirection: 'column',
                 alignItems: 'center',
+                justifyContent: 'space-between',
+                width: '100%',
               }}
             >
-              <div className="input-group" style={{ width: '100%' }} />
               <div
-                className="mb-4"
-                style={{ backgroundImage: `url(${avatar})` }}
-                id="preview-box"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
               >
-                <img
-                  style={{ cursor: 'pointer' }}
-                  onClick={handleShow}
-                  id="preview-image"
-                  src={avatar}
-                  alt=""
-                />
+                <div
+                  id="preview-box"
+                  style={{
+                    backgroundImage: `url(${avatar})`,
+                    marginRight: '16px',
+                  }}
+                >
+                  <img
+                    id="preview-image"
+                    style={{ cursor: 'pointer' }}
+                    onClick={handleShow}
+                    src={avatar}
+                    alt=""
+                  />
+                </div>
+                <h3>{currentUser.name}</h3>
+              </div>
+              <Link
+                to="/update-profile"
+                className="btn btn-primary"
+                id="update"
+              >
+                Update Profile
+              </Link>
+            </div>
+          </Card.Body>
+        </Card>
+
+        <Card>
+          <Card.Body>
+            <Card.Title>
+              <p
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <h4>Movies</h4>
+                <Link style={{ textDecoration: 'none' }} to="/newmovie">
+                  Add a new movie
+                </Link>
+              </p>
+            </Card.Title>
+            <div style={{ display: 'flex' }}>
+              <div>
+                {moviesList.slice(0, 5).map((moviesList) => (
+                  <Card
+                    key={moviesList.id}
+                    className="movie p-4"
+                    style={{ display: 'flex' }}
+                  >
+                    <Card.Img
+                      id="img"
+                      variant="left"
+                      src={`http://localhost:4000/files/${moviesList.image}`}
+                    ></Card.Img>
+                    <Card.Body className="info">
+                      <Card.Text className="title" id="title">
+                        {moviesList.title}
+                      </Card.Text>
+                      <Card.Text>{moviesList.description}</Card.Text>
+                      <Card.Text>{moviesList.magnet}</Card.Text>
+                      <Card.Text>
+                        releaseDate: {moviesList.releaseDate.substring(0, 10)}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                ))}
               </div>
             </div>
-            <p>
-              <strong>Email:</strong> {currentUser.email}
-            </p>
-            <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
-              Update Profile
-            </Link>
-            <p>{error}</p>
           </Card.Body>
         </Card>
         <div className="w-100 text-center mt-2">
