@@ -52,7 +52,7 @@ export default class MoviesController {
       magnet,
       title,
     });
-    return response.json(movie);
+    return response.status(409).json(movie);
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
