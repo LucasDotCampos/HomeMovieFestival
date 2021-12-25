@@ -34,10 +34,9 @@ export default class MoviesController {
         title,
         userId: request.userId,
       });
-
       return response.json(movies);
     } catch (err) {
-      console.log(err.message);
+      return response.json(err.message);
     }
   }
 

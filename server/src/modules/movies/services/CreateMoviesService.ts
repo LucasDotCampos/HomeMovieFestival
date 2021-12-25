@@ -1,4 +1,5 @@
 import { getCustomRepository } from "typeorm";
+import { MessageChannel } from "worker_threads";
 import MoviesEntity from "../typeorm/entities/MoviesEntity";
 import MoviesRepository from "../typeorm/repositories/MoviesRepository";
 
