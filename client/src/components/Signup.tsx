@@ -13,6 +13,7 @@ export default function Signup() {
   const [loading, setLoading] = useState<boolean>(false);
   const { signUp } = useAuth();
   const navigate = useNavigate();
+  const [count, setCount] = useState(5);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -24,18 +25,19 @@ export default function Signup() {
     try {
       setError('');
       setLoading(true);
+
       await signUp(
         nameRef.current.value,
         emailRef.current.value,
         passwordRef.current.value
       );
-      setSuccess('Account Created, Redirecting to Log In in 5 seconds');
+
+      setSuccess(`Account Created, Redirecting to Log In`);
+
       setTimeout(() => {
         navigate('/login');
-      }, 5000);
+      }, 2000);
     } catch (err) {
-      console.log(err);
-
       setError('Failed to create an account');
     }
     setLoading(false);
@@ -43,44 +45,60 @@ export default function Signup() {
 
   return (
     <>
-      <Card>
-        <Card.Body>
-          <h2 className="w-100 text-center mt-2">Sign Up</h2>
-          {error && (
-            <Alert className="h-25" variant="danger">
-              {error}
-            </Alert>
-          )}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="name">
-              <Form.Label>User Name</Form.Label>
-              <Form.Control type="text" ref={nameRef} required />
-            </Form.Group>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
-            </Form.Group>
-            <Form.Group id="password-confirm">
-              <Form.Label>Password Confirmation</Form.Label>
-              <Form.Control type="password" ref={passwordConfirmRef} required />
-            </Form.Group>
-            <Button disabled={loading} className="w-100 mt-2" type="submit">
-              Sign Up
-            </Button>
-            {success && (
-              <Alert className="h-25 mt-3" variant="success">
-                {success}
+      <div style={{ maxWidth: '400px', width: '40vw' }}>
+        <Card>
+          <Card.Body>
+            <h2 className="w-100 text-center mt-2">Sign Up</h2>
+            {error && (
+              <Alert className="h-25" variant="danger">
+                {error}
               </Alert>
             )}
-          </Form>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Already have an account? <Link to="/login">Log In</Link>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group id="name">
+                <Form.Label>User Name</Form.Label>
+                <Form.Control
+                  autoComplete="on"
+                  type="text"
+                  ref={nameRef}
+                  required
+                />
+              </Form.Group>
+              <Form.Group id="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  autoComplete="on"
+                  type="email"
+                  ref={emailRef}
+                  required
+                />
+              </Form.Group>
+              <Form.Group id="password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" ref={passwordRef} required />
+              </Form.Group>
+              <Form.Group id="password-confirm">
+                <Form.Label>Password Confirmation</Form.Label>
+                <Form.Control
+                  type="password"
+                  ref={passwordConfirmRef}
+                  required
+                />
+              </Form.Group>
+              <Button disabled={loading} className="w-100 mt-2" type="submit">
+                Sign Up
+              </Button>
+              {success && (
+                <Alert className="h-25 mt-3" variant="success">
+                  {success}
+                </Alert>
+              )}
+            </Form>
+          </Card.Body>
+        </Card>
+        <div className="w-100 text-center mt-2">
+          Already have an account? <Link to="/login">Log In</Link>
+        </div>
       </div>
     </>
   );

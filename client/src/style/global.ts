@@ -9,7 +9,6 @@ export const nav: any = {
     justifyContent: 'space-between',
     height: '50px',
     boxShadow: ' 1px 1px 1px #c1c1c1',
-    marginBottom: '32px',
     padding: '0 32px 0 32px',
     textDecoration: 'none',
   },
@@ -24,5 +23,5 @@ export const input: any = {
   borderRadius: '0.4rem',
   margin: '4px',
   padding: '8px',
-  width: '80vw',
+  width: '100%',
 };

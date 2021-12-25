@@ -55,14 +55,12 @@ export const AuthProvider: React.FC = ({ children }) => {
       });
   };
 
-  const updatePic = async (file: File) => {
+  const updatePic = (file: FormData) => {
     const config = {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     };
 
-    return api.patch('/users/avatar', { avatar: file }, config).then((res) => {
-      console.log(res);
-    });
+    return api.patch('/users/avatar', file, config);
   };
 
   const logout = () => {
@@ -83,8 +81,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     logout,
     currentUser,
     avatar,
-    setAvatar,
     updatePic,
+    setAvatar,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
