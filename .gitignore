@@ -1,7 +1,7 @@
 */node_modules
 node_modules
 pgdata/
-yarn-error.log
-yarn.lock
-.env
+*yarn-error.log
+*yarn.lock
+*.env
 !.env.example
