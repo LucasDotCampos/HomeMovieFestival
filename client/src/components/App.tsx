@@ -9,7 +9,6 @@ import Login from './Login';
 import Nav from './Navbar';
 import Dashboard from './Dashboard';
 import Movies from '../pages/Movies';
-import Home from '../pages/Home';
 import Newmovie from '../pages/Insert';
 
 // Bootstrap
@@ -29,8 +28,7 @@ function App() {
         >
           <div className="w-100 d-flex align-items-center justify-content-center">
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/movies" element={<Movies />} />
+              <Route path="/" element={<Movies />} />
               <Route path="/newmovie" element={<Newmovie />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
