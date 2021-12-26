@@ -62,11 +62,7 @@ export default class UsersController {
       await deleteUsers.execute({ id });
       return response.status(200).json([]);
     } catch (err) {
-      return response
-        .status(424)
-        .json(
-          "Houve falha na requisição ou este id já não pertence mais a nenhum usuário registrado no banco de dados."
-        );
+      return response.status(424).json(err.message);
     }
   }
 }
