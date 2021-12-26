@@ -2,4 +2,5 @@
 !.env.example
 node_modules
 !.gitignore
-
+yarn-error.log
+yarn.lock
