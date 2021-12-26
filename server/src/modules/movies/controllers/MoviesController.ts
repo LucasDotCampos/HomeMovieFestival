@@ -12,7 +12,7 @@ export default class MoviesController {
 
       const movies = await listMovies.execute();
 
-      return response.json(movies);
+      return response.status(200).json(movies);
     } catch (err) {
       return response.json(err.message);
     }

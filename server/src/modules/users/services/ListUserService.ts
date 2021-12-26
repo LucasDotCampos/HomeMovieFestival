@@ -1,18 +1,19 @@
 import { getCustomRepository } from "typeorm";
-import UserEntity from "../typeorm/entities/UserEntity";
-import UsersRepository from "../typeorm/repositories/UsersRepository";
+import MoviesEntity from "../../movies/typeorm/entities/MoviesEntity";
+import MoviesRepository from "../../movies/typeorm/repositories/MoviesRepository";
+import UserMoviesRepository from "../typeorm/repositories/UserMoviesRepository";
 
 interface IUser {
-  id: string;
+  userId: string;
 }
-class ListUserService {
-  public async execute({ id }: IUser): Promise<UserEntity> {
-    const usersRepository = getCustomRepository(UsersRepository);
+class ListMoviesUserService {
+  public async execute({ userId }: IUser): Promise<MoviesEntity[]> {
+    const userMoviesRepository = getCustomRepository(UserMoviesRepository);
 
-    const user = await usersRepository.findById(id);
+    const userMovies = await userMoviesRepository.findById(userId);
 
-    return user;
+    return userMovies;
   }
 }
 
-export default ListUserService;
+export default ListMoviesUserService;

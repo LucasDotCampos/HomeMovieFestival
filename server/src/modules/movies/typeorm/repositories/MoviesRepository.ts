@@ -14,10 +14,10 @@ class MoviesRepository extends Repository<MoviesEntity> {
     return movies;
   }
 
-  public async findById(id: string): Promise<MoviesEntity | undefined> {
+  public async findById(userId: string): Promise<MoviesEntity | undefined> {
     const movies = await this.findOne({
       where: {
-        id,
+        userId: userId,
       },
     });
 

@@ -1,19 +1,19 @@
 import { Request, Response } from "express";
 import CreateUserService from "../services/CreateUserServices";
 import ListUsersService from "../services/ListUsersServices";
-import ListUserService from "../services/ListUserService";
+import ListMoviesUserService from "../services/ListUserService";
 import DeleteUsersService from "../services/DeleteMoviesService";
 
 export default class UsersController {
-  public async searchByTitle(
+  public async searchById(
     request: Request,
     response: Response
   ): Promise<Response> {
     try {
-      const { id } = request.params;
-      const listUser = new ListUserService();
+      const { userId } = request.params;
+      const listMoviesUser = new ListMoviesUserService();
 
-      const users = await listUser.execute({ id });
+      const users = await listMoviesUser.execute({ userId });
 
       return response.status(200).json(users);
     } catch (err) {
