@@ -14,14 +14,6 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [token, setToken] = useState('');
   const getUser = JSON.parse(localStorage.getItem('user'));
 
-  const signUp = (username: string, email: string, password: string) => {
-    return api.post('users', {
-      name: username,
-      email: email,
-      password: password,
-    });
-  };
-
   useEffect(() => {
     if (localStorage.getItem('auth') == 'true') {
       setCurrentUser(getUser);
@@ -29,6 +21,14 @@ export const AuthProvider: React.FC = ({ children }) => {
       setAvatar(localStorage.getItem('avatar'));
     }
   }, []);
+
+  const signUp = (username: string, email: string, password: string) => {
+    return api.post('users', {
+      name: username,
+      email: email,
+      password: password,
+    });
+  };
 
   const login = (email: string, password: string) => {
     return api

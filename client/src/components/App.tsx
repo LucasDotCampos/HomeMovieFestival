@@ -22,8 +22,7 @@ function App() {
         <Container
           className=" d-flex align-items-center justify-content-center"
           style={{
-            minHeight: '100vh',
-            marginTop: '50px',
+            marginTop: '80px',
           }}
         >
           <div className="w-100 d-flex align-items-center justify-content-center">

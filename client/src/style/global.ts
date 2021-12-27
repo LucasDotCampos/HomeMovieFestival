@@ -24,4 +24,5 @@ export const input: any = {
   margin: '4px',
   padding: '8px',
   width: '100%',
+  color: 'black',
 };
