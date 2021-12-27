@@ -215,7 +215,7 @@
       }
     },
 
-    "/users/{id}": {
+    "/users/movies/{id}": {
       "get": {
         "summary": "You'll be able to get the user's registered movies",
         "tags": ["Movies"],

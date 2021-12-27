@@ -12,7 +12,7 @@ const usersAvatarController = new UserAvatarController();
 const upload = multer(multerConfig);
 
 usersRouter.post("/", usersController.create); //
-usersRouter.get("/:userId", usersController.searchById); //
+usersRouter.get("/movies/:userId", usersController.searchById); //
 usersRouter.get("/", usersController.usersList); //
 usersRouter.patch(
   "/avatar",
@@ -21,5 +21,6 @@ usersRouter.patch(
   usersAvatarController.update
 );
 usersRouter.delete("/:id", isAuthenticated, usersController.delete);
+usersRouter.get("/:id", usersController.userById);
 
 export default usersRouter;

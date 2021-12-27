@@ -8,6 +8,7 @@ interface IRequest {
   magnet: string;
   description: string;
   title: string;
+  releaseDate: string;
 }
 
 class UpdateMoviesService {
@@ -17,6 +18,7 @@ class UpdateMoviesService {
     image,
     magnet,
     title,
+    releaseDate,
   }: IRequest): Promise<MoviesEntity> {
     const moviesRepository = getCustomRepository(MoviesRepository);
 
@@ -26,16 +28,15 @@ class UpdateMoviesService {
       throw new Error("Movie not found.");
     }
 
-    const moviesExists = await moviesRepository.findByTitle(title);
-    if (moviesExists && title !== movies.title) {
-      throw new Error("There's already one movie with this name");
-    }
     movies.title = title;
     movies.description = description;
     movies.image = image;
     movies.magnet = magnet;
+    movies.releaseDate = releaseDate;
+    movies.id = id;
 
-    await moviesRepository.save(movies);
+    const retorno = await moviesRepository.save(movies);
+    console.log(retorno);
     return movies;
   }
 }
