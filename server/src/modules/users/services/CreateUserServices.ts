@@ -17,28 +17,24 @@ class CreateUserService {
     password,
     avatar,
   }: IRequest): Promise<UserEntity> {
-    try {
-      const usersRepository = getCustomRepository(UsersRepository);
-      const emailExists = await usersRepository.findByName(email);
+    const usersRepository = getCustomRepository(UsersRepository);
+    const emailExists = await usersRepository.findByemail(email);
 
-      if (emailExists) {
-        throw new Error("Email address already taken");
-      }
-
-      const hashedPassword = await hash(password, 8);
-
-      const user = usersRepository.create({
-        name,
-        email,
-        password: hashedPassword,
-        avatar,
-      });
-
-      await usersRepository.save(user);
-      return user;
-    } catch (err) {
-      console.log(err.message);
+    if (emailExists) {
+      throw new Error("Email address already exists");
     }
+
+    const hashedPassword = await hash(password, 8);
+
+    const user = usersRepository.create({
+      name,
+      email,
+      password: hashedPassword,
+      avatar,
+    });
+
+    await usersRepository.save(user);
+    return user;
   }
 }
 

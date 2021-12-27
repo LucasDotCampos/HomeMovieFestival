@@ -190,8 +190,8 @@
 
     "/users/{id}": {
       "get": {
-        "summary": "You'll be able to get an specific user by id",
-        "tags": ["Users"],
+        "summary": "You'll be able to get the user's registered movies",
+        "tags": ["Movies"],
         "parameters": [
           {
             "name": "id",
