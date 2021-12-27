@@ -1,4 +1,5 @@
 import { getCustomRepository } from "typeorm";
+import UserMoviesRepository from "../typeorm/repositories/UserMoviesRepository";
 import UsersRepository from "../typeorm/repositories/UsersRepository";
 
 interface IRequest {
@@ -13,6 +14,11 @@ class DeleteUsersService {
 
     if (!users) {
       throw new Error("User not found.");
+    } else if (users) {
+      const userMoviesRepository = getCustomRepository(UserMoviesRepository);
+
+      const userMovies = await userMoviesRepository.MoviesById(id);
+      await userMoviesRepository.remove(userMovies);
     }
 
     await usersRepository.remove(users);

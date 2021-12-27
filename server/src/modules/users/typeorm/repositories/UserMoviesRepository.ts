@@ -12,6 +12,16 @@ class UserMoviesRepository extends Repository<MoviesEntity> {
 
     return movies;
   }
+
+  public async MoviesById(id: string): Promise<MoviesEntity[] | undefined> {
+    const movies = await this.find({
+      where: {
+        userId: id,
+      },
+    });
+
+    return movies;
+  }
 }
 
 export default UserMoviesRepository;

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import CreateUserService from "../services/CreateUserServices";
 import ListUsersService from "../services/ListUsersServices";
 import ListMoviesUserService from "../services/ListUserService";
-import DeleteUsersService from "../services/DeleteMoviesService";
+import DeleteUsersService from "../services/DeleteUsersService";
 
 export default class UsersController {
   public async searchById(
