@@ -14,7 +14,6 @@ export default function isAuthenticated(
   next: NextFunction
 ): void {
   const authHeader = request.headers.authorization;
-  console.log(authHeader);
 
   if (!authHeader) {
     throw new Error("JWT Token is missing.");

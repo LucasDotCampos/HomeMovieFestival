@@ -187,6 +187,33 @@
         }
       }
     },
+    "/movies/{id}/": {
+      "delete": {
+        "summary": "You'll be able to delete the movie",
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Movies"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Delete Movie"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
 
     "/users/{id}": {
       "get": {
@@ -265,6 +292,14 @@
         }
       },
       "Delete User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "Delete Movie": {
         "type": "object",
         "properties": {
           "id": {
