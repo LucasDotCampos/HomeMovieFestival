@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Pagination } from 'react-bootstrap';
+import { Card, Pagination } from 'react-bootstrap';
 import { api } from '../services/api';
 import '../style/movies.scss';
 
@@ -29,14 +29,29 @@ export default function Movies() {
     <div id="movies-page">
       <div className="movie-list">
         {lista.map((lista) => (
-          <div key={lista.id} className="movie p-4" style={{ display: 'flex' }}>
-            <div>
+          <Card
+            key={lista.id}
+            className="movie p-4"
+            style={{ display: 'flex', marginBottom: '16px' }}
+          >
+            <div
+              style={{
+                background: '#15151575',
+                minWidth: '200px',
+                minHeight: '200px',
+                width: 'auto',
+                height: 'auto',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginRight: '16px',
+              }}
+            >
               <img
                 style={{
                   height: '100%',
                   maxHeight: '200px',
-                  maxWidth: '150px',
-                  marginRight: '16px',
+                  maxWidth: '200px',
                 }}
                 id="image"
                 src={`http://localhost:4000/files/${lista.image}`}
@@ -51,9 +66,10 @@ export default function Movies() {
               <p>{lista.magnet}</p>
               <p>releaseDate: {lista.releaseDate.substring(0, 10)}</p>
             </div>
-          </div>
+          </Card>
         ))}
       </div>
+      <br />
       <Pagination className="d-flex align-items-center justify-content-center">
         <Pagination.First />
         <Pagination.Prev />

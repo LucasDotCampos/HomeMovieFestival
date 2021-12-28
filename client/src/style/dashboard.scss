@@ -16,7 +16,9 @@
   border-radius: 50%;
   background-position: center;
   border: 1px solid rgb(0, 0, 0);
+  min-width: 100px;
 }
+
 #preview-image {
   filter: opacity(5%);
   height: 100px;
@@ -33,4 +35,23 @@
   max-height: 200px;
   width: auto;
   height: auto;
+}
+
+#delete-icon {
+  position: absolute;
+  right: 36px;
+  border: 1px solid red;
+  border-radius: 0.3rem;
+  background-color: red;
+  padding: 8px;
+}
+
+.user-tab {
+  @media only screen and(max-width: 768px) {
+    flex-direction: column;
+
+    .user-image-name {
+      margin-bottom: 16px;
+    }
+  }
 }

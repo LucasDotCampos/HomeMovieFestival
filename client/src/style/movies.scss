@@ -1,5 +1,8 @@
 * {
+  margin: 0;
+  padding: 0;
   color: white;
+  box-sizing: border-box;
 }
 
 body {
@@ -10,22 +13,26 @@ body {
   display: flex;
   flex-direction: column;
   color: rgb(36, 36, 36);
-  width: 100vw;
+  margin-top: 16px;
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: 1248px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
-  }
-  @media only screen and (min-width: 1920px) {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 32px;
   }
 
   .movie {
-    border-bottom: 1px solid gray;
-    border-right: 1px solid gray;
     display: flex;
+    flex-direction: row;
     align-items: center;
     word-break: break-all;
+    @media only screen and (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+}
+.user-movies {
+  @media only screen and (max-width: 700px) {
+    flex-direction: column;
   }
 }
