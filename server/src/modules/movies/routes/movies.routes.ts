@@ -16,7 +16,12 @@ moviesRouter.post(
   upload.single("image"),
   moviesController.create
 );
-moviesRouter.put("/:id", isAuthenticated, moviesController.update);
+moviesRouter.put(
+  "/:id",
+  isAuthenticated,
+  upload.single("image"),
+  moviesController.update
+);
 moviesRouter.delete("/:id", isAuthenticated, moviesController.delete);
 
 export default moviesRouter;

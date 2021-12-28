@@ -9,6 +9,7 @@ interface IRequest {
   description: string;
   title: string;
   releaseDate: string;
+  userId: any;
 }
 
 class UpdateMoviesService {
@@ -22,18 +23,17 @@ class UpdateMoviesService {
   }: IRequest): Promise<MoviesEntity> {
     const moviesRepository = getCustomRepository(MoviesRepository);
 
-    const movies = await moviesRepository.findOne(id);
+    const movies = await moviesRepository.findByMovieId(id);
 
     if (!movies) {
       throw new Error("Movie not found.");
     }
-
+    id = movies.id;
     movies.title = title;
     movies.description = description;
     movies.image = image;
     movies.magnet = magnet;
     movies.releaseDate = releaseDate;
-    movies.id = id;
 
     const retorno = await moviesRepository.save(movies);
     console.log(retorno);
