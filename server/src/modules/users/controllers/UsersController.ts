@@ -4,6 +4,7 @@ import ListUsersService from "../services/ListUsersServices";
 import ListMoviesUserService from "../services/ListMoviesUserService";
 import DeleteUsersService from "../services/DeleteUsersService";
 import UserInformationService from "../services/UserInformationService";
+import UpdateProfileService from "../services/UpdateProfileService";
 
 export default class UsersController {
   public async searchById(
@@ -80,6 +81,26 @@ export default class UsersController {
       return response.status(200).json([]);
     } catch (err) {
       return response.status(424).json(err.message);
+    }
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    try {
+      const userId = request.userId;
+      const { name, email, password, oldPassword } = request.body;
+
+      const updateProfile = new UpdateProfileService();
+
+      const user = await updateProfile.execute({
+        userId,
+        name,
+        email,
+        password,
+        oldPassword,
+      });
+      return response.json(user);
+    } catch (err) {
+      return response.json(err.message);
     }
   }
 }
