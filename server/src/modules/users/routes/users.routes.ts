@@ -4,6 +4,7 @@ import multer from "multer";
 import multerConfig from "../../../config/multerConfig";
 import isAuthenticated from "../../../shared/http/middlewares/isAuthenticated";
 import UserAvatarController from "../controllers/UserAvatarController";
+import UpdateProfileService from "../services/UpdateProfileService";
 
 const usersRouter = Router();
 const usersController = new UsersController();
@@ -22,5 +23,5 @@ usersRouter.patch(
 );
 usersRouter.delete("/:id", isAuthenticated, usersController.delete);
 usersRouter.get("/:id", usersController.userById);
-
+usersRouter.put("/", isAuthenticated, usersController.update);
 export default usersRouter;
