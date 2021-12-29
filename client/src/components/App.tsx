@@ -8,13 +8,15 @@ import Signup from './Signup';
 import Login from './Login';
 import Nav from './Navbar';
 import Dashboard from './Dashboard';
-import Movies from '../pages/Movies';
-import Newmovie from '../pages/NewMovie';
+import Movies from './Movies';
+import Newmovie from './NewMovie';
 import { PrivateRoute } from './PrivateRoute';
 
 // Bootstrap
 import { Container } from 'react-bootstrap';
 import NotFound from './NotFound';
+import { UpdateProfile } from './UpdateProfile';
+import { Footer } from './Footer';
 
 function App() {
   return (
@@ -40,10 +42,16 @@ function App() {
                 path="/dashboard"
                 element={<PrivateRoute element={Dashboard} />}
               />
+              <Route
+                path="/update-profile"
+                element={<PrivateRoute element={UpdateProfile} />}
+              />
+
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
         </Container>
+        <Footer />
       </Router>
     </AuthProvider>
   );

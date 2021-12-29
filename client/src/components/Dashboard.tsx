@@ -106,17 +106,6 @@ export default function Dashboard() {
     setAvatar(localStorage.getItem('avatar'));
   }, [localStorage.getItem('avatar')]);
 
-  const handleDeleteAccount = async () => {
-    try {
-      await api.delete(`/users/${userId}`, config);
-      console.log('account deleted');
-      navigate('/');
-      handleLogOut();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleLogOut = async () => {
     setError('');
 
@@ -286,11 +275,13 @@ export default function Dashboard() {
                         releaseDate: {moviesList.releaseDate.substring(0, 10)}
                       </p>
                     </div>
-                    <MdDeleteOutline
-                      id="delete-icon"
-                      size={40}
-                      onClick={() => handleMovieDelete(moviesList.id)}
-                    />
+                    <div>
+                      <MdDeleteOutline
+                        id="delete-icon"
+                        size={40}
+                        onClick={() => handleMovieDelete(moviesList.id)}
+                      />
+                    </div>
                   </Card>
                 ))}
               </div>
@@ -366,14 +357,6 @@ export default function Dashboard() {
               </Button>
             </Modal.Footer>
           </Modal>
-          <Button
-            className="bottom"
-            variant="danger"
-            style={{ margin: '4px' }}
-            onClick={handleDeleteAccount}
-          >
-            Delete Account
-          </Button>
         </div>
       </div>
     </>

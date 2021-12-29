@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -7,11 +8,13 @@ interface Props {
 }
 
 export const PrivateRoute: React.FC<Props> = ({ element: RouteElement }) => {
-  const { isLogged } = useAuth();
+  const isLogged = localStorage.getItem('auth');
 
-  if (isLogged) {
+  console.log(isLogged);
+
+  if (isLogged == 'true') {
     return <RouteElement />;
+  } else {
+    return <Navigate to="/login" />;
   }
-
-  return <Navigate to="/login" />;
 };

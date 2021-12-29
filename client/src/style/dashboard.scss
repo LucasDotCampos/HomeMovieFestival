@@ -38,12 +38,12 @@
 }
 
 #delete-icon {
-  position: absolute;
   right: 36px;
   border: 1px solid red;
   border-radius: 0.3rem;
   background-color: red;
   padding: 8px;
+  cursor: pointer;
 }
 
 .user-tab {
