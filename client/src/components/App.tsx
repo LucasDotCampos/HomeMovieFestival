@@ -9,10 +9,12 @@ import Login from './Login';
 import Nav from './Navbar';
 import Dashboard from './Dashboard';
 import Movies from '../pages/Movies';
-import Newmovie from '../pages/Insert';
+import Newmovie from '../pages/NewMovie';
+import { PrivateRoute } from './PrivateRoute';
 
 // Bootstrap
 import { Container } from 'react-bootstrap';
+import NotFound from './NotFound';
 
 function App() {
   return (
@@ -28,10 +30,17 @@ function App() {
           <div className="w-100 d-flex align-items-center justify-content-center">
             <Routes>
               <Route path="/" element={<Movies />} />
-              <Route path="/newmovie" element={<Newmovie />} />
+              <Route
+                path="/newmovie"
+                element={<PrivateRoute element={Newmovie} />}
+              />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/user" element={<Dashboard />} />
+              <Route
+                path="/dashboard"
+                element={<PrivateRoute element={Dashboard} />}
+              />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
         </Container>

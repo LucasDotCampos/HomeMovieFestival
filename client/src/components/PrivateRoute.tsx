@@ -1,28 +1,17 @@
-import { useEffect } from 'react';
-import { Navigate, Route, RouteProps, useLocation } from 'react-router';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
-export type ProtectedRouteProps = {
-  isAuthenticated: boolean;
-  authenticationPath: string;
-  redirectPath: string;
-  setRedirectPath: (path: string) => void;
-} & RouteProps;
-
-export default function ProtectedRoute({
-  isAuthenticated,
-  authenticationPath,
-  redirectPath,
-  ...routeProps
-}: ProtectedRouteProps) {
-  const currentLocation = useLocation();
-
-  if (isAuthenticated && redirectPath === currentLocation.pathname) {
-    return <Route {...routeProps} />;
-  } else {
-    return (
-      <Navigate
-        to={{ pathname: isAuthenticated ? redirectPath : authenticationPath }}
-      />
-    );
-  }
+interface Props {
+  element: React.ComponentType;
+  path?: string;
 }
+
+export const PrivateRoute: React.FC<Props> = ({ element: RouteElement }) => {
+  const { isLogged } = useAuth();
+
+  if (isLogged) {
+    return <RouteElement />;
+  }
+
+  return <Navigate to="/login" />;
+};

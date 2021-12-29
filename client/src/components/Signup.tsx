@@ -45,7 +45,10 @@ export default function Signup() {
 
   return (
     <>
-      <div style={{ maxWidth: '400px', width: '40vw' }}>
+      <div
+        className="center"
+        style={{ maxWidth: '400px', width: '40vw', minWidth: '300px' }}
+      >
         <Card>
           <Card.Body>
             <h2 className="w-100 text-center mt-2">Sign Up</h2>

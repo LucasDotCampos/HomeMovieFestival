@@ -1,9 +1,8 @@
 import { FormEvent, SyntheticEvent, useState } from 'react';
-import { Alert, Button, Card } from 'react-bootstrap';
+import { Alert, Button, Card, FormControl, InputGroup } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { api } from '../services/api';
-import { input } from '../style/global';
 
 export default function Newmovie() {
   const [title, setTitle] = useState('');
@@ -59,7 +58,7 @@ export default function Newmovie() {
   }
 
   return (
-    <div style={{ maxWidth: '400px', width: '40vw' }}>
+    <div className="center" style={{ maxWidth: '400px', width: '40vw' }}>
       {!isLogged ? (
         <Alert
           className="d-flex align-items-center justify-content-center flex-column "
@@ -90,8 +89,8 @@ export default function Newmovie() {
                   encType="multipart/form"
                   onSubmit={sendData}
                 >
-                  <input
-                    style={input}
+                  <FormControl
+                    className="input"
                     type="text"
                     name="title"
                     placeholder="Title"
@@ -100,8 +99,8 @@ export default function Newmovie() {
                     autoComplete="on"
                     onChange={(e) => setTitle(e.target.value)}
                   />
-                  <input
-                    style={input}
+                  <FormControl
+                    className="input"
                     type="text"
                     name="description"
                     value={description}
@@ -109,8 +108,8 @@ export default function Newmovie() {
                     placeholder="Description"
                     onChange={(e) => setDescription(e.target.value)}
                   />
-                  <input
-                    style={input}
+                  <FormControl
+                    className="input"
                     type="date"
                     name="release"
                     value={releaseDate}
@@ -118,8 +117,8 @@ export default function Newmovie() {
                     placeholder="Release Date"
                     onChange={(e) => setReleaseDate(e.target.value)}
                   />
-                  <input
-                    style={input}
+                  <FormControl
+                    className="input"
                     type="text"
                     name="magnet"
                     value={magnet}
@@ -127,8 +126,7 @@ export default function Newmovie() {
                     placeholder="Magnet"
                     onChange={(e) => setMagnet(e.target.value)}
                   />
-                  <input
-                    style={input}
+                  <FormControl
                     required
                     type="file"
                     onChange={(e: SyntheticEvent) =>
