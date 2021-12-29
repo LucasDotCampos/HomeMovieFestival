@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const Pagination = ({ moviesPerPage, totalMovies }) => {
+export const Pagination = ({ moviesPerPage, totalMovies, paginate }) => {
   const pageNumbers = [];
 
-  for (let i = 1; i <= totalMovies / moviesPerPage; i++) {
+  for (let i = 1; i <= totalMovies / moviesPerPage + 1; i++) {
     pageNumbers.push(i);
   }
 
@@ -12,7 +12,13 @@ export const Pagination = ({ moviesPerPage, totalMovies }) => {
       <ul className="pagination">
         {pageNumbers.map((number) => (
           <li key={number} className="page-item">
-            <a href="!#" className="page-link">
+            <a
+              onClick={() => {
+                paginate(number);
+              }}
+              href="!#"
+              className="page-link"
+            >
               {number}
             </a>
           </li>

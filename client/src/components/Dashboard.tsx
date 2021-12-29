@@ -173,6 +173,8 @@ export default function Dashboard() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexDirection: 'column',
+                  marginLeft: '16px',
+                  marginRight: '16px',
                 }}
               >
                 <div
@@ -252,6 +254,7 @@ export default function Dashboard() {
                         alignItems: 'center',
                         justifyContent: 'center',
                         marginRight: '16px',
+                        marginBottom: '16px',
                       }}
                     >
                       <img

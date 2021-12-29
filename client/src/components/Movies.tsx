@@ -18,7 +18,7 @@ export default function Movies() {
   const [movies, setMovies] = useState<Imovies[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [moviesPerPage, setMoviesPerPage] = useState(4);
+  const [moviesPerPage] = useState(10);
 
   useEffect(() => {
     const getMovies = async () => {
@@ -35,10 +35,17 @@ export default function Movies() {
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
   const currentMovies = movies.slice(indexOfFirstMovie, indexOfLastMovie);
 
+  //* Change Page
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   return (
     <div className="d-flex flex-column">
       <MoviesList movies={currentMovies} loading={loading} />
-      <Pagination moviesPerPage={moviesPerPage} totalMovies={movies.length} />
+      <Pagination
+        moviesPerPage={moviesPerPage}
+        totalMovies={movies.length}
+        paginate={paginate}
+      />
     </div>
   );
 }

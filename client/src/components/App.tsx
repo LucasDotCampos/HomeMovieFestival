@@ -22,36 +22,38 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <Nav />
-        <Container
-          className=" d-flex align-items-center justify-content-center"
-          style={{
-            marginTop: '80px',
-          }}
-        >
-          <div className="w-100 d-flex align-items-center justify-content-center">
-            <Routes>
-              <Route path="/" element={<Movies />} />
-              <Route
-                path="/newmovie"
-                element={<PrivateRoute element={Newmovie} />}
-              />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route
-                path="/dashboard"
-                element={<PrivateRoute element={Dashboard} />}
-              />
-              <Route
-                path="/update-profile"
-                element={<PrivateRoute element={UpdateProfile} />}
-              />
+        <div className="d-flex align-items-center flex-column justify-content-between h-100">
+          <Nav />
+          <Container
+            className="d-flex align-items-center justify-content-center"
+            style={{
+              marginTop: '80px',
+            }}
+          >
+            <div className="w-100 d-flex align-items-center justify-content-center">
+              <Routes>
+                <Route path="/" element={<Movies />} />
+                <Route
+                  path="/newmovie"
+                  element={<PrivateRoute element={Newmovie} />}
+                />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route
+                  path="/dashboard"
+                  element={<PrivateRoute element={Dashboard} />}
+                />
+                <Route
+                  path="/update-profile"
+                  element={<PrivateRoute element={UpdateProfile} />}
+                />
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </div>
-        </Container>
-        <Footer />
+                <Route path="*" element={<Movies />} />
+              </Routes>
+            </div>
+          </Container>
+          <Footer />
+        </div>
       </Router>
     </AuthProvider>
   );

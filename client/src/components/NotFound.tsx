@@ -3,10 +3,10 @@ import { Alert } from 'react-bootstrap';
 
 export default function NotFound() {
   return (
-    <div>
+    <div style={{ height: '100vh' }}>
       <Alert
         style={{
-          position: 'absolute',
+          position: 'fixed',
           right: '50%',
           transform: 'translate(50%)',
           bottom: '50%',
