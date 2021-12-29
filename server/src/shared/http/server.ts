@@ -10,12 +10,13 @@ import swaggerDocs from "./swagger.json";
 
 const app = express();
 
+app.use(express.static(path.resolve(__dirname, "./client/build")));
 app.use(cors());
 app.use(express.json());
 app.use(routes);
 app.use(
-  "/files",
-  express.static(path.resolve(__dirname, "..", "..", "..", "uploads"))
+    "/files",
+    express.static(path.resolve(__dirname, "..", "..", "..", "uploads"))
 );
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
