@@ -8,7 +8,7 @@ export const MoviesList = ({ movies, loading }) => {
         <Spinner
           animation="border"
           variant="light"
-          style={{ height: '50px', position: 'absolute', bottom: '50%' }}
+          style={{ height: '50px', position: 'fixed', bottom: '50%' }}
         />
       </>
     );

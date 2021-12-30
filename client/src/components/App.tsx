@@ -14,7 +14,6 @@ import { PrivateRoute } from './PrivateRoute';
 
 // Bootstrap
 import { Container } from 'react-bootstrap';
-import NotFound from './NotFound';
 import { UpdateProfile } from './UpdateProfile';
 import { Footer } from './Footer';
 
