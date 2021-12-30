@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
-import { Card, Dropdown } from 'react-bootstrap';
-import { api } from '../services/api';
-import '../style/movies.scss';
-import { MoviesList } from './MoviesList';
-import { Pagination } from './Pagination';
+import React, { useEffect, useState } from "react";
+import { Dropdown } from "react-bootstrap";
+import { api } from "../services/api";
+import "../style/movies.scss";
+import { MoviesList } from "./MoviesList";
+import { Pagination } from "./Pagination";
 
 interface Imovies {
   id: string;
@@ -18,18 +18,21 @@ export default function Movies() {
   const [movies, setMovies] = useState<Imovies[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(
-    parseInt(window.location.pathname.replace('/', ''))
+    parseInt(window.location.pathname.replace("/", ""))
   );
   const [moviesPerPage, setMoviesPerPage] = useState(5);
 
   useEffect(() => {
     const getMovies = async () => {
       setLoading(true);
-      const res = await api.get('movies');
+      const res = await api.get("movies");
       setMovies(res.data);
       setLoading(false);
     };
     getMovies();
+    if (isNaN(currentPage)) {
+      setCurrentPage(1);
+    }
   }, []);
 
   //* Get Current Movies
@@ -45,39 +48,43 @@ export default function Movies() {
   return (
     <div className="d-flex flex-column align-items-center justify-content-center">
       <MoviesList movies={currentMovies} loading={loading} />
-      <Pagination
-        moviesPerPage={moviesPerPage}
-        totalMovies={movies.length}
-        paginate={paginate}
-      />
-      <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-          Items per page
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item
-            onClick={() => {
-              setMoviesPerPage(5), window.scrollTo(0, 0);
-            }}
-          >
-            5
-          </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() => {
-              setMoviesPerPage(10), window.scrollTo(0, 0);
-            }}
-          >
-            10
-          </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() => {
-              setMoviesPerPage(15), window.scrollTo(0, 0);
-            }}
-          >
-            15
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+      {!loading && (
+        <>
+          <Pagination
+            moviesPerPage={moviesPerPage}
+            totalMovies={movies.length}
+            paginate={paginate}
+          />
+          <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              Items per page
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item
+                onClick={() => {
+                  setMoviesPerPage(5), window.scrollTo(0, 0);
+                }}
+              >
+                5
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => {
+                  setMoviesPerPage(10), window.scrollTo(0, 0);
+                }}
+              >
+                10
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => {
+                  setMoviesPerPage(15), window.scrollTo(0, 0);
+                }}
+              >
+                15
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </>
+      )}
     </div>
   );
 }
