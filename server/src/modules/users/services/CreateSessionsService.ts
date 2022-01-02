@@ -8,48 +8,63 @@ import "dotenv/config";
 import { response } from "express";
 
 interface IRequest {
-  email: string;
-  password: string;
+    email: string;
+    password: string;
 }
 
 interface IResponse {
-  user: UserEntity;
-  token: string;
+    user: UserEntity;
+    token: string;
+    message: string;
 }
 class CreateSessionsService {
-  public async execute({
-    email,
-    password,
-  }: IRequest): Promise<IResponse | string> {
-    try {
-      const usersRepository = getCustomRepository(UsersRepository);
-      const user = await usersRepository.findByemail(email);
+    public async execute({
+        email,
+        password,
+    }: IRequest): Promise<IResponse | string> {
+        try {
+            const usersRepository = getCustomRepository(UsersRepository);
+            const user = await usersRepository.findByemail(email);
+            let message = "Success";
 
-      if (!user) {
-        response.status(400).send({ error: "email/password incorrect" });
-      }
+            if (!user) {
+                message = "Invalid email or password";
 
-      const passwordConfirmed = await compare(password, user.password);
+                console.log(message);
 
-      if (!passwordConfirmed) {
-        response.status(400).send({ error: "email/password incorrect" });
-      }
+                response.status(400);
 
-      const token = sign({}, authConfig.jwt.secret, {
-        subject: user.id,
-        expiresIn: authConfig.jwt.expiresIn,
-      });
+                return message;
+            }
 
-      delete user.password;
+            const passwordConfirmed = await compare(password, user.password);
 
-      return {
-        user,
-        token,
-      };
-    } catch (err) {
-      console.log(err.message);
+            if (!passwordConfirmed) {
+                message = "Invalid email or password";
+
+                console.log(message);
+
+                response.status(400);
+
+                return message;
+            }
+
+            const token = sign({}, authConfig.jwt.secret, {
+                subject: user.id,
+                expiresIn: authConfig.jwt.expiresIn,
+            });
+
+            delete user.password;
+
+            return {
+                user,
+                token,
+                message,
+            };
+        } catch (err) {
+            console.log(err.message);
+        }
     }
-  }
 }
 
 export default CreateSessionsService;

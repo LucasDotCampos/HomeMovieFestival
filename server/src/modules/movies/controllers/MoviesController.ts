@@ -1,9 +1,12 @@
 import { Request, Response } from "express";
+import { getCustomRepository } from "typeorm";
 import CreateMoviesService from "../services/CreateMoviesService";
 import DeleteMoviesService from "../services/DeleteMoviesService";
 import ListMoviesService from "../services/ListMoviesService";
 import ShowMovieService from "../services/ShowMoviesService";
 import UpdateMoviesService from "../services/UpdateMoviesService";
+import MoviesEntity from "../typeorm/entities/MoviesEntity";
+import MoviesRepository from "../typeorm/repositories/MoviesRepository";
 
 export default class MoviesController {
     public async index(
@@ -35,10 +38,16 @@ export default class MoviesController {
     public async create(
         request: Request,
         response: Response
-    ): Promise<Response> {
+    ): Promise<Response | MoviesEntity> {
         const { description, magnet, title, releaseDate } = request.body;
         try {
             const createMovies = new CreateMoviesService();
+            const moviesRepository = getCustomRepository(MoviesRepository);
+            const moviesExists = await moviesRepository.findByTitle(title);
+
+            if (moviesExists) {
+                response.status(400);
+            }
 
             const movies = await createMovies.execute({
                 description,

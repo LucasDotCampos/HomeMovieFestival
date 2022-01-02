@@ -1,11 +1,14 @@
 import { Request, Response } from "express";
+import { getCustomRepository } from "typeorm";
 import CreateSessionsService from "../services/CreateSessionsService";
+import UserEntity from "../typeorm/entities/UserEntity";
+import UsersRepository from "../typeorm/repositories/UsersRepository";
 
 export default class SessionsController {
     public async create(
         request: Request,
         response: Response
-    ): Promise<Response> {
+    ): Promise<Response | UserEntity> {
         try {
             const { email, password } = request.body;
 
@@ -16,10 +19,8 @@ export default class SessionsController {
                 password,
             });
 
-            response.status(400).json({
-                message: "Login Failed",
-                status: response.statusCode,
-            });
+            console.log(user);
+            
 
             return response.json(user);
         } catch (err) {
