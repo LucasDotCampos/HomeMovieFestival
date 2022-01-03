@@ -35,7 +35,6 @@
 
 ## Requirements
 - Node.js
-- Create a postgres server (se tiver Docker instalado basta usar o comando que eu vou deixar abaixo):
 - Create a postgres server (if you have Docker installed, you should use the command I'll' let below)
 "docker run --name postgres -e POSTGRES_PASSWORD=admin -p 5432:5432 -d postgres"
 - Delete files' extension ".example": "ormconfig.json.example" and ".env.example"
