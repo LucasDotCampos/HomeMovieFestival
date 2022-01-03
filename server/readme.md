@@ -35,16 +35,14 @@
 
 ## Requirements
 - Node.js
-- Create a postgres server (if you have Docker installed, you should use the command I'll' let below)
-"docker run --name postgres -e POSTGRES_PASSWORD=admin -p 5432:5432 -d postgres"
+- Create a postgres server (if you have Docker installed, you should use the following command)
+- <code>docker run --name postgres -e POSTGRES_PASSWORD=admin -p 5432:5432 -d postgres</code>
 - Delete files' extension ".example": "ormconfig.json.example" and ".env.example"
 - Execute "dev" script: "npm run dev"
 
 ## Swagger documentation:
-- You only have to enter http://localhost:5555/docs link on your browser and you'll be able to use all the routes that will execute de application functions
-
+- You just have to enter http://localhost:5555/docs link on your browser and you'll be able to use all the routes that will execute de application functions
 
 ## How to utilize authorized routes:
 - After you have registered a user, click on the /sessions route to log in the application and you'll the user information on return.
-- Copie o token sem as aspas, clique no botão "authorize" na parte de cima da página e cole-o.
 - Copy the token without quotation marks and click on the "authorize" button up on the page and past the token on it
