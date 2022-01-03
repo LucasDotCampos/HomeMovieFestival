@@ -16,3 +16,7 @@
 ## Documentação:
 - Basta entrar link http://localhost:5555/docs no seu navegador e você será capaz de usar todas as rotas que executarão as funções presentes na aplicação.
 
+## Como utilizar as rotas que precisam de autenticação:
+- Depois de registrar o usuário, utilize a rota /sessions para logar na aplicação e você terá as informações do usuário no retorno.
+- Copie o token sem as aspas, clique no botão "authorize" na parte de cima da página e cole-o.
+

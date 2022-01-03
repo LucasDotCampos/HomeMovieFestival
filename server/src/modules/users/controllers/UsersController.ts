@@ -55,7 +55,7 @@ export default class UsersController {
 
       return response.status(200).json(user);
     } catch (err) {
-      return response.json(err.message);
+      return response.status(409).json(err.message);
     }
   }
 
