@@ -2,6 +2,7 @@ import { getCustomRepository } from "typeorm";
 import UserEntity from "../typeorm/entities/UserEntity";
 import UsersRepository from "../typeorm/repositories/UsersRepository";
 import { hash } from "bcryptjs";
+import { STATUS_CODES } from "http";
 
 interface IRequest {
   name: string;

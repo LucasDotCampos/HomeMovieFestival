@@ -20,7 +20,7 @@ export default class MoviesController {
 
             return response.status(200).json(movies);
         } catch (err) {
-            return response.json(err.message);
+            return response.status(409).json(err.message);
         }
     }
 

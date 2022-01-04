@@ -16,12 +16,12 @@ usersRouter.post("/", usersController.create); //
 usersRouter.get("/movies/:userId", usersController.searchById); //
 usersRouter.get("/", usersController.usersList); //
 usersRouter.patch(
-  "/avatar",
-  isAuthenticated,
-  upload.single("avatar"),
-  usersAvatarController.update
+    "/avatar",
+    isAuthenticated,
+    upload.single("avatar"),
+    usersAvatarController.update
 );
 usersRouter.delete("/:id", isAuthenticated, usersController.delete);
 usersRouter.get("/:id", usersController.userById);
-usersRouter.put("/", isAuthenticated, usersController.update);
+usersRouter.put("/:id", isAuthenticated, usersController.update);
 export default usersRouter;
