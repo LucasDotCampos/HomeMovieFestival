@@ -1,351 +1,469 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "Home Movies Festival",
-    "description": "Api made to share your own movies",
-    "termsOfService": "http:localhost:4000/terms",
-    "contact": {
-      "email": "lucasdotcampos@gmail.com"
-    },
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "http://localhost:5555/",
-      "description": "host server"
-    }
-  ],
-  "paths": {
-    "/users": {
-      "post": {
-        "summary": "Route to register an user",
-        "tags": ["Users"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Create User"
-              },
-              "examples": {
-                "Create User": {
-                  "value": {
-                    "name": "john doe",
-                    "email": "johndoe@oscar.com",
-                    "password": "SenhaSegura123@!#"
-                  }
-                }
-              }
-            }
-          }
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Home Movies Festival",
+        "description": "Api made to share your own movies",
+        "termsOfService": "http:localhost:4000/terms",
+        "contact": {
+            "email": "lucasdotcampos@gmail.com"
         },
-        "responses": {
-          "409": {
-            "description": "Email already exists"
-          },
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/Create User"
-                }
-              }
-            }
-          }
-        }
-      },
-
-      "get": {
-        "summary": "You'll get a list of all the registered users",
-        "tags": ["Users"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/Create User"
-                }
-              }
-            }
-          }
-        }
-      }
+        "version": "1.0.0"
     },
-    "/sessions": {
-      "post": {
-        "summary": "Route to validate an user",
-        "tags": ["Users"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Validate User"
-              },
-              "examples": {
-                "Validate User": {
-                  "value": {
-                    "email": "johndoe@oscar.com",
-                    "password": "SenhaSegura123@!#"
-                  }
+    "servers": [
+        {
+            "url": "http://localhost:5555/",
+            "description": "host server"
+        }
+    ],
+    "paths": {
+        "/users": {
+            "post": {
+                "summary": "Route to register an user",
+                "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Create User"
+                            },
+                            "examples": {
+                                "Create User": {
+                                    "value": {
+                                        "name": "john doe",
+                                        "email": "johndoe@oscar.com",
+                                        "password": "SenhaSegura123@!#"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "409": {
+                        "description": "Email already exists"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Create User"
+                                }
+                            }
+                        }
+                    }
                 }
-              }
+            },
+
+            "get": {
+                "summary": "You'll get a list of all the registered users",
+                "tags": ["Users"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Create User"
+                                }
+                            }
+                        }
+                    }
+                }
             }
-          }
         },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/Validate User"
+        "/sessions": {
+            "post": {
+                "summary": "Route to validate an user",
+                "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Validate User"
+                            },
+                            "examples": {
+                                "Validate User": {
+                                    "value": {
+                                        "email": "johndoe@oscar.com",
+                                        "password": "SenhaSegura123@!#"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Validate User"
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
+        },
+
+        "/movies/createmovie": {
+            "post": {
+                "summary": "Route to register a movie",
+                "tags": ["Movies"],
+                "security": [{ "bearerAuth": [] }],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "$ref": "#/components/schemas/Create Movie"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Create Movie"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/movies/{id}": {
+            "put": {
+                "summary": "Route to update a movie",
+                "tags": ["Movies"],
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "$ref": "#/components/schemas/Update Movie"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Update Movie"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/": {
+            "put": {
+                "summary": "Route to register a movie",
+                "tags": ["Users"],
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "examples": {
+                    "Update User": {
+                        "value": {
+                            "name": "updateduser",
+                            "email": "updatedemail@update.com",
+                            "password": "updatedpassword"
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "$ref": "#/components/schemas/Update User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Update User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/movies": {
+            "get": {
+                "summary": "You'll get a list of all the registered movies",
+                "tags": ["Movies"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Create Movie"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}/": {
+            "delete": {
+                "summary": "You'll be able to delete an specific user by id",
+                "security": [{ "bearerAuth": [] }],
+                "tags": ["Users"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Delete User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/movies/{id}/": {
+            "delete": {
+                "summary": "You'll be able to delete the movie",
+                "security": [{ "bearerAuth": [] }],
+                "tags": ["Movies"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Delete Movie"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/users/movies/{id}": {
+            "get": {
+                "summary": "You'll be able to get the user's registered movies",
+                "tags": ["Movies"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Create User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/users/avatar": {
+            "patch": {
+                "summary": "Route to update user's avatar",
+                "tags": ["Users"],
+                "security": [{ "bearerAuth": [] }],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "$ref": "#/components/schemas/Avatar Patch"
+                            }
+                        }
+                    }
+                }
+            }
         }
-      }
     },
 
-    "/movies/createmovie": {
-      "post": {
-        "summary": "Route to register a movie",
-        "tags": ["Movies"],
-        "security": [{ "bearerAuth": [] }],
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
+    "components": {
+        "schemas": {
+            "Create User": {
                 "type": "object",
-                "$ref": "#/components/schemas/Create Movie"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/Create Movie"
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "type": "string"
+                    }
                 }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/movies": {
-      "get": {
-        "summary": "You'll get a list of all the registered movies",
-        "tags": ["Movies"],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/Create Movie"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/users/{id}/": {
-      "delete": {
-        "summary": "You'll be able to delete an specific user by id",
-        "security": [{ "bearerAuth": [] }],
-        "tags": ["Users"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/Delete User"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/movies/{id}/": {
-      "delete": {
-        "summary": "You'll be able to delete the movie",
-        "security": [{ "bearerAuth": [] }],
-        "tags": ["Movies"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/Delete Movie"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-
-    "/users/movies/{id}": {
-      "get": {
-        "summary": "You'll be able to get the user's registered movies",
-        "tags": ["Movies"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/Create User"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-
-    "/users/avatar": {
-      "patch": {
-        "summary": "Route to update user's avatar",
-        "tags": ["Users"],
-        "security": [{ "bearerAuth": [] }],
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
+            },
+            "Update User": {
                 "type": "object",
-                "$ref": "#/components/schemas/Avatar Patch"
-              }
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Validate User": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Delete User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Delete Movie": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            },
+
+            "Create Movie": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "releaseDate": {
+                        "type": "string"
+                    },
+                    "magnet": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string",
+                        "format": "binary"
+                    }
+                }
+            },
+            "Update Movie": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "releaseDate": {
+                        "type": "string"
+                    },
+                    "magnet": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string",
+                        "format": "binary"
+                    }
+                }
+            },
+
+            "Avatar Patch": {
+                "type": "object",
+                "properties": {
+                    "avatar": {
+                        "type": "string",
+                        "format": "binary"
+                    }
+                }
             }
-          }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
         }
-      }
     }
-  },
-
-  "components": {
-    "schemas": {
-      "Create User": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          },
-          "avatar": {
-            "type": "string"
-          }
-        }
-      },
-      "Validate User": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          }
-        }
-      },
-      "Delete User": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          }
-        }
-      },
-      "Delete Movie": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          }
-        }
-      },
-
-      "Create Movie": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "releaseDate": {
-            "type": "string"
-          },
-          "magnet": {
-            "type": "string"
-          },
-          "image": {
-            "type": "string",
-            "format": "binary"
-          }
-        }
-      },
-
-      "Avatar Patch": {
-        "type": "object",
-        "properties": {
-          "avatar": {
-            "type": "string",
-            "format": "binary"
-          }
-        }
-      }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    }
-  }
 }
