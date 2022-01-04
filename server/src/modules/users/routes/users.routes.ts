@@ -23,5 +23,5 @@ usersRouter.patch(
 );
 usersRouter.delete("/:id", isAuthenticated, usersController.delete);
 usersRouter.get("/:id", usersController.userById);
-usersRouter.put("/:id", isAuthenticated, usersController.update);
+usersRouter.put("/:userId", isAuthenticated, usersController.update);
 export default usersRouter;

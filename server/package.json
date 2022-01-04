@@ -1,12 +1,11 @@
 {
-    "name": "vendasapi",
+    "name": "homemoviefestival",
     "version": "1.0.0",
     "main": "index.js",
     "license": "MIT",
     "scripts": {
         "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --files src/shared/http/server.ts",
-        "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
-        "start": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --files src/shared/http/server.ts"
+        "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
     },
     "devDependencies": {
         "@types/cors": "^2.8.12",

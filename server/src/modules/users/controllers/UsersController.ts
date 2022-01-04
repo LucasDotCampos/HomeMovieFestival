@@ -49,28 +49,6 @@ export default class UsersController {
             const { name, email, password } = request.body;
 
             const createUser = new CreateUserService();
-<<<<<<< HEAD
-
-            const usersRepository = getCustomRepository(UsersRepository);
-            const emailExists = await usersRepository.findByemail(email);
-
-            if (emailExists) {
-                response.status(400);
-            }
-
-            const user = await createUser.execute({
-                name,
-                email,
-                password,
-                avatar: "profilepic.png",
-            });
-
-            delete user.password;
-
-            return response.status(200).json(user);
-        } catch (err) {
-            return response.json(err.message);
-=======
             const user = await createUser.execute({
                 name,
                 email,
@@ -83,7 +61,6 @@ export default class UsersController {
             return response.status(200).json(user);
         } catch (err) {
             return response.status(409).json(err.message);
->>>>>>> d5ad298bcb08797eea89e8cf3bd2e8c4dbd0c902
         }
     }
 
@@ -120,7 +97,7 @@ export default class UsersController {
         response: Response
     ): Promise<Response> {
         try {
-            const userId = request.userId;
+            const { userId } = request.params;
             const { name, email, password, oldPassword } = request.body;
 
             const updateProfile = new UpdateProfileService();
@@ -134,10 +111,6 @@ export default class UsersController {
             });
             return response.json(user);
         } catch (err) {
-<<<<<<< HEAD
-=======
-            console.log(err.message);
->>>>>>> d5ad298bcb08797eea89e8cf3bd2e8c4dbd0c902
             return response.json(err.message);
         }
     }

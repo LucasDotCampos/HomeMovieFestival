@@ -3,35 +3,35 @@ import UserEntity from "../entities/UserEntity";
 
 @EntityRepository(UserEntity)
 class UsersRepository extends Repository<UserEntity> {
-  public async findByName(name: string): Promise<UserEntity | undefined> {
-    const user = await this.findOne({
-      where: {
-        name,
-      },
-    });
+    public async findByName(name: string): Promise<UserEntity | undefined> {
+        const user = await this.findOne({
+            where: {
+                name,
+            },
+        });
 
-    return user;
-  }
+        return user;
+    }
 
-  public async findById(id: string): Promise<UserEntity | undefined> {
-    const user = await this.findOne({
-      where: {
-        id,
-      },
-    });
+    public async findById(userId: string): Promise<UserEntity | undefined> {
+        const user = await this.findOne({
+            where: {
+                id: userId,
+            },
+        });
 
-    return user;
-  }
+        return user;
+    }
 
-  public async findByemail(email: string): Promise<UserEntity | undefined> {
-    const user = await this.findOne({
-      where: {
-        email,
-      },
-    });
+    public async findByemail(email: string): Promise<UserEntity | undefined> {
+        const user = await this.findOne({
+            where: {
+                email,
+            },
+        });
 
-    return user;
-  }
+        return user;
+    }
 }
 
 export default UsersRepository;

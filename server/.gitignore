@@ -4,3 +4,5 @@ node_modules
 !.gitignore
 yarn-error.log
 yarn.lock
+ormconfig.json
+!ormconfig.json.example
