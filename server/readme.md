@@ -1,7 +1,6 @@
-<img src="headerimage.webp" alt="people working on a movie set">
-
 # Home Movie Festival
 
+<img src="headerimage.webp" alt="people working on a movie set">
 ###### PT-BR
 
 ## 🔧 Funçoes:
@@ -28,10 +27,9 @@
 
 ---
 
-<img src="headerimage.webp" alt="people working on a movie set">
-
 # Home Movie Festival
 
+<img src="headerimage.webp" alt="people working on a movie set">
 ###### EN
 
 ## 🔧 Functions:
