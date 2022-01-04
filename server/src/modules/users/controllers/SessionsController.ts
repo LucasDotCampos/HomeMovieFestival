@@ -19,9 +19,6 @@ export default class SessionsController {
                 password,
             });
 
-            console.log(user);
-            
-
             return response.json(user);
         } catch (err) {
             return response.json(err.message);
