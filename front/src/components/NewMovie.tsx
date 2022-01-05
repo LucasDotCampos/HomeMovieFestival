@@ -24,6 +24,7 @@ export default function Newmovie() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [uploadFormError, setUploadFormError] = useState("");
+  const [valid, setValid] = useState(false);
 
   const navigate = useNavigate();
 
@@ -62,6 +63,7 @@ export default function Newmovie() {
     }
 
     setImage(file[0]);
+    setValid(true);
   };
 
   async function sendData(event: FormEvent) {
@@ -173,6 +175,7 @@ export default function Newmovie() {
                 </p>
                 <div>
                   <Button
+                    disabled={!valid}
                     style={{
                       border: "1px solid #00808053",
                       marginTop: "8px",
