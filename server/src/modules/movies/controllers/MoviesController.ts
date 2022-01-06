@@ -31,7 +31,7 @@ export default class MoviesController {
             const movie = await showMovie.execute({ title });
             return response.json(movie);
         } catch (err) {
-            return response.json(err.message);
+            return response.status(404).json(err);
         }
     }
 
@@ -46,7 +46,7 @@ export default class MoviesController {
             const moviesExists = await moviesRepository.findByTitle(title);
 
             if (moviesExists) {
-                response.status(400);
+                response.status(409);
             }
 
             const movies = await createMovies.execute({
@@ -83,7 +83,7 @@ export default class MoviesController {
             });
             return response.json(movie);
         } catch (err) {
-            return response.status(400).json(err.message);
+            return response.status(404).json(err.message);
         }
     }
 
@@ -97,7 +97,7 @@ export default class MoviesController {
             await deleteMovie.execute({ id });
             return response.json([]);
         } catch (err) {
-            return response.json(err.message);
+            return response.status(404).json(err.message);
         }
     }
 }

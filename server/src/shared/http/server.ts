@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import express, { NextFunction, Request, Response } from "express";
+import express from "express";
 import cors from "cors";
 import routes from "./routes";
 import "dotenv/config";
@@ -13,6 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(routes);
+
 app.use(
     "/files",
     express.static(path.resolve(__dirname, "..", "..", "..", "uploads"))
@@ -21,5 +22,12 @@ app.use(
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 const PORT = process.env.PORT;
+const optionalPORT = 5555;
 
-app.listen(PORT, () => console.log(`Server is running on ${PORT} port 🚀`));
+app.listen(PORT || optionalPORT, () =>
+    console.log(
+        `Server is running on ${
+            PORT === undefined ? optionalPORT : optionalPORT
+        } port 🚀`
+    )
+);

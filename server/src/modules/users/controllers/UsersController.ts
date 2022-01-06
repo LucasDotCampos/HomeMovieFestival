@@ -68,14 +68,10 @@ export default class UsersController {
         request: Request,
         response: Response
     ): Promise<Response> {
-        try {
-            const ListUsersServices = new ListUsersService();
+        const ListUsersServices = new ListUsersService();
 
-            const users = await ListUsersServices.execute();
-            return response.json(users);
-        } catch (err) {
-            return response.json(err.message);
-        }
+        const users = await ListUsersServices.execute();
+        return response.json(users);
     }
 
     public async delete(
@@ -88,7 +84,7 @@ export default class UsersController {
             await deleteUsers.execute({ id });
             return response.status(200).json([]);
         } catch (err) {
-            return response.status(424).json(err.message);
+            return response.status(404).json(err.message);
         }
     }
 
@@ -111,7 +107,7 @@ export default class UsersController {
             });
             return response.json(user);
         } catch (err) {
-            return response.json(err.message);
+            return response.status(400).json(err);
         }
     }
 }

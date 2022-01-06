@@ -4,7 +4,6 @@ import multer from "multer";
 import multerConfig from "../../../config/multerConfig";
 import isAuthenticated from "../../../shared/http/middlewares/isAuthenticated";
 import UserAvatarController from "../controllers/UserAvatarController";
-import UpdateProfileService from "../services/UpdateProfileService";
 
 const usersRouter = Router();
 const usersController = new UsersController();

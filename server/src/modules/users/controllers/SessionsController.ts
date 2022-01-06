@@ -3,7 +3,6 @@ import { getCustomRepository } from "typeorm";
 import CreateSessionsService from "../services/CreateSessionsService";
 import UserEntity from "../typeorm/entities/UserEntity";
 
-
 export default class SessionsController {
     public async create(
         request: Request,
@@ -21,7 +20,7 @@ export default class SessionsController {
 
             return response.json(user);
         } catch (err) {
-            return response.json(err.message);
+            return response.status(403).json(err.message);
         }
     }
 }
