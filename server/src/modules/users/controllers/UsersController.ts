@@ -53,7 +53,7 @@ export default class UsersController {
                 name,
                 email,
                 password,
-                avatar: "profilepic.png",
+                avatar: "89a11137a396-profilepic.png",
             });
 
             delete user.password;
