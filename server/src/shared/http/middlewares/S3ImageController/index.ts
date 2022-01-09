@@ -1,21 +1,22 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
-import S3UploadService from "../S3UploadService";
+import S3UploadService from "../../S3UploadService";
 
 export default class S3ImageController {
     public async upload(
         request: Request,
-        response: Response
-    ): Promise<Response> {
+        response: Response,
+        next: NextFunction
+    ): Promise<void> {
         try {
             const s3UploadService = new S3UploadService();
 
             const { file } = request;
             await s3UploadService.execute(file);
 
-            return response.send();
+            return next();
         } catch (err) {
-            return response.status(404).json(err.message);
+            throw new Error("Problem uploading files.");
         }
     }
 }

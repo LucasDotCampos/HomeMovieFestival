@@ -13,7 +13,6 @@ export default class UserAvatarController {
                 userId: request.userId,
                 avatarFilename: request.file?.filename,
             });
-            console.log(request.file);
             return response.status(200).json(user);
         } catch (err) {
             return response.status(404).json(err.message);

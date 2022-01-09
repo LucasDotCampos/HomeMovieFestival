@@ -4,7 +4,7 @@ import multer from "multer";
 import multerConfig from "../../../config/multerConfig";
 import isAuthenticated from "../../../shared/http/middlewares/isAuthenticated";
 import UserAvatarController from "../controllers/UserAvatarController";
-import S3ImageController from "../../../shared/http/S3ImageController";
+import S3ImageController from "../../../shared/http/middlewares/S3ImageController";
 
 const usersRouter = Router();
 const usersController = new UsersController();
