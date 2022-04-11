@@ -1,15 +1,8 @@
 import { compare, hash } from "bcryptjs";
 import { getCustomRepository } from "typeorm";
+import { IUserUpdate } from "../domain/models";
 import UserEntity from "../infra/typeorm/entities/UserEntity";
 import UsersRepository from "../infra/typeorm/repositories/UsersRepository";
-
-interface IRequest {
-    userId: string;
-    name: string;
-    email: string;
-    password?: string;
-    oldPassword?: string;
-}
 
 class UpdateProfileService {
     public async execute({
@@ -18,7 +11,7 @@ class UpdateProfileService {
         email,
         password,
         oldPassword,
-    }: IRequest): Promise<UserEntity> {
+    }: IUserUpdate): Promise<UserEntity> {
         const usersRepository = getCustomRepository(UsersRepository);
         const user = await usersRepository.findById(userId);
 
@@ -39,7 +32,7 @@ class UpdateProfileService {
         if (password && oldPassword) {
             const checkOldPassword = await compare(oldPassword, user.password);
             if (!checkOldPassword) {
-                throw new Error("Old password doesn't match.");
+                throw new Error("Password is wrong.");
             }
             user.password = await hash(password, 8);
         }

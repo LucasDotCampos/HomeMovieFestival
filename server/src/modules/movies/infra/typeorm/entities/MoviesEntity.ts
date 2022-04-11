@@ -7,7 +7,6 @@ import {
     ManyToOne,
     Timestamp,
     JoinColumn,
-    JoinTable,
 } from "typeorm";
 import UserEntity from "../../../../users/infra/typeorm/entities/UserEntity";
 
@@ -36,10 +35,10 @@ class MoviesEntity {
     image: string;
 
     @CreateDateColumn()
-    created_at: Timestamp;
+    created_at: Date;
 
     @UpdateDateColumn()
-    updated_at: Timestamp;
+    updated_at: Date;
 }
 
 export default MoviesEntity;

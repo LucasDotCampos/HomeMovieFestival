@@ -95,7 +95,7 @@ export default class MoviesController {
             const { id } = request.params;
             const deleteMovie = new DeleteMoviesService();
             await deleteMovie.execute({ id });
-            return response.json([]);
+            return response.json("Movie deleted successfully");
         } catch (err) {
             return response.status(404).json(err.message);
         }

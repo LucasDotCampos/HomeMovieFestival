@@ -1,16 +1,7 @@
 import { getCustomRepository } from "typeorm";
+import { IMovieUpdate } from "../domain/models";
 import MoviesEntity from "../infra/typeorm/entities/MoviesEntity";
 import MoviesRepository from "../infra/typeorm/repositories/MoviesRepository";
-
-interface IRequest {
-    id: string;
-    image: string;
-    magnet: string;
-    description: string;
-    title: string;
-    releaseDate: string;
-    userId: any;
-}
 
 class UpdateMoviesService {
     public async execute({
@@ -20,7 +11,7 @@ class UpdateMoviesService {
         magnet,
         title,
         releaseDate,
-    }: IRequest): Promise<MoviesEntity> {
+    }: IMovieUpdate): Promise<MoviesEntity> {
         const moviesRepository = getCustomRepository(MoviesRepository);
 
         const movies = await moviesRepository.findByMovieId(id);

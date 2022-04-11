@@ -28,10 +28,10 @@ export default class UsersController {
         response: Response
     ): Promise<Response> {
         try {
-            const { id } = request.params;
+            const { userId } = request.params;
             const userInformationService = new UserInformationService();
 
-            const user = await userInformationService.execute({ id });
+            const user = await userInformationService.execute({ userId });
 
             return response.status(200).json(user);
         } catch (err) {
@@ -77,10 +77,10 @@ export default class UsersController {
         response: Response
     ): Promise<Response> {
         try {
-            const { id } = request.params;
+            const { userId } = request.params;
             const deleteUsers = new DeleteUsersService();
-            await deleteUsers.execute({ id });
-            return response.status(200).json([]);
+            await deleteUsers.execute({ userId });
+            return response.status(200).json("User deleted successfully");
         } catch (err) {
             return response.status(404).json(err.message);
         }
@@ -105,7 +105,7 @@ export default class UsersController {
             });
             return response.json(user);
         } catch (err) {
-            return response.status(400).json(err);
+            return response.status(400).json(err.message);
         }
     }
 }

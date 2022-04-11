@@ -30,10 +30,10 @@ class UserEntity {
     movies: MoviesEntity[];
 
     @CreateDateColumn()
-    created_at: Timestamp;
+    created_at: Date;
 
     @UpdateDateColumn()
-    updated_at: Timestamp;
+    updated_at: Date;
 }
 
 export default UserEntity;

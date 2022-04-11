@@ -1,15 +1,8 @@
 import { getCustomRepository } from "typeorm";
-
 import { hash } from "bcryptjs";
 import UserEntity from "../infra/typeorm/entities/UserEntity";
 import UsersRepository from "../infra/typeorm/repositories/UsersRepository";
-
-interface IRequest {
-    name: string;
-    email: string;
-    password: string;
-    avatar: string;
-}
+import { ICreateUser } from "../domain/models";
 
 class CreateUserService {
     public async execute({
@@ -17,7 +10,7 @@ class CreateUserService {
         email,
         password,
         avatar,
-    }: IRequest): Promise<UserEntity> {
+    }: ICreateUser): Promise<UserEntity> {
         const usersRepository = getCustomRepository(UsersRepository);
         const emailExists = await usersRepository.findByemail(email);
 

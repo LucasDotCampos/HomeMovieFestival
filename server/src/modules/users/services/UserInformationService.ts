@@ -1,15 +1,13 @@
 import { getCustomRepository } from "typeorm";
+import { IUserId } from "../domain/models";
 import UserEntity from "../infra/typeorm/entities/UserEntity";
 import UsersRepository from "../infra/typeorm/repositories/UsersRepository";
 
-interface IUser {
-    id: string;
-}
 class UserInformationService {
-    public async execute({ id }: IUser): Promise<UserEntity> {
+    public async execute({ userId }: IUserId): Promise<UserEntity> {
         const userRepository = getCustomRepository(UsersRepository);
 
-        const user = await userRepository.findById(id);
+        const user = await userRepository.findById(userId);
 
         return user;
     }

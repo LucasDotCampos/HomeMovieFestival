@@ -24,7 +24,7 @@ usersRouter.patch(
     s3ImageController.upload,
     usersAvatarController.update
 );
-usersRouter.delete("/:id", isAuthenticated, usersController.delete);
-usersRouter.get("/:id", usersController.userById);
+usersRouter.delete("/:userId", isAuthenticated, usersController.delete);
+usersRouter.get("/:userId", usersController.userById);
 usersRouter.put("/:userId", isAuthenticated, usersController.update);
 export default usersRouter;

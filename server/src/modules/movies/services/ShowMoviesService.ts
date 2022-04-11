@@ -1,15 +1,12 @@
 import { getCustomRepository } from "typeorm";
+import { IMovieTitle } from "../domain/models";
 import MoviesEntity from "../infra/typeorm/entities/MoviesEntity";
 import MoviesRepository from "../infra/typeorm/repositories/MoviesRepository";
-
-interface IRequest {
-    title: string;
-}
 
 class ShowMovieService {
     public async execute({
         title,
-    }: IRequest): Promise<MoviesEntity | undefined> {
+    }: IMovieTitle): Promise<MoviesEntity | undefined> {
         const movieRepository = getCustomRepository(MoviesRepository);
 
         const movie = await movieRepository.findByTitle(title);

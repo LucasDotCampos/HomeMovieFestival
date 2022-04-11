@@ -1,12 +1,9 @@
 import { getCustomRepository } from "typeorm";
+import { IMovieId } from "../domain/models";
 import MoviesRepository from "../infra/typeorm/repositories/MoviesRepository";
 
-interface IRequest {
-    id: string;
-}
-
 class DeleteMoviesService {
-    public async execute({ id }: IRequest): Promise<void> {
+    public async execute({ id }: IMovieId): Promise<void> {
         const moviesRepository = getCustomRepository(MoviesRepository);
 
         const movies = await moviesRepository.findOne(id);
