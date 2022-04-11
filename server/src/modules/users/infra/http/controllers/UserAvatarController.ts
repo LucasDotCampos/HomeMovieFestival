@@ -1,5 +1,5 @@
 import { Request, response, Response } from "express";
-import UpdateUserAvatarService from "../services/UpdateUserAvatarService";
+import UpdateUserAvatarService from "../../../services/UpdateUserAvatarService";
 
 export default class UserAvatarController {
     public async update(

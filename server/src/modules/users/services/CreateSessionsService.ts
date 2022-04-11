@@ -2,9 +2,10 @@ import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import authConfig from "../../../config/authConfig";
 import { getCustomRepository } from "typeorm";
-import UserEntity from "../typeorm/entities/UserEntity";
-import UsersRepository from "../typeorm/repositories/UsersRepository";
+
 import "dotenv/config";
+import UserEntity from "../infra/typeorm/entities/UserEntity";
+import UsersRepository from "../infra/typeorm/repositories/UsersRepository";
 
 interface IRequest {
     email: string;

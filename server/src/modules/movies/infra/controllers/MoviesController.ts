@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
-import CreateMoviesService from "../services/CreateMoviesService";
-import DeleteMoviesService from "../services/DeleteMoviesService";
-import ListMoviesService from "../services/ListMoviesService";
-import ShowMovieService from "../services/ShowMoviesService";
-import UpdateMoviesService from "../services/UpdateMoviesService";
+import CreateMoviesService from "../../services/CreateMoviesService";
+import DeleteMoviesService from "../../services/DeleteMoviesService";
+import ListMoviesService from "../../services/ListMoviesService";
+import ShowMovieService from "../../services/ShowMoviesService";
+import UpdateMoviesService from "../../services/UpdateMoviesService";
 import MoviesEntity from "../typeorm/entities/MoviesEntity";
 import MoviesRepository from "../typeorm/repositories/MoviesRepository";
 

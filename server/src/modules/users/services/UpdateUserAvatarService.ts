@@ -1,10 +1,6 @@
-import fs from "fs";
-import path from "path";
 import { getCustomRepository } from "typeorm";
-
-import multerConfig from "../../../config/multerConfig";
-import UserEntity from "../typeorm/entities/UserEntity";
-import UsersRepository from "../typeorm/repositories/UsersRepository";
+import UserEntity from "../infra/typeorm/entities/UserEntity";
+import UsersRepository from "../infra/typeorm/repositories/UsersRepository";
 
 interface IRequest {
     userId: string;

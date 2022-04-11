@@ -1,9 +1,7 @@
 import { compare, hash } from "bcryptjs";
-import { response } from "express";
-import { STATUS_CODES } from "http";
 import { getCustomRepository } from "typeorm";
-import UserEntity from "../typeorm/entities/UserEntity";
-import UsersRepository from "../typeorm/repositories/UsersRepository";
+import UserEntity from "../infra/typeorm/entities/UserEntity";
+import UsersRepository from "../infra/typeorm/repositories/UsersRepository";
 
 interface IRequest {
     userId: string;

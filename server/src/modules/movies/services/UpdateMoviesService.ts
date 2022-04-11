@@ -1,6 +1,6 @@
 import { getCustomRepository } from "typeorm";
-import MoviesEntity from "../typeorm/entities/MoviesEntity";
-import MoviesRepository from "../typeorm/repositories/MoviesRepository";
+import MoviesEntity from "../infra/typeorm/entities/MoviesEntity";
+import MoviesRepository from "../infra/typeorm/repositories/MoviesRepository";
 
 interface IRequest {
     id: string;

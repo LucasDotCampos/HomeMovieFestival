@@ -1,9 +1,9 @@
 import { Router } from "express";
 import MoviesController from "../controllers/MoviesController";
 import multer from "multer";
-import multerConfig from "../../../config/multerConfig";
-import isAuthenticated from "../../../shared/http/middlewares/isAuthenticated";
-import S3ImageController from "../../../shared/http/middlewares/S3ImageController";
+import multerConfig from "../../../../config/multerConfig";
+import isAuthenticated from "../../../../shared/http/middlewares/isAuthenticated";
+import S3ImageController from "../../../../shared/http/middlewares/S3ImageController";
 
 const moviesRouter = Router();
 const moviesController = new MoviesController();
