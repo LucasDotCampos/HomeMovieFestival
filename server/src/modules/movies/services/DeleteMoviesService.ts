@@ -1,18 +1,22 @@
-import { getCustomRepository } from "typeorm";
+import { inject, injectable } from "tsyringe";
 import { IMovieId } from "../domain/models";
-import MoviesRepository from "../infra/typeorm/repositories/MoviesRepository";
+import { IMovieRepository } from "../domain/models/repositories/IMovieRepository";
 
+@injectable()
 class DeleteMoviesService {
-    public async execute({ id }: IMovieId): Promise<void> {
-        const moviesRepository = getCustomRepository(MoviesRepository);
+    constructor(
+        @inject("MovieRepository")
+        private movieRepository: IMovieRepository
+    ) {}
 
-        const movies = await moviesRepository.findOne(id);
+    public async execute({ id }: IMovieId): Promise<void> {
+        const movies = await this.movieRepository.findById(id);
 
         if (!movies) {
             throw new Error("Movie not found.");
         }
 
-        await moviesRepository.remove(movies);
+        await this.movieRepository.remove(movies);
     }
 }
 

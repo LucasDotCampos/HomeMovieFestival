@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
+import { container } from "tsyringe";
 import { getCustomRepository } from "typeorm";
 import CreateMoviesService from "../../services/CreateMoviesService";
 import DeleteMoviesService from "../../services/DeleteMoviesService";
 import ListMoviesService from "../../services/ListMoviesService";
 import ShowMovieService from "../../services/ShowMoviesService";
 import UpdateMoviesService from "../../services/UpdateMoviesService";
-import MoviesEntity from "../typeorm/entities/MoviesEntity";
-import MoviesRepository from "../typeorm/repositories/MoviesRepository";
 
 export default class MoviesController {
     public async index(
@@ -14,10 +13,8 @@ export default class MoviesController {
         response: Response
     ): Promise<Response> {
         try {
-            const listMovies = new ListMoviesService();
-
+            const listMovies = container.resolve(ListMoviesService);
             const movies = await listMovies.execute();
-
             return response.status(200).json(movies);
         } catch (err) {
             return response.status(409).json(err.message);
@@ -27,7 +24,7 @@ export default class MoviesController {
     public async show(request: Request, response: Response): Promise<Response> {
         try {
             const { title } = request.params;
-            const showMovie = new ShowMovieService();
+            const showMovie = container.resolve(ShowMovieService);
             const movie = await showMovie.execute({ title });
             return response.json(movie);
         } catch (err) {
@@ -38,17 +35,10 @@ export default class MoviesController {
     public async create(
         request: Request,
         response: Response
-    ): Promise<Response | MoviesEntity> {
-        const { description, magnet, title, releaseDate } = request.body;
+    ): Promise<Response> {
         try {
-            const createMovies = new CreateMoviesService();
-            const moviesRepository = getCustomRepository(MoviesRepository);
-            const moviesExists = await moviesRepository.findByTitle(title);
-
-            if (moviesExists) {
-                response.status(409);
-            }
-
+            const { description, magnet, title, releaseDate } = request.body;
+            const createMovies = container.resolve(CreateMoviesService);
             const movies = await createMovies.execute({
                 description,
                 image: request.file?.filename,
@@ -93,7 +83,7 @@ export default class MoviesController {
     ): Promise<Response> {
         try {
             const { id } = request.params;
-            const deleteMovie = new DeleteMoviesService();
+            const deleteMovie = container.resolve(DeleteMoviesService);
             await deleteMovie.execute({ id });
             return response.json("Movie deleted successfully");
         } catch (err) {

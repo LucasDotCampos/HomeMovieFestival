@@ -1,13 +1,15 @@
-import { getCustomRepository } from "typeorm";
-import MoviesEntity from "../infra/typeorm/entities/MoviesEntity";
-import MoviesRepository from "../infra/typeorm/repositories/MoviesRepository";
+import { inject, injectable } from "tsyringe";
+import { IMovie } from "../domain/models";
+import { IMovieRepository } from "../domain/models/repositories/IMovieRepository";
 
+@injectable()
 class ListMoviesService {
-    public async execute(): Promise<MoviesEntity[]> {
-        const moviesRepository = getCustomRepository(MoviesRepository);
-
-        const movies = moviesRepository.find();
-
+    constructor(
+        @inject("MovieRepository")
+        private movieRepository: IMovieRepository
+    ) {}
+    public async execute(): Promise<IMovie[]> {
+        const movies = await this.movieRepository.findAll();
         return movies;
     }
 }

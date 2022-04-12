@@ -1,48 +1,95 @@
-import { EntityRepository, Repository } from "typeorm";
+import { getRepository, Like, Repository } from "typeorm";
+import { ICreateMovie, IMovieTitle } from "../../../domain/models";
+import { IMovieRepository } from "../../../domain/models/repositories/IMovieRepository";
 import MoviesEntity from "../entities/MoviesEntity";
 
-@EntityRepository(MoviesEntity)
-class MoviesRepository extends Repository<MoviesEntity> {
-  public async findByTitle(title: string): Promise<MoviesEntity | undefined> {
-    const movies = await this.findOne({
-      where: {
-        title: title,
-      },
-      relations: ["userId"],
-    });
+class MoviesRepository implements IMovieRepository {
+    private ormRepository: Repository<MoviesEntity>;
+    constructor() {
+        this.ormRepository = getRepository(MoviesEntity);
+    }
 
-    return movies;
-  }
+    public async findAll(): Promise<MoviesEntity[]> {
+        const movies = await this.ormRepository.find({
+            order: {
+                title: "ASC",
+            },
+        });
 
-  public async findById(userId: string): Promise<MoviesEntity | undefined> {
-    const movies = await this.findOne({
-      where: {
-        userId: userId,
-      },
-    });
+        return movies;
+    }
 
-    return movies;
-  }
+    public async create({
+        description,
+        image,
+        magnet,
+        title,
+        releaseDate,
+        userId,
+    }: ICreateMovie): Promise<MoviesEntity> {
+        const user = this.ormRepository.create({
+            description,
+            image,
+            magnet,
+            title,
+            releaseDate,
+            userId,
+        });
 
-  public async findByemail(email: string): Promise<MoviesEntity | undefined> {
-    const movies = await this.findOne({
-      where: {
-        email,
-      },
-    });
+        await this.ormRepository.save(user);
 
-    return movies;
-  }
+        return user;
+    }
 
-  public async findByMovieId(id: string): Promise<MoviesEntity | undefined> {
-    const movies = await this.findOne({
-      where: {
-        id,
-      },
-    });
+    public async save(movie: MoviesEntity): Promise<MoviesEntity> {
+        await this.ormRepository.save(movie);
+        return movie;
+    }
 
-    return movies;
-  }
+    public async remove(movie: MoviesEntity): Promise<void> {
+        await this.ormRepository.remove(movie);
+    }
+
+    public async findByTitle(title: string): Promise<MoviesEntity | undefined> {
+        const movies = await this.ormRepository.findOne({
+            where: {
+                title: title,
+            },
+            relations: ["userId"],
+        });
+
+        return movies;
+    }
+
+    public async findById(id: string): Promise<MoviesEntity | undefined> {
+        const movies = this.ormRepository.findOne({
+            where: {
+                id: id,
+            },
+        });
+
+        return movies;
+    }
+
+    public async findByemail(email: string): Promise<MoviesEntity | undefined> {
+        const movies = await this.ormRepository.findOne({
+            where: {
+                email,
+            },
+        });
+
+        return movies;
+    }
+
+    public async findByMovieId(id: string): Promise<MoviesEntity | undefined> {
+        const movies = await this.ormRepository.findOne({
+            where: {
+                id,
+            },
+        });
+
+        return movies;
+    }
 }
 
 export default MoviesRepository;

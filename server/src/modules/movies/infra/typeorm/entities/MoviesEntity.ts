@@ -9,9 +9,10 @@ import {
     JoinColumn,
 } from "typeorm";
 import UserEntity from "../../../../users/infra/typeorm/entities/UserEntity";
+import { IMovie } from "../../../domain/models";
 
 @Entity("movies")
-class MoviesEntity {
+class MoviesEntity implements IMovie {
     @PrimaryGeneratedColumn("uuid")
     id: string;
 

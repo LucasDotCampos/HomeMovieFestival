@@ -1,9 +1,13 @@
-import { getCustomRepository } from "typeorm";
-import { ICreateMovie } from "../domain/models";
-import MoviesEntity from "../infra/typeorm/entities/MoviesEntity";
-import MoviesRepository from "../infra/typeorm/repositories/MoviesRepository";
+import { inject, injectable } from "tsyringe";
+import { ICreateMovie, IMovie } from "../domain/models";
+import { IMovieRepository } from "../domain/models/repositories/IMovieRepository";
 
+@injectable()
 class CreateMoviesService {
+    constructor(
+        @inject("MovieRepository")
+        private movieRepository: IMovieRepository
+    ) {}
     public async execute({
         description,
         image,
@@ -11,15 +15,8 @@ class CreateMoviesService {
         title,
         releaseDate,
         userId,
-    }: ICreateMovie): Promise<MoviesEntity> {
-        const moviesRepository = getCustomRepository(MoviesRepository);
-        const moviesExists = await moviesRepository.findByTitle(title);
-
-        if (moviesExists) {
-            throw new Error("There's already a movie with this title");
-        }
-
-        const movies = moviesRepository.create({
+    }: ICreateMovie): Promise<IMovie> {
+        const movies = this.movieRepository.create({
             description,
             image,
             magnet,
@@ -27,8 +24,6 @@ class CreateMoviesService {
             releaseDate,
             userId,
         });
-
-        await moviesRepository.save(movies);
 
         return movies;
     }
