@@ -1,9 +1,16 @@
+import { injectable, inject } from "tsyringe";
 import { getCustomRepository } from "typeorm";
 import { IMovieUpdate } from "../domain/models";
+import { IMovieRepository } from "../domain/models/repositories/IMovieRepository";
 import MoviesEntity from "../infra/typeorm/entities/MoviesEntity";
 import MoviesRepository from "../infra/typeorm/repositories/MoviesRepository";
 
+@injectable()
 class UpdateMoviesService {
+    constructor(
+        @inject("MovieRepository")
+        private movieRepository: IMovieRepository
+    ) {}
     public async execute({
         id,
         description,
@@ -12,9 +19,7 @@ class UpdateMoviesService {
         title,
         releaseDate,
     }: IMovieUpdate): Promise<MoviesEntity> {
-        const moviesRepository = getCustomRepository(MoviesRepository);
-
-        const movies = await moviesRepository.findByMovieId(id);
+        const movies = await this.movieRepository.findByMovieId(id);
 
         if (!movies) {
             throw new Error("Movie not found.");
@@ -25,8 +30,6 @@ class UpdateMoviesService {
         movies.image = image;
         movies.magnet = magnet;
         movies.releaseDate = releaseDate;
-
-        await moviesRepository.save(movies);
 
         return movies;
     }

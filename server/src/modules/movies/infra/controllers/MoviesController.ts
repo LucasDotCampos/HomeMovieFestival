@@ -60,7 +60,7 @@ export default class MoviesController {
         try {
             const { description, magnet, title, releaseDate } = request.body;
             const { id } = request.params;
-            const updateMovie = new UpdateMoviesService();
+            const updateMovie = container.resolve(UpdateMoviesService);
 
             const movie = await updateMovie.execute({
                 id,
