@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import moviesRouter from "../../../modules/movies/infra/routes/movies.routes";
+import moviesRouter from "../../../modules/movies/infra/http/routes/movies.routes";
 import sessionsRouter from "../../../modules/users/infra/http/routes/sessions.routes";
 import usersRouter from "../../../modules/users/infra/http/routes/users.routes";
 

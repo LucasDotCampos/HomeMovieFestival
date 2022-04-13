@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { getCustomRepository } from "typeorm";
-import CreateMoviesService from "../../services/CreateMoviesService";
-import DeleteMoviesService from "../../services/DeleteMoviesService";
-import ListMoviesService from "../../services/ListMoviesService";
-import ShowMovieService from "../../services/ShowMoviesService";
-import UpdateMoviesService from "../../services/UpdateMoviesService";
+import CreateMoviesService from "../../../services/CreateMoviesService";
+import DeleteMoviesService from "../../../services/DeleteMoviesService";
+import ListMoviesService from "../../../services/ListMoviesService";
+import ShowMovieService from "../../../services/ShowMoviesService";
+import UpdateMoviesService from "../../../services/UpdateMoviesService";
 
 export default class MoviesController {
     public async index(
