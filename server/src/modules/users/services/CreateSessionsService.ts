@@ -1,34 +1,32 @@
-import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import authConfig from "../../../config/authConfig";
-import { getCustomRepository } from "typeorm";
+import { ICreateSession, IUserAuthenticated } from "../domain/models";
+import { inject, injectable } from "tsyringe";
+import { IUsersRepository } from "../domain/repositories/IUsersRepository";
+import { IHashProvider } from "../providers/HashProvider/models/IHashProvider";
 
-import "dotenv/config";
-import UserEntity from "../infra/typeorm/entities/UserEntity";
-import UsersRepository from "../infra/typeorm/repositories/UsersRepository";
-
-interface IRequest {
-    email: string;
-    password: string;
-}
-
-interface IResponse {
-    user: UserEntity;
-    token: string;
-}
+@injectable()
 class CreateSessionsService {
+    constructor(
+        @inject("UsersRepository")
+        private usersRepository: IUsersRepository,
+        @inject("HashProvider")
+        private hashProvider: IHashProvider
+    ) {}
     public async execute({
         email,
         password,
-    }: IRequest): Promise<IResponse | string> {
-        const usersRepository = getCustomRepository(UsersRepository);
-        const user = await usersRepository.findByemail(email);
+    }: ICreateSession): Promise<IUserAuthenticated> {
+        const user = await this.usersRepository.findByemail(email);
 
         if (!user) {
             throw new Error("email/password incorrect");
         }
 
-        const passwordConfirmed = await compare(password, user.password);
+        const passwordConfirmed = await this.hashProvider.compareHash(
+            password,
+            user.password
+        );
 
         if (!passwordConfirmed) {
             throw new Error("email/password incorrect");

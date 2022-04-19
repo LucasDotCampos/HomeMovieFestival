@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
-import CreateSessionsService from "../../../services/CreateSessionsService";
-import UserEntity from "../../typeorm/entities/UserEntity";
+import { container } from "tsyringe";
+import CreateSessionsService from "../../../../services/CreateSessionsService";
 
 export default class SessionsController {
     public async create(
         request: Request,
         response: Response
-    ): Promise<Response | UserEntity> {
+    ): Promise<Response> {
         try {
             const { email, password } = request.body;
 
-            const createSession = new CreateSessionsService();
+            const createSession = container.resolve(CreateSessionsService);
 
             const user = await createSession.execute({
                 email,

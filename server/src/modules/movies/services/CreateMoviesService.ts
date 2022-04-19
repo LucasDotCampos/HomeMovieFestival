@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { ICreateMovie, IMovie } from "../domain/models";
-import { IMovieRepository } from "../domain/models/repositories/IMovieRepository";
+import { IMovieRepository } from "../domain/repositories/IMovieRepository";
 
 @injectable()
 class CreateMoviesService {

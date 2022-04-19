@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { IMovieId } from "../domain/models";
-import { IMovieRepository } from "../domain/models/repositories/IMovieRepository";
+import { IMovieRepository } from "../domain/repositories/IMovieRepository";
 
 @injectable()
 class DeleteMoviesService {

@@ -1,19 +1,20 @@
 import { Request, Response } from "express";
-import CreateUserService from "../../../services/CreateUserServices";
-import DeleteUsersService from "../../../services/DeleteUsersService";
-import ListMoviesUserService from "../../../services/ListMoviesUserService";
-import ListUsersService from "../../../services/ListUsersServices";
-import UpdateProfileService from "../../../services/UpdateProfileService";
-import UserInformationService from "../../../services/UserInformationService";
+import { container } from "tsyringe";
+import CreateUserService from "../../../../services/CreateUserServices";
+import DeleteUsersService from "../../../../services/DeleteUsersService";
+import ListUsersService from "../../../../services/UsersListServices";
+import UpdateProfileService from "../../../../services/UpdateProfileService";
+import UserInformationService from "../../../../services/UserInformationService";
+import UserMoviesListService from "../../../../services/UserMoviesListService";
 
 export default class UsersController {
-    public async searchById(
+    public async userMoviesList(
         request: Request,
         response: Response
     ): Promise<Response> {
         try {
             const { userId } = request.params;
-            const listMoviesUser = new ListMoviesUserService();
+            const listMoviesUser = container.resolve(UserMoviesListService);
 
             const users = await listMoviesUser.execute({ userId });
 
@@ -29,7 +30,9 @@ export default class UsersController {
     ): Promise<Response> {
         try {
             const { userId } = request.params;
-            const userInformationService = new UserInformationService();
+            const userInformationService = container.resolve(
+                UserInformationService
+            );
 
             const user = await userInformationService.execute({ userId });
 
@@ -46,7 +49,7 @@ export default class UsersController {
         try {
             const { name, email, password } = request.body;
 
-            const createUser = new CreateUserService();
+            const createUser = container.resolve(CreateUserService);
             const user = await createUser.execute({
                 name,
                 email,
@@ -66,7 +69,7 @@ export default class UsersController {
         request: Request,
         response: Response
     ): Promise<Response> {
-        const ListUsersServices = new ListUsersService();
+        const ListUsersServices = container.resolve(ListUsersService);
 
         const users = await ListUsersServices.execute();
         return response.json(users);
@@ -78,7 +81,7 @@ export default class UsersController {
     ): Promise<Response> {
         try {
             const { userId } = request.params;
-            const deleteUsers = new DeleteUsersService();
+            const deleteUsers = container.resolve(DeleteUsersService);
             await deleteUsers.execute({ userId });
             return response.status(200).json("User deleted successfully");
         } catch (err) {
@@ -94,7 +97,7 @@ export default class UsersController {
             const { userId } = request.params;
             const { name, email, password, oldPassword } = request.body;
 
-            const updateProfile = new UpdateProfileService();
+            const updateProfile = container.resolve(UpdateProfileService);
 
             const user = await updateProfile.execute({
                 userId,

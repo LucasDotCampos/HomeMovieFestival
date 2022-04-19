@@ -1,15 +1,21 @@
+import { inject, injectable } from "tsyringe";
 import { getCustomRepository } from "typeorm";
 import { IUserUpdateAvatar } from "../domain/models";
+import { IUsersRepository } from "../domain/repositories/IUsersRepository";
 import UserEntity from "../infra/typeorm/entities/UserEntity";
 import UsersRepository from "../infra/typeorm/repositories/UsersRepository";
 
+@injectable()
 class UpdateUserAvatarService {
+    constructor(
+        @inject("UsersRepository")
+        private usersRepository: IUsersRepository
+    ) {}
     public async execute({
         userId,
         avatarFilename,
     }: IUserUpdateAvatar): Promise<UserEntity> {
-        const usersRepository = getCustomRepository(UsersRepository);
-        const user = await usersRepository.findById(userId);
+        const user = await this.usersRepository.findById(userId);
 
         if (!user) {
             throw new Error("User not found");
@@ -17,7 +23,7 @@ class UpdateUserAvatarService {
 
         user.avatar = avatarFilename;
 
-        await usersRepository.save(user);
+        await this.usersRepository.save(user);
 
         return user;
     }

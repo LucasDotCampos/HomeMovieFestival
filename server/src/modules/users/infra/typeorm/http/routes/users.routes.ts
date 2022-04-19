@@ -2,9 +2,9 @@ import { Router } from "express";
 import UsersController from "../controllers/UsersController";
 import multer from "multer";
 import UserAvatarController from "../controllers/UserAvatarController";
-import S3ImageController from "../../../../../shared/http/middlewares/S3ImageController";
-import multerConfig from "../../../../../config/multerConfig";
-import isAuthenticated from "../../../../../shared/http/middlewares/isAuthenticated";
+import multerConfig from "../../../../../../config/multerConfig";
+import S3ImageController from "../../../../../../shared/middlewares/S3ImageController";
+import isAuthenticated from "../../../../../../shared/middlewares/isAuthenticated";
 
 const usersRouter = Router();
 const usersController = new UsersController();
@@ -14,9 +14,9 @@ const s3ImageController = new S3ImageController();
 
 const upload = multer(multerConfig);
 
-usersRouter.post("/", usersController.create); //
-usersRouter.get("/movies/:userId", usersController.searchById); //
-usersRouter.get("/", usersController.usersList); //
+usersRouter.post("/", usersController.create);
+usersRouter.get("/movies/:userId", usersController.userMoviesList);
+usersRouter.get("/", usersController.usersList);
 usersRouter.patch(
     "/avatar",
     isAuthenticated,

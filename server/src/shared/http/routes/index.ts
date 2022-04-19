@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import moviesRouter from "../../../modules/movies/infra/http/routes/movies.routes";
-import sessionsRouter from "../../../modules/users/infra/http/routes/sessions.routes";
-import usersRouter from "../../../modules/users/infra/http/routes/users.routes";
+import sessionsRouter from "../../../modules/users/infra/typeorm/http/routes/sessions.routes";
+import usersRouter from "../../../modules/users/infra/typeorm/http/routes/users.routes";
 
 const routes = Router();
 

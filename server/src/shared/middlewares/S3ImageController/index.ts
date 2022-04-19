@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-
-import S3UploadService from "../../S3UploadService";
+import S3UploadService from "../../providers/S3UploadService";
 
 export default class S3ImageController {
     public async upload(

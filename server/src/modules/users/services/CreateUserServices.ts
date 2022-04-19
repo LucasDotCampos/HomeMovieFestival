@@ -1,33 +1,38 @@
-import { getCustomRepository } from "typeorm";
-import { hash } from "bcryptjs";
 import UserEntity from "../infra/typeorm/entities/UserEntity";
-import UsersRepository from "../infra/typeorm/repositories/UsersRepository";
 import { ICreateUser } from "../domain/models";
+import { inject, injectable } from "tsyringe";
+import { IUsersRepository } from "../domain/repositories/IUsersRepository";
+import { IHashProvider } from "../providers/HashProvider/models/IHashProvider";
 
+@injectable()
 class CreateUserService {
+    constructor(
+        @inject("UsersRepository")
+        private usersRepository: IUsersRepository,
+        @inject("HashProvider")
+        private hashProvider: IHashProvider
+    ) {}
     public async execute({
         name,
         email,
         password,
         avatar,
     }: ICreateUser): Promise<UserEntity> {
-        const usersRepository = getCustomRepository(UsersRepository);
-        const emailExists = await usersRepository.findByemail(email);
+        const emailExists = await this.usersRepository.findByemail(email);
 
         if (emailExists) {
             throw new Error("Email address already exists");
         }
 
-        const hashedPassword = await hash(password, 8);
+        const hashedPassword = await this.hashProvider.generateHash(password);
 
-        const user = usersRepository.create({
+        const user = this.usersRepository.create({
             name,
             email,
             password: hashedPassword,
-            avatar,
+            avatar: "89a11137a396-profilepic.png",
         });
 
-        await usersRepository.save(user);
         return user;
     }
 }

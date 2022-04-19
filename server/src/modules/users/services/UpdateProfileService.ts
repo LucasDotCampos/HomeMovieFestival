@@ -1,25 +1,30 @@
-import { compare, hash } from "bcryptjs";
-import { getCustomRepository } from "typeorm";
-import { IUserUpdate } from "../domain/models";
-import UserEntity from "../infra/typeorm/entities/UserEntity";
-import UsersRepository from "../infra/typeorm/repositories/UsersRepository";
+import { inject, injectable } from "tsyringe";
+import { IUser, IUserUpdate } from "../domain/models";
+import { IUsersRepository } from "../domain/repositories/IUsersRepository";
+import { IHashProvider } from "../providers/HashProvider/models/IHashProvider";
 
+@injectable()
 class UpdateProfileService {
+    constructor(
+        @inject("UsersRepository")
+        private usersRepository: IUsersRepository,
+        @inject("HashProvider")
+        private hashProvider: IHashProvider
+    ) {}
     public async execute({
         userId,
         name,
         email,
         password,
         oldPassword,
-    }: IUserUpdate): Promise<UserEntity> {
-        const usersRepository = getCustomRepository(UsersRepository);
-        const user = await usersRepository.findById(userId);
+    }: IUserUpdate): Promise<IUser> {
+        const user = await this.usersRepository.findById(userId);
 
         if (!user) {
             throw new Error("User not found.");
         }
 
-        const userUpdateEmail = await usersRepository.findByemail(email);
+        const userUpdateEmail = await this.usersRepository.findByemail(email);
 
         if (userUpdateEmail && userUpdateEmail.id !== userId) {
             throw new Error("This email already belongs to another user");
@@ -30,16 +35,19 @@ class UpdateProfileService {
         }
 
         if (password && oldPassword) {
-            const checkOldPassword = await compare(oldPassword, user.password);
+            const checkOldPassword = await this.hashProvider.compareHash(
+                oldPassword,
+                user.password
+            );
             if (!checkOldPassword) {
                 throw new Error("Password is wrong.");
             }
-            user.password = await hash(password, 8);
+            user.password = await this.hashProvider.generateHash(password);
         }
 
         user.name = name;
         user.email = email;
-        await usersRepository.save(user);
+        await this.usersRepository.save(user);
         return user;
     }
 }

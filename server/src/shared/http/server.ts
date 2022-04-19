@@ -1,12 +1,12 @@
 import "reflect-metadata";
 import cors from "cors";
-import "./container";
+import "../providers/container";
 import express from "express";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
 import routes from "./routes";
 import swaggerDocs from "./swagger.json";
-import "./typeorm/connection";
+import "../typeorm/connection";
 import "dotenv/config";
 
 const app = express();

@@ -1,5 +1,6 @@
-import { Request, response, Response } from "express";
-import UpdateUserAvatarService from "../../../services/UpdateUserAvatarService";
+import { Request, Response } from "express";
+import { container } from "tsyringe";
+import UpdateUserAvatarService from "../../../../services/UpdateUserAvatarService";
 
 export default class UserAvatarController {
     public async update(
@@ -7,7 +8,7 @@ export default class UserAvatarController {
         response: Response
     ): Promise<Response> {
         try {
-            const updateAvatar = new UpdateUserAvatarService();
+            const updateAvatar = container.resolve(UpdateUserAvatarService);
 
             const user = updateAvatar.execute({
                 userId: request.userId,

@@ -1,6 +1,6 @@
 import { getRepository, Like, Repository } from "typeorm";
 import { ICreateMovie, IMovieTitle } from "../../../domain/models";
-import { IMovieRepository } from "../../../domain/models/repositories/IMovieRepository";
+import { IMovieRepository } from "../../../domain/repositories/IMovieRepository";
 import MoviesEntity from "../entities/MoviesEntity";
 
 class MoviesRepository implements IMovieRepository {
