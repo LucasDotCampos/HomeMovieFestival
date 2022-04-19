@@ -1,7 +1,7 @@
-*/node_modules
+.env
 node_modules
-pgdata/
-*yarn-error.log
-*yarn.lock
-*.env
-!.env.example
+!.gitignore
+yarn-error.log
+yarn.lock
+ormconfig.json
+build

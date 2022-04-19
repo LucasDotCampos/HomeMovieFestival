@@ -1,7 +1,0 @@
-.env
-node_modules
-!.gitignore
-yarn-error.log
-yarn.lock
-ormconfig.json
-build
