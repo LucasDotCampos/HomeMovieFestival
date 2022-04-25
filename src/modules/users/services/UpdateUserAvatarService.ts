@@ -1,9 +1,7 @@
 import { inject, injectable } from "tsyringe";
-import { getCustomRepository } from "typeorm";
 import { IUserUpdateAvatar } from "../domain/models";
 import { IUsersRepository } from "../domain/repositories/IUsersRepository";
 import UserEntity from "../infra/typeorm/entities/UserEntity";
-import UsersRepository from "../infra/typeorm/repositories/UsersRepository";
 
 @injectable()
 class UpdateUserAvatarService {
