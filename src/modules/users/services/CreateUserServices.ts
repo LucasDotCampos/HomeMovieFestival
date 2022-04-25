@@ -30,7 +30,7 @@ class CreateUserService {
             name,
             email,
             password: hashedPassword,
-            avatar: "89a11137a396-profilepic.png",
+            avatar,
         });
 
         return user;

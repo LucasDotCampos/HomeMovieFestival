@@ -56,6 +56,7 @@ export default class UsersController {
                 password,
                 avatar: "89a11137a396-profilepic.png",
             });
+            console.log(user);
 
             delete user.password;
 

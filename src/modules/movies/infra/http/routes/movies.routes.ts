@@ -17,14 +17,14 @@ moviesRouter.post(
     "/createmovie",
     isAuthenticated,
     upload.single("image"),
-    // s3ImageController.upload,
+    s3ImageController.upload,
     moviesController.create
 );
 moviesRouter.put(
     "/:id",
     isAuthenticated,
     upload.single("image"),
-    // s3ImageController.upload,
+    s3ImageController.upload,
     moviesController.update
 );
 moviesRouter.delete("/:id", isAuthenticated, moviesController.delete);

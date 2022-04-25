@@ -13,8 +13,14 @@ class UsersRepository implements IUsersRepository {
         name,
         email,
         password,
+        avatar,
     }: ICreateUser): Promise<UserEntity> {
-        const user = this.ormRepository.create({ name, email, password });
+        const user = this.ormRepository.create({
+            name,
+            email,
+            password,
+            avatar,
+        });
 
         await this.ormRepository.save(user);
 
