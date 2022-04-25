@@ -12,6 +12,7 @@ const upload = multer(multerConfig);
 
 moviesRouter.get("/", moviesController.index);
 moviesRouter.get("/:title", moviesController.show);
+moviesRouter.get("/id/:id", moviesController.movieById);
 moviesRouter.post(
     "/createmovie",
     isAuthenticated,

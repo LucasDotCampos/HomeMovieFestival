@@ -3,6 +3,7 @@ import { container } from "tsyringe";
 import CreateMoviesService from "../../../services/CreateMoviesService";
 import DeleteMoviesService from "../../../services/DeleteMoviesService";
 import ListMoviesService from "../../../services/ListMoviesService";
+import MovieByIdService from "../../../services/MovieByIdService";
 import ShowMovieService from "../../../services/ShowMoviesService";
 import UpdateMoviesService from "../../../services/UpdateMoviesService";
 
@@ -87,6 +88,20 @@ export default class MoviesController {
             return response.json("Movie deleted successfully");
         } catch (err) {
             return response.status(404).json(err.message);
+        }
+    }
+
+    public async movieById(
+        request: Request,
+        response: Response
+    ): Promise<Response> {
+        try {
+            const { id } = request.params;
+            const showMovieById = container.resolve(MovieByIdService);
+            const movie = await showMovieById.execute({ id });
+            return response.json(movie);
+        } catch (err) {
+            return response.status(404).json(err);
         }
     }
 }
