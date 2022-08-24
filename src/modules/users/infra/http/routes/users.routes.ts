@@ -2,15 +2,12 @@ import { Router } from "express";
 import UsersController from "../controllers/UsersController";
 import multer from "multer";
 import UserAvatarController from "../controllers/UserAvatarController";
-import S3ImageController from "../../../../../shared/middlewares/S3ImageController";
 import multerConfig from "../../../../../config/multerConfig";
 import isAuthenticated from "../../../../../shared/middlewares/isAuthenticated";
 
 const usersRouter = Router();
 const usersController = new UsersController();
 const usersAvatarController = new UserAvatarController();
-
-const s3ImageController = new S3ImageController();
 
 const upload = multer(multerConfig);
 
@@ -21,7 +18,6 @@ usersRouter.patch(
     "/avatar",
     isAuthenticated,
     upload.single("avatar"),
-    s3ImageController.upload,
     usersAvatarController.update
 );
 usersRouter.delete("/:userId", isAuthenticated, usersController.delete);

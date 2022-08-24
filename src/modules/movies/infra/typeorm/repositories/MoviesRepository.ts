@@ -1,4 +1,5 @@
 import { getRepository, Like, Repository } from "typeorm";
+import { dataSource } from "../../../../../shared/typeorm/connection";
 import { ICreateMovie, IMovieTitle } from "../../../domain/models";
 import { IMovieRepository } from "../../../domain/repositories/IMovieRepository";
 import MoviesEntity from "../entities/MoviesEntity";
@@ -6,7 +7,7 @@ import MoviesEntity from "../entities/MoviesEntity";
 class MoviesRepository implements IMovieRepository {
     private ormRepository: Repository<MoviesEntity>;
     constructor() {
-        this.ormRepository = getRepository(MoviesEntity);
+        this.ormRepository = dataSource.manager.getRepository(MoviesEntity);
     }
 
     public async findAll(): Promise<MoviesEntity[]> {

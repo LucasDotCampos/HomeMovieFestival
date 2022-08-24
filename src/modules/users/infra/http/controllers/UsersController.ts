@@ -83,7 +83,7 @@ export default class UsersController {
         try {
             const { userId } = request.params;
             const deleteUsers = container.resolve(DeleteUsersService);
-            await deleteUsers.execute({ userId });
+            await deleteUsers.execute({ id: userId });
             return response.status(200).json("User deleted successfully");
         } catch (err) {
             return response.status(404).json(err.message);

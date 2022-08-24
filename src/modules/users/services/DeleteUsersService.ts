@@ -1,5 +1,5 @@
 import { injectable, inject } from "tsyringe";
-import { IUserId } from "../domain/models";
+import { IUser } from "../domain/models";
 import { IUserMoviesRepository } from "../domain/repositories/IUserMoviesRepository";
 import { IUsersRepository } from "../domain/repositories/IUsersRepository";
 
@@ -11,7 +11,7 @@ class DeleteUsersService {
         @inject("UserMoviesRepository")
         private userMoviesRepository: IUserMoviesRepository
     ) {}
-    public async execute({ userId }: IUserId): Promise<void> {
+    public async execute({ id: userId }: Partial<IUser>): Promise<void> {
         const users = await this.usersRepository.findById(userId);
 
         if (!users) {

@@ -26,9 +26,6 @@ class UserEntity {
     @Column()
     avatar: string;
 
-    @OneToMany(() => MoviesEntity, (user) => UserEntity)
-    movies: MoviesEntity[];
-
     @CreateDateColumn()
     created_at: Date;
 

@@ -9,17 +9,22 @@
 
 ## Comentátios:
 
--   O projeto tem a implementação da S3 (Amazon) para subir os arquivos de imagem, e as linhas de implementação dele estão comentadas pra que a aplicação rode sem a necessidade de ter uma conta na Amazon Web Services.
+-   Se você tentar colocar esse projeto no Heroku, você não será capaz de consumir essas imagens, você precisará subir esses arquivos em um serviço como o S3, então eu fiz um middleware pra subir as imagens pro s3 se você preferir.
+    Você precisará colocar esse middleware nas rotas onde você sobe imagens.
 
 -   O frontend foi feito pelo meu amigo Juan Israel e está neste link: https://github.com/JuanIWK3/HomeMovieFestival
+
+## P.S
+
+-   Se você quiser consumir as imagens num frontend você terá que usar a rota como no exemplo a seguir: <code>http://localhost:5555/files/profilepic.png</code>
 
 ## Requisitos
 
 -   Node.js
 -   Criar um servidor postgres (se tiver Docker instalado basta usar o comando que eu vou deixar abaixo):
 -   <code>docker run --name postgres -e POSTGRES_PASSWORD=admin -p 5432:5432 -d postgres</code>
--   executar as migrations com o comando: <code>npm run typeorm migration:run</code>
--   Excluir a extensão ".example" dos arquivos: "ormconfig.json.example" e ".env.example"
+-   executar as migrations com o comando: <code>npm run typeorm migration:run -d src/shared/typeorm/connection</code>
+-   Excluir a extensão ".example" dos arquivo ".env.example"
 -   Executar o script "dev": <code>"npm run dev"</code>
 
 ## Documentação(Swagger):
@@ -44,16 +49,21 @@
 
 ## Comments:
 
--   The project has the S3 implementation to upload image files, and its code is commented so anyone can use this application, even if having no Amazon Web Services account.
+-   If you try to put this project on Heroku, you will not be able to consume these images, you will need to upload these files on service like S3, so I made a middleware to upload images to S3 if you prefer.
+    You will need to put this middleware on routes you upload images.
 
 -   The frontend was made by my friend Juan Israel and its link is: https://github.com/JuanIWK3/HomeMovieFestival
+
+## P.S
+
+-   If you want to consume these images on a frontend application, you will need to use a route like in this example: <code>http://localhost:5555/files/profilepic.png</code>
 
 ## Requirements
 
 -   Node.js
 -   Create a postgres server (if you have Docker installed, you should use the following command)
 -   <code>docker run --name postgres -e POSTGRES_PASSWORD=admin -p 5432:5432 -d postgres</code>
--   Execute the migrations running: <code>npm run typeorm migration:run</code>
+-   Execute the migrations running: <code>npm run typeorm migration:run -d src/shared/typeorm/connection</code>
 -   Delete files' extension ".example": "ormconfig.json.example" and ".env.example"
 -   Execute "dev" script: <code>"npm run dev"</code>
 

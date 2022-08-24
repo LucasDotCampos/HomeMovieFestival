@@ -1,12 +1,13 @@
-import { getRepository, Repository } from "typeorm";
-import { ICreateUser } from "../../../domain/models";
+import { Repository } from "typeorm";
+import { dataSource } from "../../../../../shared/typeorm/connection";
+import { IUser } from "../../../domain/models";
 import { IUsersRepository } from "../../../domain/repositories/IUsersRepository";
 import UserEntity from "../entities/UserEntity";
 
 class UsersRepository implements IUsersRepository {
     private ormRepository: Repository<UserEntity>;
     constructor() {
-        this.ormRepository = getRepository(UserEntity);
+        this.ormRepository = dataSource.manager.getRepository(UserEntity);
     }
 
     public async create({
@@ -14,7 +15,7 @@ class UsersRepository implements IUsersRepository {
         email,
         password,
         avatar,
-    }: ICreateUser): Promise<UserEntity> {
+    }: Partial<IUser>): Promise<UserEntity> {
         const user = this.ormRepository.create({
             name,
             email,

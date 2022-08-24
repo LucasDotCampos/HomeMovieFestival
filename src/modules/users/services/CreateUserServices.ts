@@ -1,5 +1,5 @@
 import UserEntity from "../infra/typeorm/entities/UserEntity";
-import { ICreateUser } from "../domain/models";
+import { IUser } from "../domain/models";
 import { inject, injectable } from "tsyringe";
 import { IUsersRepository } from "../domain/repositories/IUsersRepository";
 import { IHashProvider } from "../providers/HashProvider/models/IHashProvider";
@@ -17,7 +17,7 @@ class CreateUserService {
         email,
         password,
         avatar,
-    }: ICreateUser): Promise<UserEntity> {
+    }: Partial<IUser>): Promise<UserEntity> {
         const emailExists = await this.usersRepository.findByemail(email);
 
         if (emailExists) {

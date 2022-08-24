@@ -1,6 +1,6 @@
 import { sign } from "jsonwebtoken";
 import authConfig from "../../../config/authConfig";
-import { ICreateSession, IUserAuthenticated } from "../domain/models";
+import { IUser, IUserAuthenticated } from "../domain/models";
 import { inject, injectable } from "tsyringe";
 import { IUsersRepository } from "../domain/repositories/IUsersRepository";
 import { IHashProvider } from "../providers/HashProvider/models/IHashProvider";
@@ -16,7 +16,7 @@ class CreateSessionsService {
     public async execute({
         email,
         password,
-    }: ICreateSession): Promise<IUserAuthenticated> {
+    }: Partial<IUser>): Promise<IUserAuthenticated> {
         const user = await this.usersRepository.findByemail(email);
 
         if (!user) {
