@@ -1,16 +1,16 @@
 import "reflect-metadata";
 import "dotenv/config";
 import cors from "cors";
-import "../providers/container";
+import "./shared/providers/container";
 import express from "express";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
-import routes from "./routes";
-import swaggerDocs from "./swagger.json";
+import routes from "./shared/http/routes";
+import swaggerDocs from "./shared/http/swagger.json";
 
-import "../typeorm/connection";
+import "./shared/typeorm/connection";
 
-import { dataSource } from "../typeorm/connection";
+import { dataSource } from "./shared/typeorm/connection";
 
 const app = express();
 const PORT = process.env.PORT;

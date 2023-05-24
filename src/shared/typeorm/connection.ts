@@ -2,7 +2,6 @@ import { DataSource } from "typeorm";
 import "dotenv/config";
 import MoviesEntity from "../../modules/movies/infra/typeorm/entities/MoviesEntity";
 import UserEntity from "../../modules/users/infra/typeorm/entities/UserEntity";
-import UserTokenEntity from "../../modules/users/infra/typeorm/entities/UserTokenEntity";
 import { CreateUsers1638557053010 } from "./migrations/1638557053010-CreateUsers";
 
 import { AddUserIdToMovies1639118468967 } from "./migrations/1639118468967-AddUserIdToMovies";
@@ -15,7 +14,7 @@ export const dataSource = new DataSource({
     username: `${process.env.DB_USERNAME}`,
     password: `${process.env.DB_PASSWORD}`,
     database: `${process.env.DATABASE}`,
-    entities: [MoviesEntity, UserEntity, UserTokenEntity],
+    entities: [MoviesEntity, UserEntity],
     // extra: {
     //     ssl: {
     //         require: true,
@@ -31,4 +30,4 @@ export const dataSource = new DataSource({
 
 /*to run this database on heroku i had to put that EXTRA
  parameter on Datasource, but this extra doesn't work if
-you try run it on your own machine */
+you try to run it on your own machine */
