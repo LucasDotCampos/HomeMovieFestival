@@ -4,10 +4,8 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm i
-
 COPY . .
 
-CMD sleep 10 && npm run typeorm migration:run -- -d src/shared/typeorm/connection
+RUN npm i
 
-EXPOSE 3000
+

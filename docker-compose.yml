@@ -4,15 +4,15 @@ services:
     container_name: "db"
     image: postgres
     environment:
-      POSTGRES_PASSWORD: admin
-      POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DATABASE}
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     networks:
       - mynetwork
     ports:
-      - "5433:5432"
+      - "8485:5432"
   
   app:
     container_name: "app"
@@ -21,11 +21,14 @@ services:
     networks:
       - mynetwork
     ports:
-      - "3000:5555"
-    
+      - "5555:5555"
+    volumes:
+      - .:/usr/src/app
+    command: >
+      bash -c "npm run typeorm migration:run -- -d src/shared/typeorm/connection && npm run dev"
     depends_on:
       - db
-    command: npm run dev
+
     
 networks:
   mynetwork:
