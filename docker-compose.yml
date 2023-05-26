@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  db:
+    container_name: "db"
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    networks:
+      - mynetwork
+    ports:
+      - "5433:5432"
+  
+  app:
+    container_name: "app"
+    restart: always
+    build: .
+    networks:
+      - mynetwork
+    ports:
+      - "3000:5555"
+    
+    depends_on:
+      - db
+    command: npm run dev
+    
+networks:
+  mynetwork:
