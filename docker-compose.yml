@@ -24,6 +24,7 @@ services:
       - "5555:5555"
     volumes:
       - .:/usr/src/app
+      - /usr/src/app/node_modules
     command: >
       bash -c "npm run typeorm migration:run -- -d src/shared/typeorm/connection && npm run dev"
     depends_on:
