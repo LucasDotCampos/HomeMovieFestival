@@ -18,7 +18,11 @@
 -   Se você quiser consumir as imagens num frontend você terá que usar a rota como no exemplo a seguir: <code>http://localhost:5555/files/profilepic.png</code>
 
 ## Docker
+<<<<<<< HEAD
 - Excluir a extensão ".example" do arquivo ".env.example"
+=======
+- Excluir a extensão ".example" dos arquivo ".env.example"
+>>>>>>> c905e0fb4ede712d9f2fd900256d6a80d245a284
 - <code>docker compose up -d --build </code>
 - irá subir a aplicação inteira. Aí bastará somente utilizar as rotas.
 
@@ -61,14 +65,23 @@
 -   If you want to consume these images on a frontend application, you will need to use a route like in this example: <code>http://localhost:5555/files/profilepic.png</code>
 
 ## Docker
+<<<<<<< HEAD
 -   Delete the extension ".example" of ".env.example" file
 -   `docker compose up -d --build`
+=======
+-   Delete files' extension ".example": "ormconfig.json.example" and ".env.example"
+-   <code>docker compose up -d --build </code>
+>>>>>>> c905e0fb4ede712d9f2fd900256d6a80d245a284
 -   all the app will be working, you only have to use the routes
 
 ## Requirements (if you don't have docker installed)
 
 -   Node.js
 -   Create a postgres server
+<<<<<<< HEAD
+=======
+-   Criar um servidor postgres e passar as informações dele no .env
+>>>>>>> c905e0fb4ede712d9f2fd900256d6a80d245a284
 -   Create a postgres server and fill the credentials on .env
 -   Execute the migrations running: <code>npm run typeorm migration:run -d src/shared/typeorm/connection</code>
 -   Delete files' extension ".example": "ormconfig.json.example" and ".env.example"
