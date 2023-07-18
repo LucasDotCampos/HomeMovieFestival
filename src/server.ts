@@ -20,7 +20,7 @@ app.use(cors());
 app.use(routes);
 app.use(
     "/files",
-    express.static(path.resolve(__dirname, "..", "..", "..", "uploads"))
+    express.static(path.resolve(__dirname, "..", "uploads"))
 );
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
